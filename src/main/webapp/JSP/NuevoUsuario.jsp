@@ -13,7 +13,7 @@
 <body>
     <h2>Formulario de Registro de Usuario</h2>
 
-    <form action="UsuarioServlet" method="post">
+    <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
         <label for="nombreUser">Nombre de Usuario:</label><br>
         <input type="text" id="nombreUser" name="nombreUser" required><br><br>
 
