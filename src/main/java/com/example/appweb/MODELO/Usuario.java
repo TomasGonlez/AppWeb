@@ -1,5 +1,6 @@
 package com.example.appweb.MODELO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Usuario {
