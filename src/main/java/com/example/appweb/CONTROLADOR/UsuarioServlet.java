@@ -37,13 +37,13 @@ public class UsuarioServlet extends HttpServlet {
             boolean exito = usuarioDAO.guardar(nuevoUsuario);
 
             if(exito){
-                response.sendRedirect("exito.jsp");
+                response.sendRedirect("JSP/exito.jsp");
             }else{
-                response.sendRedirect("error.jsp");
+                response.sendRedirect("JSP/error.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("JSP/error.jsp");
         }
     }
 }

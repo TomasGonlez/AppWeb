@@ -5,9 +5,9 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hola, beinvenidos a una prueba de jsp" %>
+<h1><%= "Hola, binvenidos a una prueba de jsp" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="JSP/NuevoUsuario.jsp">Registra a un usuario</a>
 </body>
 </html>
