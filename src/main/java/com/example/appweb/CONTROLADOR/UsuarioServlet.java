@@ -20,15 +20,25 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        //Leer los parametros del formulario
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+
+        if ("registrar".equals(accion)) {
+            registrarUsuario(request, response);
+        } else if ("buscar".equals(accion)) {
+            buscarUsuarioPorId(request, response);
+        } else {
+            response.sendRedirect("JSP/error.jsp");
+        }
+    }
+
+    private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nombre = request.getParameter("nombreUser");
         String contrasena = request.getParameter("contrasena");
-        String fechaStr = request.getParameter("fecha_creacion");
+        String fechaStr = request.getParameter("fechaCreacion");
 
         try {
             LocalDate fecha = LocalDate.parse(fechaStr);
-
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.setNombreUser(nombre);
             nuevoUsuario.setContrasena(contrasena);
@@ -36,10 +46,26 @@ public class UsuarioServlet extends HttpServlet {
 
             boolean exito = usuarioDAO.guardar(nuevoUsuario);
 
-            if(exito){
+            if (exito) {
                 response.sendRedirect("JSP/exito.jsp");
-            }else{
+            } else {
                 response.sendRedirect("JSP/error.jsp");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("JSP/error.jsp");
+        }
+    }
+    private void buscarUsuarioPorId(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        try {
+            int id = Integer.parseInt(request.getParameter("idUsuario"));
+            Usuario usuario = usuarioDAO.buscarPorId(id);
+
+            if (usuario != null) {
+                request.setAttribute("usuarioEncontrado", usuario);
+                request.getRequestDispatcher("JSP/usuarioEncontrado.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("JSP/noEncontrado.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();

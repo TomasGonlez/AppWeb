@@ -14,6 +14,7 @@
     <h2>Formulario de Registro de Usuario</h2>
 
     <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
+        <input type="hidden" name="accion" value="registrar">
         <label for="nombreUser">Nombre de Usuario:</label><br>
         <input type="text" id="nombreUser" name="nombreUser" required><br><br>
 
@@ -25,5 +26,15 @@
 
         <input type="submit" value="Registrar">
     </form>
+
+    <h2>Buscar a usuario porr ID</h2>
+
+    <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
+        <input type="hidden" name="accion" value="buscar">
+        <label for="idUsuario">Ingresar ID de Usuario</label><br>
+        <input type="number" id="idUsuario" name="idUsuario" required><br><br>
+        <input type="submit" value="Buscar">
+    </form>
+
 </body>
 </html>

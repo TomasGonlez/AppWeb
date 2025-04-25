@@ -48,6 +48,27 @@ public class UsuarioDAO {
             return false;
         }
     }
+    public Usuario buscarPorId(int id) {
+        Usuario user = null;
+        try {
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT * FROM USUARIO WHERE id_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
 
+            if (rs.next()) {
+                user = new Usuario();
+                user.setIdUsuario(rs.getInt("id_usuario"));
+                user.setNombreUser(rs.getString("nombreUser"));
+                user.setContrasena(rs.getString("contrasena"));
+                user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }
+
 
