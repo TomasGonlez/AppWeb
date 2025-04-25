@@ -1,40 +1,23 @@
 package com.example.appweb.MODELO;
 
 public class Persona {
-    private String idPersona;
-    private String rut;
-    private String nombre;
-    private String estado;
+    private String Rut;
+    private String Nombre;
 
-    public String getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(String idPersona) {
-        this.idPersona = idPersona;
-    }
 
     public String getRut() {
-        return rut;
+        return Rut;
     }
 
     public void setRut(String rut) {
-        this.rut = rut;
+        Rut = rut;
     }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+        Nombre = nombre;
     }
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class Registro {
     private int idRegistro;
-    private int idPersona;
+    private int Rut;
     private int idUsuario;
     private LocalDateTime fechaHora;
     private String tipoRegistro;
@@ -18,12 +18,12 @@ public class Registro {
         this.idRegistro = idRegistro;
     }
 
-    public int getIdPersona() {
-        return idPersona;
+    public int getRut() {
+        return Rut;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public void setRut(int rut) {
+        Rut = rut;
     }
 
     public int getIdUsuario() {
