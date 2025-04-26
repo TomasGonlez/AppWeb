@@ -39,8 +39,17 @@
 
     <h2>Si desea logearse debe apretar el botón</h2>
 
-    <input type="button" value="LOGIN" onclick="location.href='loginNuevo.jsp'">
+    <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
+        <input type="hidden" name="accion" value="login">
 
+        <label for="nombreUsuario">Nombre de usuario: </label><br>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" required><br><br>
+
+        <label for="contrasenaUsuario">Contraseña: </label><br>
+        <input type="text" id="contrasenaUsuario" name="contrasenaUsuario" required><br><br>
+
+        <input type="submit" value="login">
+    </form>
     <h2>Buscar a usuario porr ID</h2>
 
     <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
