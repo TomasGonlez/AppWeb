@@ -15,6 +15,15 @@
 
     <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
         <input type="hidden" name="accion" value="registrar">
+        <label for="nombreCompletoUser">Nombre Completo:</label><br>
+        <input type="text" id="nombreCompletoUser" name="nombreCompletoUser" required><br><br>
+
+        <label for="correoUser">Correo Electrónico: </label><br>
+        <input type="text" id="correoUser" name="correoUser" required><br><br>
+
+        <label for="numeroUser">Numero Telefónico: </label><br>
+        <input type="number" id="numeroUser" name="numeroUser" required><br><br>
+
         <label for="nombreUser">Nombre de Usuario:</label><br>
         <input type="text" id="nombreUser" name="nombreUser" required><br><br>
 

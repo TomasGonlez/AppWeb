@@ -37,11 +37,14 @@ public class UsuarioDAO {
 
         try{
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "INSERT INTO USUARIO (nombreUser, contrasena, fecha_creacion) VALUES (?,?,?)";
+            String sql = "INSERT INTO USUARIO (nombreCompleto, correo, numero,nombreUser, contrasena, fecha_creacion) VALUES (?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, user.getNombreUser());
-            stmt.setString(2, user.getContrasena());
-            stmt.setDate(3, java.sql.Date.valueOf(user.getFechaCreacion()));
+            stmt.setString(1, user.getNombreCompletoUser());
+            stmt.setString(2, user.getCorreoUser());
+            stmt.setInt(3, user.getNumeroUser());
+            stmt.setString(4, user.getNombreUser());
+            stmt.setString(5, user.getContrasena());
+            stmt.setDate(6, java.sql.Date.valueOf(user.getFechaCreacion()));
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

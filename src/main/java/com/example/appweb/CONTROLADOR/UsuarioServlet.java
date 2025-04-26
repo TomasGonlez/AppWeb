@@ -33,6 +33,9 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String nombreCompleto = request.getParameter("nombreCompletoUser");
+        String correo = request.getParameter("correoUser");
+        int numero = Integer.parseInt(request.getParameter("numeroUser"));
         String nombre = request.getParameter("nombreUser");
         String contrasena = request.getParameter("contrasena");
         String fechaStr = request.getParameter("fechaCreacion");
@@ -40,6 +43,9 @@ public class UsuarioServlet extends HttpServlet {
         try {
             LocalDate fecha = LocalDate.parse(fechaStr);
             Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setNombreCompletoUser(nombreCompleto);
+            nuevoUsuario.setCorreoUser(correo);
+            nuevoUsuario.setNumeroUser(numero);
             nuevoUsuario.setNombreUser(nombre);
             nuevoUsuario.setContrasena(contrasena);
             nuevoUsuario.setFechaCreacion(fecha);

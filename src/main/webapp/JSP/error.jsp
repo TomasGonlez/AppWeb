@@ -13,6 +13,6 @@
 <body>
   <h2>❌ Ocurrió un error al registrar el usuario.</h2>
   <p>Revisa los datos e intenta nuevamente.</p>
-  <p><a href="NuevoUsuario.jsp">Volver al formulario</a></p>
+  <p><a href="crear_usuario.jsp">Volver al formulario</a></p>
 </body>
 </html>

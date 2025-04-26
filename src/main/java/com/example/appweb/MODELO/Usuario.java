@@ -5,6 +5,9 @@ import java.time.LocalDate;
 
 public class Usuario {
     private int idUsuario;
+    private String NombreCompletoUser;
+    private String correoUser;
+    private int numeroUser;
     private String nombreUser;
     private String contrasena;
     private LocalDate fechaCreacion;
@@ -39,5 +42,29 @@ public class Usuario {
 
     public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public String getNombreCompletoUser() {
+        return NombreCompletoUser;
+    }
+
+    public void setNombreCompletoUser(String nombreCompletoUser) {
+        NombreCompletoUser = nombreCompletoUser;
+    }
+
+    public String getCorreoUser() {
+        return correoUser;
+    }
+
+    public void setCorreoUser(String correoUser) {
+        this.correoUser = correoUser;
+    }
+
+    public int getNumeroUser() {
+        return numeroUser;
+    }
+
+    public void setNumeroUser(int numeroUser) {
+        this.numeroUser = numeroUser;
     }
 }

@@ -8,6 +8,6 @@
 <h1><%= "Hola, binvenidos a una prueba de jsp" %>
 </h1>
 <br/>
-<a href="JSP/NuevoUsuario.jsp">Registra a un usuario</a>
+<a href="JSP/crear_usuario.jsp">Registra a un usuario</a>
 </body>
 </html>
