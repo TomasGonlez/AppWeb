@@ -84,7 +84,7 @@ public class UsuarioServlet extends HttpServlet {
     private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try{
             String nameUsuario = request.getParameter("nombreUsuario");
-            String contrasena = request.getParameter("contrasena");
+            String contrasena = request.getParameter("contrasenaUsuario");
             Usuario usuario = usuarioDAO.loginUsuario(nameUsuario,contrasena);
 
             if(usuario != null){
