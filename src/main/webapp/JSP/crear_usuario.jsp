@@ -39,7 +39,7 @@
 
     <h2>Si desea logearse debe apretar el botón</h2>
 
-    <input type="button" value="LOGIN" onclick="location.href='login2.jsp'">
+    <input type="button" value="LOGIN" onclick="location.href='loginNuevo.jsp'">
 
     <h2>Buscar a usuario porr ID</h2>
 
