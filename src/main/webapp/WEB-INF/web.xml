@@ -12,6 +12,6 @@
         <url-pattern>/UsuarioServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>JSP/NuevoUsuario.jsp</welcome-file>
+        <welcome-file>JSP/crear_usuario.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

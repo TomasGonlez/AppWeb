@@ -27,6 +27,8 @@ public class UsuarioServlet extends HttpServlet {
             registrarUsuario(request, response);
         } else if ("buscar".equals(accion)) {
             buscarUsuarioPorId(request, response);
+        } else if ("login".equals(accion)) {
+            loginUsuario(request, response);
         } else {
             response.sendRedirect("JSP/error.jsp");
         }
@@ -73,6 +75,25 @@ public class UsuarioServlet extends HttpServlet {
             } else {
                 response.sendRedirect("JSP/noEncontrado.jsp");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("JSP/error.jsp");
+        }
+    }
+
+    private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        try{
+            String nameUsuario = request.getParameter("nombreUsuario");
+            String contrasena = request.getParameter("contrasena");
+            Usuario usuario = usuarioDAO.loginUsuario(nameUsuario,contrasena);
+
+            if(usuario != null){
+                request.setAttribute("usuarioEncontrado2", usuario);
+                request.getRequestDispatcher("JSP/usuarioEncontrado2.jsp").forward(request, response);
+            }else{
+                response.sendRedirect("JSP/error.jsp");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("JSP/error.jsp");

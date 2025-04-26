@@ -72,6 +72,32 @@ public class UsuarioDAO {
         }
         return user;
     }
+    public Usuario loginUsuario(String nombreusuario, String contrasena) {
+        Usuario user = null;
+        try {
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT * FROM USUARIO WHERE nombreUser = ? AND contrasena = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombreusuario);
+            stmt.setString(2, contrasena);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user = new Usuario();
+                user.setIdUsuario(rs.getInt("id_usuario"));
+                user.setNombreCompletoUser(rs.getString("nombreCompleto"));
+                user.setCorreoUser(rs.getString("correo"));
+                user.setNumeroUser(rs.getInt("numero"));
+                user.setNombreUser(rs.getString("nombreUser"));
+                user.setContrasena(rs.getString("contrasena"));
+                user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
 }
 
 

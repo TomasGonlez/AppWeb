@@ -36,6 +36,11 @@
         <input type="submit" value="Registrar">
     </form>
 
+
+    <h2>Si desea logearse debe apretar el botón</h2>
+
+    <input type="button" value="LOGIN" onclick="location.href='login2.jsp'">
+
     <h2>Buscar a usuario porr ID</h2>
 
     <form action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
