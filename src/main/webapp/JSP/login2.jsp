@@ -36,7 +36,7 @@
                     <button type="submit" class="login-button">Iniciar Sesión</button>
                 </form>
                 <div class="create-account">
-                    <p>¿No tienes cuenta? Crea una <a href="crear_usuario.jsp">aquí</a></p>
+                    <p>¿No tienes cuenta? Crea una <a href="crear_usuario.jsp.jsp">aquí</a></p>
                 </div>
             </div>
         </div>
