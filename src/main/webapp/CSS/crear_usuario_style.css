@@ -1,0 +1,39 @@
+/* Estilo general del body */
+body {
+    background-color: #dbe2d8; /* Color de fondo similar al wireframe */
+}
+
+/* Contenedor del formulario */
+.formulario-usuario {
+    background-color: #e4e9dc;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 500px;
+}
+
+/* Inputs personalizados */
+.input-custom {
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+/* Botón personalizado */
+.btn-guardar {
+    background-color: #3498db;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+}
+
+.btn-guardar:hover {
+    background-color: #2980b9;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 576px) {
+    .formulario-usuario {
+        padding: 1rem;
+    }
+}
