@@ -24,19 +24,20 @@
                     </div>
                 </div>
 
-                <form class="login-form" action="procesar_login.jsp" method="post">
+                <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
+                    <input type="hidden" name="accion" value="login">
                     <div class="mb-3">
-                        <label for="usuario" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingresar usuario" required>
+                        <label for="nombreUsuario" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresar usuario" required>
                     </div>
                     <div class="mb-3">
-                        <label for="contrasena" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Ingresar contraseña" required>
+                        <label for="contrasenaUsuario" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresar contraseña" required>
                     </div>
-                    <button type="submit" class="login-button">Iniciar Sesión</button>
+                    <button type="submit" class="login-button" value="login">Iniciar Sesión</button>
                 </form>
                 <div class="create-account">
-                    <p>¿No tienes cuenta? Crea una <a href="crear_usuario.jsp">aquí</a></p>
+                    <p>¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crear_usuario.jsp">aquí</a></p>
                 </div>
             </div>
         </div>
