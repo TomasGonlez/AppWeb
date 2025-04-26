@@ -1,39 +1,131 @@
-/* Estilo general del body */
-body {
-    background-color: #dbe2d8; /* Color de fondo similar al wireframe */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Contenedor del formulario */
-.formulario-usuario {
-    background-color: #e4e9dc;
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 500px;
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #d5dbd9;
 }
 
-/* Inputs personalizados */
-.input-custom {
-    border: 2px solid #000;
-    border-radius: 10px;
-    padding: 0.5rem;
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
 }
 
-/* Botón personalizado */
-.btn-guardar {
+.header {
     background-color: #3498db;
-    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
     font-weight: bold;
-    font-size: 1.1rem;
-    padding: 0.5rem;
 }
 
-.btn-guardar:hover {
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f7f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #aaa;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.login-form .form-control {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.login-button {
+    background-color: #3498db;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
     background-color: #2980b9;
 }
 
-/* Ajustes para pantallas pequeñas */
-@media (max-width: 576px) {
-    .formulario-usuario {
-        padding: 1rem;
+.create-account {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.create-account a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.create-account a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .login-form {
+        padding: 0 10px;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+        font-size: 12px;
+    }
+
+    .login-button {
+        padding: 10px;
+        font-size: 14px;
     }
 }
