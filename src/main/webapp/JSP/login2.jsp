@@ -36,6 +36,9 @@
         <div class="create-account">
             <p> ¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">aqui</a></p>
         </div>
+        <div class="create-account">
+            <p> IR A REGISTRO<a href="<%= request.getContextPath() %>/JSP/resgistrar_entrada_salida.jsp">aqui</a></p>
+        </div>
     </section>
 </div>
 

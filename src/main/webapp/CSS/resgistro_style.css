@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #d5dbd9;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+
+.header {
+    background-color: #3498db;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f7f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.toggle-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.toggle-description {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.toggle-description p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.toggle-buttons .btn {
+    flex: 1;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.toggle-buttons .btn.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.register-form {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+}
+
+.register-form .form-control {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.guardar-button {
+    background-color: #3498db;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.guardar-button:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .toggle-buttons .btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .register-form .form-control {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .guardar-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
