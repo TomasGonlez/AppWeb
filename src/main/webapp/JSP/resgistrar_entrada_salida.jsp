@@ -23,21 +23,8 @@
     </header>
 
     <section class="content">
-        <div class="toggle-section">
-            <div class="toggle-description">
-                <p>Usuario está registrando una entrada</p>
-                <div class="toggle-buttons">
-                    <button type="button" class="btn btn-primary active">ENTRADA</button>
-                    <button type="button" class="btn btn-secondary">SALIDA</button>
-                </div>
-            </div>
-            <div class="toggle-description">
-                <p>Usuario está registrando una salida</p>
-                <div class="toggle-buttons">
-                    <button type="button" class="btn btn-secondary">ENTRADA</button>
-                    <button type="button" class="btn btn-primary active">SALIDA</button>
-                </div>
-            </div>
+        <div class="toggle-container">
+            <button id="toggleButton" class="toggle-button">Entrada</button>
         </div>
 
         <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post">
@@ -53,12 +40,29 @@
             <div class="mb-3">
                 <input type="time" class="form-control" id="hora" name="hora" required>
             </div>
-            <button type="submit" class="guardar-button">Guardar</button>
+            <button type="submit" class="register-button">Guardar</button>
         </form>
     </section>
 </div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Script del Toggle -->
+<script>
+    const toggleButton = document.getElementById('toggleButton');
+    const tipoRegistro = document.getElementById('tipoRegistro');
+
+    toggleButton.addEventListener('click', function() {
+        if (toggleButton.textContent === 'Entrada') {
+            toggleButton.textContent = 'Salida';
+            toggleButton.classList.add('salida');
+            tipoRegistro.value = 'salida';
+        } else {
+            toggleButton.textContent = 'Entrada';
+            toggleButton.classList.remove('salida');
+            tipoRegistro.value = 'entrada';
+        }
+    });
+</script>
 </body>
 </html>
