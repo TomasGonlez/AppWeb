@@ -7,32 +7,9 @@ import com.example.appweb.UTIL.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class personaDAO {
-
-    public List<Usuario> listar() {
-        List<Usuario> listaUsuario = new ArrayList<Usuario>();
-        try{
-            Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT * FROM USUARIO";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()){
-                Usuario user = new Usuario();
-                user.setIdUsuario(rs.getInt("id_usuario"));
-                user.setNombreUser(rs.getString("nombreUser"));
-                user.setContrasena(rs.getString("contrasena"));
-                user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
-                listaUsuario.add(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaUsuario;
-    }
 
     public boolean registrar(Persona persona) {
 

@@ -24,25 +24,29 @@ public class RegistroServlet extends HttpServlet {
 
         if ("registrar".equals(accion)) {
             registrarPersona(request, response);
+
         }else {
             response.sendRedirect("JSP/error.jsp");
         }
     }
 
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String rutPer = request.getParameter("rutPersona");
         String nombrePer = request.getParameter("nombrePersona");
+
         try {
             Persona nuevaPersona = new Persona();
-            nuevaPersona.setNombre(rutPer);
+            nuevaPersona.setRut(rutPer);
             nuevaPersona.setNombre(nombrePer);
 
             boolean exito = PersonaDAO.registrar(nuevaPersona);
 
             if (exito) {
                 response.sendRedirect("JSP/login2.jsp");
+
             } else {
-                response.sendRedirect("JSP/error.jsp");
+                response.sendRedirect("JSP/error1.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();

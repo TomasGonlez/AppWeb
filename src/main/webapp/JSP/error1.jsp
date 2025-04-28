@@ -11,7 +11,7 @@
     <title>Error al Registrar</title>
 </head>
 <body>
-  <h2>❌ Ocurrió un error ya que no se enocntro la accion</h2>
+  <h2>❌ Ocurrió un error al registrar la persona en la base de datos.</h2>
   <p>Revisa los datos e intenta nuevamente.</p>
   <p><a href="<%=request.getContextPath()%>/JSP/login2.jsp">Volver al login</a></p>
 

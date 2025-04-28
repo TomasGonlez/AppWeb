@@ -27,7 +27,7 @@
             <button id="toggleButton" class="toggle-button">Entrada</button>
         </div>
 
-        <form class="register-form" action="<%= request.getContextPath() %>/" method="post">
+        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="get">
             <input type="hidden" name="accion" value="registrar">
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>
@@ -45,7 +45,8 @@
                 <label for="horaPersona" class="form-label">Ingresar Hora:</label>
                 <input type="time" class="form-control" id="horaPersona" name="horaPersona" required>
             </div>
-            <button type="submit" class="register-button">Registrar</button>
+            <button type="submit" class="register-button" value="registrar">Registrar</button>
+            <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="entrada">
         </form>
     </section>
 </div>
