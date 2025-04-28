@@ -44,10 +44,6 @@
                 <label for="contrasena" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Ingresar contraseña" required>
             </div>
-            <div class="mb-3">
-                <label for="fechaCreacion" class="form-label">Fecha de Creación:</label><br>
-                <input type="date" class="form-control" id="fechaCreacion" name="fechaCreacion" required><br><br>
-            </div>
             <button type="submit" class="login-button" value="Registrar">Guardar Usuario</button>
         </form>
     </section>

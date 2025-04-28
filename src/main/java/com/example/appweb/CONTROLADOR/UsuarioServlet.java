@@ -40,10 +40,9 @@ public class UsuarioServlet extends HttpServlet {
         int numero = Integer.parseInt(request.getParameter("numeroUser"));
         String nombre = request.getParameter("nombreUser");
         String contrasena = request.getParameter("contrasena");
-        String fechaStr = request.getParameter("fechaCreacion");
 
         try {
-            LocalDate fecha = LocalDate.parse(fechaStr);
+            LocalDate fecha = LocalDate.now();
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.setNombreCompletoUser(nombreCompleto);
             nuevoUsuario.setCorreoUser(correo);
