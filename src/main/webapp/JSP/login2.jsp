@@ -14,12 +14,10 @@
     <header class="header">
         <h2>Sistema de control de acceso</h2>
     </header>
-
     <section class="content">
         <div class="logo-container">
             <div class="logo">Logo de la<br>Empresa</div>
         </div>
-
         <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
             <input type="hidden" name="accion" value="login">
             <div class="mb-3">
@@ -32,6 +30,28 @@
             </div>
             <button type="submit" class="login-button">Iniciar Sesion</button>
         </form>
+        <%
+            String errorLogin = (String) request.getAttribute("errorLogin");
+            if (errorLogin != null) {
+        %>
+
+        <!-- TOAST flotante -->
+        <div id="toast" class="toast show">
+            <%= errorLogin %>
+        </div>
+
+        <script>
+            // Hacer desaparecer el toast después de 3 segundos
+            setTimeout(function() {
+                var toast = document.getElementById('toast');
+                if (toast) {
+                    toast.classList.remove('show');
+                }
+            }, 3000);
+        </script>
+
+        <% } %>
+
 
         <div class="create-account">
             <p> ¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">aqui</a></p>

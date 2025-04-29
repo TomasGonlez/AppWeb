@@ -90,7 +90,9 @@ public class UsuarioServlet extends HttpServlet {
                 request.setAttribute("usuarioEncontrado2", usuario);
                 request.getRequestDispatcher("JSP/usuarioEncontrado2.jsp").forward(request, response);
             }else{
-                response.sendRedirect("JSP/error.jsp");
+                // SI FALLA EL LOGIN, redirige al login2.jsp PERO CON UN MENSAJE
+                request.setAttribute("errorLogin", "Credenciales incorrectas. Inténtalo nuevamente.");
+                request.getRequestDispatcher("JSP/login2.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
