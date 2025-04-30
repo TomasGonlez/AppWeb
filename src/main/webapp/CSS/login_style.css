@@ -108,6 +108,8 @@ body, html {
     text-decoration: underline;
 }
 
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .header {
@@ -129,4 +131,24 @@ body, html {
         padding: 10px;
         font-size: 14px;
     }
+}
+.toast {
+    position:fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #df1212; /* Color rojo elegante */
+    color: #ffff;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 10000;
+}
+.toast.show {
+    opacity:20;
+    transform: translateY(0);
 }

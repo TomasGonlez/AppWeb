@@ -5,6 +5,17 @@
   Time: 3:24
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ page import="com.example.appweb.MODELO.Usuario" %>
+<%
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+    if (usuario == null) {
+        // No hay usuario en sesión, redirige a login
+        response.sendRedirect(request.getContextPath() + "/JSP/error1.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,8 +32,11 @@
     <header class="header">
         <h2>Registrar Entrada/ Salida</h2>
     </header>
-
     <section class="content">
+        <div class="header">
+            <div>Bienvenido, <strong><%= usuario.getNombreCompletoUser() %></strong></div>
+            <div><a href="<%= request.getContextPath() %>/JSP/cerrarSesion.jsp" class="logout">Cerrar sesión</a></div>
+        </div>
         <div class="toggle-container">
             <button id="toggleButton" class="toggle-button">Entrada</button>
         </div>
