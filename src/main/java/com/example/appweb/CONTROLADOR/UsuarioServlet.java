@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -87,8 +88,14 @@ public class UsuarioServlet extends HttpServlet {
             Usuario usuario = usuarioDAO.loginUsuario(nameUsuario,contrasena);
 
             if(usuario != null){
-                request.setAttribute("usuarioEncontrado2", usuario);
-                request.getRequestDispatcher("JSP/usuarioEncontrado2.jsp").forward(request, response);
+                //Crear una sesion o recuperar la existente
+                HttpSession session = request.getSession();
+
+                //Guardar el objeto usuario en la sesion
+                session.setAttribute("usuarioLogueado", usuario);
+
+                // Redirigir a la página protegida (después del login)
+                response.sendRedirect(request.getContextPath() + "/JSP/resgistrar_entrada_salida.jsp");
             }else{
                 // SI FALLA EL LOGIN, redirige al login2.jsp PERO CON UN MENSAJE
                 request.setAttribute("errorLogin", "Credenciales incorrectas. Inténtalo nuevamente.");
