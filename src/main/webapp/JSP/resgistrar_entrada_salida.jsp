@@ -39,7 +39,7 @@
             <div><a href="<%= request.getContextPath() %>/JSP/cerrarSesion.jsp" class="logout">Cerrar sesión</a></div>
         </div>
         <div class="toggle-container">
-            <button id="toggleButton" class="toggle-button">Entrada</button>
+            <button id="toggleButton" class="toggle-button">INGRESO</button>
         </div>
 
         <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post">
