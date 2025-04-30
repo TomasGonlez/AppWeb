@@ -1,13 +1,13 @@
 package com.example.appweb.MODELO;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Registro {
     private int idRegistro;
-    private int Rut;
+    private String Rut;
     private int idUsuario;
-    private LocalDateTime fechaHora;
+    private Date fechaHora;
     private String tipoRegistro;
 
     public int getIdRegistro() {
@@ -18,11 +18,11 @@ public class Registro {
         this.idRegistro = idRegistro;
     }
 
-    public int getRut() {
+    public String getRut() {
         return Rut;
     }
 
-    public void setRut(int rut) {
+    public void setRut(String rut) {
         Rut = rut;
     }
 
@@ -34,11 +34,11 @@ public class Registro {
         this.idUsuario = idUsuario;
     }
 
-    public LocalDateTime getFechaHora() {
+    public Date getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }
 

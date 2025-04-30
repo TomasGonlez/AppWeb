@@ -25,53 +25,24 @@ public class personaDAO {
             return false;
         }
     }
-    public Usuario buscarPorId(int id) {
-        Usuario user = null;
+    public boolean buscarRut(String rut) {
+        boolean existe = false;
         try {
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT * FROM USUARIO WHERE id_usuario = ?";
+            String sql = "SELECT * FROM PERSONA WHERE rut = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, rut);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                user = new Usuario();
-                user.setIdUsuario(rs.getInt("id_usuario"));
-                user.setNombreUser(rs.getString("nombreUser"));
-                user.setContrasena(rs.getString("contrasena"));
-                user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+                 existe= true;
             }
+            return existe;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return user;
+        return existe;
     }
-    public Usuario loginUsuario(String nombreusuario, String contrasena) {
-        Usuario user = null;
-        try {
-            Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT * FROM USUARIO WHERE nombreUser = ? AND contrasena = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, nombreusuario);
-            stmt.setString(2, contrasena);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                user = new Usuario();
-                user.setIdUsuario(rs.getInt("id_usuario"));
-                user.setNombreCompletoUser(rs.getString("nombreCompleto"));
-                user.setCorreoUser(rs.getString("correo"));
-                user.setNumeroUser(rs.getInt("numero"));
-                user.setNombreUser(rs.getString("nombreUser"));
-                user.setContrasena(rs.getString("contrasena"));
-                user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
 }
 
 

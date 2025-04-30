@@ -41,10 +41,6 @@
                 <label for="fechaPersona" class="form-label">Ingresar Fecha:</label>
                 <input type="date" class="form-control" id="fechaPersona" name="fechaPersona" required>
             </div>
-            <div class="mb-3">
-                <label for="horaPersona" class="form-label">Ingresar Hora:</label>
-                <input type="time" class="form-control" id="horaPersona" name="horaPersona" required>
-            </div>
             <button type="submit" class="register-button" value="registrar">Registrar</button>
             <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="entrada">
         </form>
