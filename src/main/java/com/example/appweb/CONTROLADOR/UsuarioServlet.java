@@ -91,6 +91,7 @@ public class UsuarioServlet extends HttpServlet {
                 //Crear una sesion o recuperar la existente
                 HttpSession session = request.getSession();
 
+
                 //Guardar el objeto usuario en la sesion
                 session.setAttribute("usuarioLogueado", usuario);
 

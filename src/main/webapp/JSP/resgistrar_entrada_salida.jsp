@@ -35,14 +35,16 @@
     <section class="content">
         <div class="header">
             <div>Bienvenido, <strong><%= usuario.getNombreCompletoUser() %></strong></div>
+            <h1><%=usuario.getIdUsuario()%></h1>
             <div><a href="<%= request.getContextPath() %>/JSP/cerrarSesion.jsp" class="logout">Cerrar sesión</a></div>
         </div>
         <div class="toggle-container">
             <button id="toggleButton" class="toggle-button">Entrada</button>
         </div>
 
-        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="get">
+        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post">
             <input type="hidden" name="accion" value="registrar">
+            <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>
                 <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="Ingresar rut" required>
@@ -56,7 +58,7 @@
                 <input type="date" class="form-control" id="fechaPersona" name="fechaPersona" required>
             </div>
             <button type="submit" class="register-button" value="registrar">Registrar</button>
-            <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="entrada">
+            <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="INGRESO">
         </form>
     </section>
 </div>
@@ -69,14 +71,14 @@
     const tipoRegistro = document.getElementById('tipoRegistro');
 
     toggleButton.addEventListener('click', function() {
-        if (toggleButton.textContent === 'Entrada') {
-            toggleButton.textContent = 'Salida';
+        if (toggleButton.textContent === 'INGRESO') {
+            toggleButton.textContent = 'SALIDA';
             toggleButton.classList.add('salida');
-            tipoRegistro.value = 'salida';
+            tipoRegistro.value = 'SALIDA';
         } else {
-            toggleButton.textContent = 'Entrada';
+            toggleButton.textContent = 'INGRESO';
             toggleButton.classList.remove('salida');
-            tipoRegistro.value = 'entrada';
+            tipoRegistro.value = 'INGRESO';
         }
     });
 </script>

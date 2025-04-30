@@ -4,16 +4,15 @@ import com.example.appweb.DAO.personaDAO;
 import com.example.appweb.DAO.registroDAO;
 import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
+import com.example.appweb.MODELO.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 public class RegistroServlet extends HttpServlet {
 
@@ -45,10 +44,19 @@ public class RegistroServlet extends HttpServlet {
         String nombrePer = request.getParameter("nombrePersona");
 
         //Datos para la tabla registro
-        String tipoRegsitroPer = request.getParameter("tipoRegsitro");
+        String tipoRegistroPer = request.getParameter("tipoRegistro");
         String fechaPer = request.getParameter("fechaPersona");
 
+        // ✅ Recuperar el usuario logueado desde la sesión
+        HttpSession session = request.getSession(false);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
+        if (usuario == null) {
+            response.sendRedirect("JSP/login2.jsp");
+            return;
+        }
+        int idUsuario = usuario.getIdUsuario(); // <-- Aquí está el valor correcto
+        System.out.println("El id de usuario es: " + idUsuario);
         try {
             Persona nuevaPersona = new Persona();
             nuevaPersona.setRut(rutPer);
@@ -61,21 +69,14 @@ public class RegistroServlet extends HttpServlet {
                 // por ende no debemos crear el registro en la tabla persona, solo crear un nuevo registro en tabla registro
                 Registro nuevoRegistro = new Registro();
                 nuevoRegistro.setRut(rutPer);
-                nuevoRegistro.setFechaHora(fechaPer);
-                nuevoRegistro.setTipoRegistro(tipoRegsitroPer);
-
+                nuevoRegistro.setIdUsuario(idUsuario);
+                nuevoRegistro.setFechaHora(Date.valueOf(fechaPer));
+                nuevoRegistro.setTipoRegistro(tipoRegistroPer);
                 RegistroDAO.registrar(nuevoRegistro);
+                response.sendRedirect("JSP/login2.jsp");
             }else{
                 //Se crea el registro en la tabla persona (rut y nombre)
                 boolean exitoPersona = PersonaDAO.registrar(nuevaPersona);
-            }
-
-            if (exitoPersona) {
-                Registro nuevoRegistro = new Registro();
-                response.sendRedirect("JSP/login2.jsp");
-
-            } else {
-                response.sendRedirect("JSP/error1.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();
