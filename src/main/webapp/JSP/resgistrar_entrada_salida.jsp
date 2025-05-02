@@ -28,16 +28,10 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/resgistro_style.css">
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
 <div class="main-wrapper">
-    <header class="header">
-        <h2>Registrar Entrada/ Salida</h2>
-    </header>
     <section class="content">
-        <div class="header">
-            <div>Bienvenido, <strong><%= usuario.getNombreCompletoUser() %></strong></div>
-            <h1><%=usuario.getIdUsuario()%></h1>
-            <div><a href="<%= request.getContextPath() %>/JSP/cerrarSesion.jsp" class="logout">Cerrar sesión</a></div>
-        </div>
+        <h1><%=usuario.getIdUsuario()%></h1>
         <div class="toggle-container">
             <button id="toggleButton" class="toggle-button">INGRESO</button>
         </div>

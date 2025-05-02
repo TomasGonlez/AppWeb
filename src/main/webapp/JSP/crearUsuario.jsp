@@ -11,11 +11,8 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/crear_usuario_style.css">
 </head>
 <body>
+<jsp:include page="navbar.jsp"></jsp:include>
 <div class="main-wrapper">
-    <header class="header">
-        <h2>Crear Nuevo Usuario</h2>
-    </header>
-
     <section class="content">
         <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
             <input type="hidden" name="accion" value="registrar">
