@@ -14,7 +14,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="APP_WEB" uuid="64825cf7-12ce-4b08-b071-e46b9895a54b">
+    <data-source source="LOCAL" name="APP_WEB2" uuid="a2f57e6b-6479-4124-8a8b-9bdb5731119e">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
@@ -27,7 +27,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="APP_WEB2" uuid="a2f57e6b-6479-4124-8a8b-9bdb5731119e">
+    <data-source source="LOCAL" name="web_app" uuid="ff21ed76-d7af-4f90-b2ff-6bab68e6215b">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
