@@ -25,7 +25,6 @@ public class RegistroServlet extends HttpServlet {
         RegistroDAO = new registroDAO();
 
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
@@ -77,6 +76,13 @@ public class RegistroServlet extends HttpServlet {
             }else{
                 //Se crea el registro en la tabla persona (rut y nombre)
                 boolean exitoPersona = PersonaDAO.registrar(nuevaPersona);
+                Registro nuevoRegistro = new Registro();
+                nuevoRegistro.setRut(rutPer);
+                nuevoRegistro.setIdUsuario(idUsuario);
+                nuevoRegistro.setFechaHora(Date.valueOf(fechaPer));
+                nuevoRegistro.setTipoRegistro(tipoRegistroPer);
+                RegistroDAO.registrar(nuevoRegistro);
+                response.sendRedirect("JSP/login2.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();
