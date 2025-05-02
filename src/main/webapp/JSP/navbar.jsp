@@ -33,6 +33,9 @@
           <li class="nav-item">
             <a class="nav-link text-white" href="<%= request.getContextPath() %>/JSP/reportes.jsp">Reportes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="<%= request.getContextPath() %>/JSP/inicio.jsp">Ver Registros</a>
+          </li>
         </ul>
         <div class="d-flex align-items-center">
                     <span class="text-white me-3">

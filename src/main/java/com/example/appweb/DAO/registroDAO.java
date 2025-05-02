@@ -1,6 +1,5 @@
 package com.example.appweb.DAO;
 
-import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
 import com.example.appweb.UTIL.ConexionDB;
 
