@@ -1,0 +1,64 @@
+body {
+    background-color: #e6efe3;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #3498db;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.container-custom {
+    padding: 2rem;
+}
+
+.registro-tabla {
+    background-color: white;
+    border: 1px solid black;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.registro-tabla th,
+.registro-tabla td {
+    padding: 0.5rem;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.estadisticas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 250px;
+    margin-left: auto;
+}
+
+.estadistica {
+    background-color: white;
+    border: 1px solid black;
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.etiqueta {
+    font-size: 0.9rem;
+    font-weight: normal;
+    text-align: left;
+    margin-bottom: 0.2rem;
+}
+
+@media (max-width: 768px) {
+    .estadisticas {
+        margin: 0 auto;
+        width: 100%;
+        align-items: center;
+    }
+}

@@ -1,11 +1,14 @@
 package com.example.appweb.DAO;
 
-import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
+import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.UTIL.ConexionDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class registroDAO {
     public boolean registrar(Registro registro) {
@@ -23,5 +26,24 @@ public class registroDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    public List<RegistroPersona> obtenerRegistros(){
+        List<RegistroPersona> lista = new ArrayList<>();
+        String sql="SELECT p.rut, p.nombre, r.tipo_registro FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut";
+
+        try(Connection conn = ConexionDB.getInstance().getConexion();
+        PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()){
+            while(rs.next()){
+                RegistroPersona rp = new RegistroPersona();
+                rp.setRut(rs.getString("rut"));
+                rp.setNombre(rs.getString("nombre"));
+                rp.setTipoRegistro(rs.getString("tipo_registro"));
+                lista.add(rp);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return lista;
     }
 }
