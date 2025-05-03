@@ -1,10 +1,14 @@
+
 <%@ page import="com.example.appweb.MODELO.Usuario" %>
+<%@ page import="com.example.appweb.MODELO.Registro" %>
+<%@ page import="java.util.List" %>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
     if (usuario == null) {
         response.sendRedirect(request.getContextPath() + "/JSP/error1.jsp");
         return;
     }
+    List<Registro> registros = (List<Registro>) request.getAttribute("registros");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,27 +47,39 @@
             </div>
         </form>
 
-        <table class="table table-striped table-bordered text-center">
-            <thead>
-            <tr>
-                <th>Rut</th>
-                <th>Nombre</th>
-                <th>Acción</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%-- Esto se llenará dinámicamente desde el servlet --%>
-            <c:forEach var="registro" items="${registros}">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>${registro.rut}</td>
-                    <td>${registro.nombre}</td>
-                    <td>${registro.accion}</td>
+                    <th>RUT</th>
+                    <th>ID Usuario</th>
+                    <th>Fecha</th>
+                    <th>Tipo Registro</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-
-        <div class="d-flex justify-content-center gap-3 mt-4">
+                </thead>
+                <tbody>
+                <%
+                    if (registros != null && !registros.isEmpty()) {
+                        for (Registro reg : registros) {
+                %>
+                <tr>
+                    <td><%= reg.getRut() %></td>
+                    <td><%= reg.getIdUsuario() %></td>
+                    <td><%= reg.getFechaHora() %></td>
+                    <td><%= reg.getTipoRegistro() %></td>
+                </tr>
+                <%
+                    }
+                } else {
+                %>
+                <tr><td colspan="4">No se encontraron registros</td></tr>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
+        </div>
+        <div class="export-buttons">
             <a href="<%=request.getContextPath()%>/ExportarPDFServlet" class="btn btn-primary">Exportar PDF</a>
             <a href="<%=request.getContextPath()%>/ExportarExcelServlet" class="btn btn-primary">Exportar EXCEL</a>
         </div>
