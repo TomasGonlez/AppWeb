@@ -17,7 +17,7 @@
   <div class="container-fluid flex-column">
     <!-- Primera fila: navegación y sesión -->
     <div class="d-flex justify-content-between w-100 align-items-center">
-      <a class="navbar-brand text-white fw-bold" href="<%= request.getContextPath() %>/JSP/inicio.jsp">Asistencia</a>
+      <a class="navbar-brand text-white fw-bold" href="<%= request.getContextPath() %>/UsuarioServlet?accion=listarRegistros">Asistencia</a>
       <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
