@@ -1,4 +1,6 @@
-
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.appweb.MODELO.RegistroPersona" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,22 +17,30 @@
     <!-- Tabla de registros -->
     <table class="registro-tabla">
         <thead>
-        <tr>
-            <th>RUT</th>
-            <th>NOMBRE</th>
-            <th>REGISTRO</th>
-            <th>HORA</th>
-            <th>FECHA</th>
-        </tr>
+            <tr>
+                <th>RUT</th>
+                <th>NOMBRE</th>
+                <th>REGISTRO</th>
+            </tr>
+        <%
+            List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("listaRegistros");
+            if(registros != null){
+                for (RegistroPersona r :  registros){
+        %>
         </thead>
         <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+            <tr>
+                <td><%=r.getRut()%></td>
+                <td><%=r.getNombre()%></td>
+                <td><%=r.getTipoRegistro()%></td>
+            </tr>
+        <%
+            }}else{
+        %>
+        <tr><td colspan="3">No hay registros disponibles.</tr>
+        <%
+            }
+        %>
         </tbody>
     </table>
 
