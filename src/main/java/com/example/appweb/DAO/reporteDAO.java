@@ -78,31 +78,39 @@ public class reporteDAO {
     public double obtenerPorcentajeAsistenciaHoy() {
         double porcentaje = 0.0;
         String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";
-        String ingresoSQL = "SELECT COUNT(DISTINCT r.rut) AS presentes FROM REGISTRO r WHERE r.tipo_registro = 'INGRESO' AND DATE(r.fecha_hora) = CURRENT_DATE";
+        String ingresoSQL = "SELECT COUNT(DISTINCT rut) AS presentes FROM REGISTRO WHERE tipo_registro = 'INGRESO' AND fecha_hora = TRUNC(SYSDATE)";
 
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement pstTotal = conn.prepareStatement(totalSQL);
-             PreparedStatement pstIngreso = conn.prepareStatement(ingresoSQL)) {
+             PreparedStatement pstIngreso = conn.prepareStatement(ingresoSQL);
+             ResultSet rsTotal = pstTotal.executeQuery();
+             ResultSet rsIngreso = pstIngreso.executeQuery()) {
 
-            ResultSet rsTotal = pstTotal.executeQuery();
-            int totalper = 0;
-            totalper = rsTotal.getInt("totalper");
-            System.out.println("Las personas que hay en la tabla PERSONA: " + totalper);
+            int total = 0;
+            int presentes = 0;
 
-            ResultSet rsIngreso = pstIngreso.executeQuery();
-            int peringreso = 0;
-            peringreso = rsIngreso.getInt("peringreso");
-            System.out.println("Las personas que han registrado su INGRESO hoy son: " + peringreso);
-
-            if (rsTotal.next() && rsIngreso.next()) {
-                int total = rsTotal.getInt("total");
-                int presentes = rsIngreso.getInt("presentes");
-
-                if (total > 0) {
-                    porcentaje = (presentes * 100.0) / total;
-                }
+            // Leer el total de personas
+            if (rsTotal.next()) {
+                total = rsTotal.getInt("total");
+                System.out.println("Total de personas registradas: " + total); // Sout aquí
             }
+
+            // Leer los presentes hoy
+            if (rsIngreso.next()) {
+                presentes = rsIngreso.getInt("presentes");
+                System.out.println("Personas que ingresaron hoy: " + presentes); // Sout aquí
+            }
+
+            // Calcular porcentaje
+            if (total > 0) {
+                porcentaje = (presentes * 100.0) / total;
+                System.out.println("Porcentaje de asistencia hoy: " + porcentaje + "%"); // Sout del resultado
+            } else {
+                System.out.println("No hay personas registradas (total = 0)."); // Manejo de caso sin datos
+            }
+
         } catch (Exception e) {
+            System.err.println("Error al calcular el porcentaje de asistencia: " + e.getMessage()); // Error en rojo (err)
             e.printStackTrace();
         }
         return porcentaje;

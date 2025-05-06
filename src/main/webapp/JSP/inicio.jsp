@@ -1,11 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.appweb.MODELO.RegistroPersona" %>
-<%@ page import="com.example.appweb.UTIL.ConexionDB" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %>
-
 <!DOCTYPE html>
 <html>
 <head>
