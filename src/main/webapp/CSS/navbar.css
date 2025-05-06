@@ -1,0 +1,54 @@
+/* Estilos generales del navbar */
+.navbar-custom {
+    background-color: #3498db;
+}
+
+/* Estilos para el menú en dispositivos móviles */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        padding-top: 1rem;
+    }
+
+    .navbar-nav {
+        margin-bottom: 1rem;
+    }
+
+    .user-section {
+        width: 100%;
+    }
+
+    .logout-btn {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 992px) {
+    .navbar-nav {
+        margin-right: auto;
+    }
+
+    .user-section {
+        margin-left: auto;
+    }
+}
+
+/* Estilos para los enlaces del navbar */
+.navbar-custom .nav-link {
+    color: white;
+    transition: color 0.3s;
+}
+
+.navbar-custom .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Estilo para el botón de logout */
+.logout-btn {
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
