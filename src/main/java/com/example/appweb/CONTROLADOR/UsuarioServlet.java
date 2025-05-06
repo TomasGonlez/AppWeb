@@ -13,7 +13,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class UsuarioServlet extends HttpServlet {
 
@@ -111,10 +113,15 @@ public class UsuarioServlet extends HttpServlet {
         int totalPersonas = reporte.personasSistema();
         int totalUsuarios = reporte.usuariosSistema();
 
+        // Nueva implementación con formato en español
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", new Locale("es", "ES"));
+        String fechaActual = LocalDate.now().format(formatter);
+
         request.setAttribute("listaRegistros", lista);
         request.setAttribute("porcentajeAsistencia", porcentajeAsistencia);
         request.setAttribute("totalPersonas", totalPersonas);
         request.setAttribute("totalUsuarios", totalUsuarios);
+        request.setAttribute("fechaActual", fechaActual);
 
         // Redirige al JSP
         request.getRequestDispatcher("JSP/inicio.jsp").forward(request, response);

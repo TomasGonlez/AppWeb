@@ -21,6 +21,7 @@
                 <th>RUT</th>
                 <th>NOMBRE</th>
                 <th>REGISTRO</th>
+                <th>FECHA</th>
             </tr>
         <%
             List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("listaRegistros");
@@ -33,6 +34,7 @@
                 <td><%=r.getRut()%></td>
                 <td><%=r.getNombre()%></td>
                 <td><%=r.getTipoRegistro()%></td>
+                <td><%=r.getFechaHora()%></td>
             </tr>
         <%
             }}else{
@@ -47,15 +49,15 @@
     <!-- Estadísticas -->
     <div class="estadisticas">
         <div>
-            <div class="etiqueta">Personas registradas en el sistema</div>
+            <div class="etiqueta">Personas registradas en el Gestor de Asistencia</div>
             <div class="estadistica"><%=request.getAttribute("totalPersonas")%></div>
         </div>
         <div>
-            <div class="etiqueta">Usuarios registrados en el sistema</div>
+            <div class="etiqueta">Usuarios registrados en el Gestor de Asistencia</div>
             <div class="estadistica"><%=request.getAttribute("totalUsuarios")%></div>
         </div>
         <div>
-            <div class="etiqueta">Porcentaje de asistencia total del personal</div>
+            <div class="etiqueta">Porcentaje de asistencia del personal para hoy <%=request.getAttribute("fechaActual")%> es:</div>
             <div class="estadistica"><%=request.getAttribute("porcentajeAsistencia")%></div>
         </div>
     </div>

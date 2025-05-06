@@ -29,7 +29,7 @@ public class registroDAO {
     }
     public List<RegistroPersona> obtenerRegistros(){
         List<RegistroPersona> lista = new ArrayList<>();
-        String sql="SELECT p.rut, p.nombre, r.tipo_registro FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut";
+        String sql="SELECT p.rut, p.nombre, r.tipo_registro, r.fecha_hora FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut";
         try(Connection conn = ConexionDB.getInstance().getConexion();
         PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){
@@ -38,6 +38,7 @@ public class registroDAO {
                 rp.setRut(rs.getString("rut"));
                 rp.setNombre(rs.getString("nombre"));
                 rp.setTipoRegistro(rs.getString("tipo_registro"));
+                rp.setFechaHora(rs.getDate("fecha_hora"));
                 lista.add(rp);
             }
         }catch(Exception e){
