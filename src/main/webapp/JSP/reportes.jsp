@@ -1,6 +1,7 @@
 <%@ page import="com.example.appweb.MODELO.Usuario" %>
-<%@ page import="com.example.appweb.MODELO.Registro" %>
+<%@ page import="com.example.appweb.MODELO.RegistroPersona" %>
 <%@ page import="java.util.List" %>
+
 <%
     // 1. Validación de usuario logueado (MANTENIDO)
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -10,7 +11,7 @@
     }
 
     // 2. Obtención de registros (MANTENIDO)
-    List<Registro> registros = (List<Registro>) request.getAttribute("registros");
+    List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("registros");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,25 +51,26 @@
 
         <!-- Tabla responsive -->
         <div class="table-responsive">
-            <table class="table table-sm table-hover">
-                <thead class="table-light">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th scope="col">RUT</th>
-                    <th scope="col">ID Usuario</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Tipo Registro</th>
+                    <th>RUT</th>
+                    <th>Nombre</th>
+                    <th>Tipo Registro</th>
+                    <th>Fecha</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% if (registros != null && !registros.isEmpty()) {
-                    for (Registro reg : registros) { %>
+                    for (RegistroPersona reg : registros) { %>
                 <tr>
                     <td data-label="RUT"><%= reg.getRut() %></td>
-                    <td data-label="ID Usuario"><%= reg.getIdUsuario() %></td>
-                    <td data-label="Fecha"><%= reg.getFechaHora() %></td>
+                    <td data-label="Nombre"><%= reg.getNombre() %></td>
                     <td data-label="Tipo Registro"><%= reg.getTipoRegistro() %></td>
+                    <td data-label="Fecha"><%= reg.getFechaHora() %></td>
                 </tr>
-                <% } } else { %>
+                <% }
+                } else { %>
                 <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
                 <% } %>
                 </tbody>

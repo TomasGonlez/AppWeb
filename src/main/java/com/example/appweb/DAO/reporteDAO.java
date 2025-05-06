@@ -1,6 +1,6 @@
 package com.example.appweb.DAO;
 
-import com.example.appweb.MODELO.Registro;
+import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.UTIL.ConexionDB;
 
 import java.sql.Connection;
@@ -11,10 +11,13 @@ import java.util.List;
 
 public class reporteDAO {
 
-    public List<Registro> obtenerRegistrosPorFecha(String desde, String hasta) {
-        List<Registro> lista = new ArrayList<>();
+    public List<RegistroPersona> obtenerRegistrosPorFecha(String desde, String hasta) {
+        List<RegistroPersona> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM REGISTRO WHERE TRUNC(fecha_hora) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+        String sql = "SELECT r.rut, p.nombre, r.fecha_hora, r.tipo_registro " +
+                "FROM registro r " +
+                "JOIN persona p ON r.rut = p.rut " +
+                "WHERE TRUNC(r.fecha_hora) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
 
         try {
             Connection conn = ConexionDB.getInstance().getConexion();
@@ -24,10 +27,9 @@ public class reporteDAO {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Registro reg = new Registro();
-                reg.setIdRegistro(rs.getInt("id_registro"));
+                RegistroPersona reg = new RegistroPersona();
                 reg.setRut(rs.getString("rut"));
-                reg.setIdUsuario(rs.getInt("id_usuario"));
+                reg.setNombre(rs.getString("nombre"));
                 reg.setFechaHora(rs.getDate("fecha_hora"));
                 reg.setTipoRegistro(rs.getString("tipo_registro"));
 

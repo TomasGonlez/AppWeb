@@ -1,7 +1,8 @@
 package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.reporteDAO;
-import com.example.appweb.MODELO.Registro;
+import com.example.appweb.MODELO.RegistroPersona;
+
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -26,7 +27,7 @@ public class ReporteServlet extends HttpServlet {
 
         try {
             reporteDAO dao = new reporteDAO();
-            List<Registro> registros = dao.obtenerRegistrosPorFecha(desde, hasta);
+            List<RegistroPersona> registros = dao.obtenerRegistrosPorFecha(desde, hasta);
 
             request.setAttribute("registros", registros);
             request.setAttribute("desde", desde);
