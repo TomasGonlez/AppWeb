@@ -1,89 +1,86 @@
-
 <%@ page import="com.example.appweb.MODELO.Usuario" %>
 <%@ page import="com.example.appweb.MODELO.Registro" %>
 <%@ page import="java.util.List" %>
 <%
+    // 1. Validación de usuario logueado (MANTENIDO)
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
     if (usuario == null) {
         response.sendRedirect(request.getContextPath() + "/JSP/error1.jsp");
         return;
     }
+
+    // 2. Obtención de registros (MANTENIDO)
     List<Registro> registros = (List<Registro>) request.getAttribute("registros");
 %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Viewport esencial para responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Reportes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/resgistro_style.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/reportes_style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <jsp:include page="navbar.jsp" />
-<div class="main-wrapper">
-    <section class="content">
+<div class="container-fluid flex-grow-1 p-0">
+    <main class="container py-3">
         <h2 class="text-center mb-4">Reportes</h2>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <strong>Por rango de fechas</strong>
-            <span class="text-muted">[Fecha actual]</span>
+            <span class="text-muted"><%= new java.util.Date().toString() %></span>
         </div>
 
-        <form class="row g-2 align-items-center mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="get">
-            <div class="col-auto">
-                <label for="desde" class="col-form-label">Desde:</label>
+        <!-- Formulario optimizado para móviles -->
+        <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="get">
+            <div class="col-12 col-sm-6 col-md-3">
+                <label for="desde" class="form-label">Desde:</label>
+                <input type="date" id="desde" name="desde" class="form-control form-control-sm" required>
             </div>
-            <div class="col-auto">
-                <input type="date" id="desde" name="desde" class="form-control" required>
+            <div class="col-12 col-sm-6 col-md-3">
+                <label for="hasta" class="form-label">Hasta:</label>
+                <input type="date" id="hasta" name="hasta" class="form-control form-control-sm" required>
             </div>
-            <div class="col-auto">
-                <label for="hasta" class="col-form-label">Hasta:</label>
-            </div>
-            <div class="col-auto">
-                <input type="date" id="hasta" name="hasta" class="form-control" required>
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary">GENERAR</button>
+            <div class="col-12 col-md-2">
+                <button type="submit" class="btn btn-primary w-100 btn-sm">GENERAR</button>
             </div>
         </form>
 
+        <!-- Tabla responsive -->
         <div class="table-responsive">
-            <table class="table">
-                <thead>
+            <table class="table table-sm table-hover">
+                <thead class="table-light">
                 <tr>
-                    <th>RUT</th>
-                    <th>ID Usuario</th>
-                    <th>Fecha</th>
-                    <th>Tipo Registro</th>
+                    <th scope="col">RUT</th>
+                    <th scope="col">ID Usuario</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo Registro</th>
                 </tr>
                 </thead>
                 <tbody>
-                <%
-                    if (registros != null && !registros.isEmpty()) {
-                        for (Registro reg : registros) {
-                %>
+                <% if (registros != null && !registros.isEmpty()) {
+                    for (Registro reg : registros) { %>
                 <tr>
-                    <td><%= reg.getRut() %></td>
-                    <td><%= reg.getIdUsuario() %></td>
-                    <td><%= reg.getFechaHora() %></td>
-                    <td><%= reg.getTipoRegistro() %></td>
+                    <td data-label="RUT"><%= reg.getRut() %></td>
+                    <td data-label="ID Usuario"><%= reg.getIdUsuario() %></td>
+                    <td data-label="Fecha"><%= reg.getFechaHora() %></td>
+                    <td data-label="Tipo Registro"><%= reg.getTipoRegistro() %></td>
                 </tr>
-                <%
-                    }
-                } else {
-                %>
-                <tr><td colspan="4">No se encontraron registros</td></tr>
-                <%
-                    }
-                %>
+                <% } } else { %>
+                <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
-        <div class="export-buttons">
-            <a href="<%=request.getContextPath()%>/ExportarPDFServlet" class="btn btn-primary">Exportar PDF</a>
-            <a href="<%=request.getContextPath()%>/ExportarExcelServlet" class="btn btn-primary">Exportar EXCEL</a>
+
+        <!-- Botones de exportación -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+            <a href="<%=request.getContextPath()%>/ExportarPDFServlet" class="btn btn-primary btn-sm me-md-2">Exportar PDF</a>
+            <a href="<%=request.getContextPath()%>/ExportarExcelServlet" class="btn btn-primary btn-sm">Exportar EXCEL</a>
         </div>
-    </section>
+    </main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

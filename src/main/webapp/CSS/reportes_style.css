@@ -1,3 +1,4 @@
+/* Reset y estilos base */
 * {
     margin: 0;
     padding: 0;
@@ -7,135 +8,234 @@
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #d5dbd9;
+    background-color: #f5f7f8;
+    font-size: 16px;
 }
 
-/* Navbar */
+/* Layout principal */
+.container-fluid {
+    padding: 0;
+}
+
+main.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 1rem auto;
+    padding: 1.5rem;
+    width: 95%;
+    max-width: 1200px;
+}
+
+/* Navbar (coherente con tu diseño) */
 .navbar {
     background-color: #3498db;
     color: white;
-    padding: 15px;
+    padding: 0.75rem 1rem;
     font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.header {
-    font-size: 22px;
-    text-align: center;
-    padding: 20px 10px;
+/* Títulos */
+h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
 }
 
-/* Contenido */
-.content {
-    padding: 20px;
-    background-color: #f5f7f8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Formulario de fechas */
+.date-range-form {
+    margin-bottom: 1.5rem;
 }
 
-/* Formulario */
-form.row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 10px;
-    margin-bottom: 20px;
+.date-range-form .form-group {
+    margin-bottom: 0.75rem;
+}
+
+.date-range-form label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.date-range-form .form-control {
     width: 100%;
-    max-width: 600px;
+    padding: 0.5rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 0.9rem;
 }
 
-form input[type="date"] {
-    border-radius: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    width: 140px;
+/* Tabla de reportes */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ecf0f1;
+    border-radius: 6px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+.table th {
+    background-color: #3498db;
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table td {
+    padding: 0.6rem;
+    vertical-align: middle;
+    border-top: 1px solid #ecf0f1;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+/* Botones */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s;
 }
 
 .btn-primary {
     background-color: #3498db;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    border-color: #3498db;
 }
 
 .btn-primary:hover {
     background-color: #2980b9;
+    border-color: #2980b9;
 }
 
-.report-title {
-    margin: 20px 0 10px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Tabla */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: center;
-}
-
-th {
-    background-color: #ecf0f1;
-    font-size: 14px;
-}
-
-td {
-    font-size: 13px;
-}
-
-/* Botones de exportar */
-.export-buttons {
+/* Contenedor de botones de exportación */
+.export-actions {
     display: flex;
     flex-wrap: wrap;
+    gap: 0.75rem;
     justify-content: center;
-    gap: 10px;
+    margin-top: 1.5rem;
 }
 
-.export-buttons button {
-    width: 140px;
+/* Mensaje cuando no hay registros */
+.no-records {
+    text-align: center;
+    padding: 1.5rem;
+    color: #7f8c8d;
+    font-style: italic;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .header {
-        font-size: 18px;
+/* =============================================== */
+/* Estilos específicos para móviles (Samsung A12) */
+/* =============================================== */
+
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
     }
 
-    form input[type="date"] {
+    main.container {
+        padding: 1rem;
         width: 100%;
+        border-radius: 0;
     }
 
-    .btn-primary {
-        width: 100%;
+    h2 {
+        font-size: 1.3rem;
     }
 
-    .export-buttons {
+    /* Formulario apilado verticalmente */
+    .date-range-form .row {
         flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .date-range-form .col-auto {
         width: 100%;
     }
 
-    .export-buttons button {
+    /* Tabla adaptativa para móviles */
+    .table-responsive {
+        border: none;
+    }
+
+    .table {
+        font-size: 0.8rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem 0.3rem;
+    }
+
+    /* Estilo de tarjeta para filas en móviles */
+    @media (max-width: 575px) {
+        .table thead {
+            display: none;
+        }
+
+        .table, .table tbody, .table tr, .table td {
+            display: block;
+            width: 100%;
+        }
+
+        .table tr {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0.5rem;
+        }
+
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0.5rem;
+            width: 45%;
+            padding-right: 0.5rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .table td:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    /* Botones de exportación apilados */
+    .export-actions {
+        flex-direction: column;
+    }
+
+    .export-actions .btn {
         width: 100%;
+    }
+}
+
+/* Estilos para tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .date-range-form .row {
+        flex-wrap: nowrap;
     }
 }
