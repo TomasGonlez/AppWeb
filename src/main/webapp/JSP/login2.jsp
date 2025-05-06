@@ -34,12 +34,10 @@
             String errorLogin = (String) request.getAttribute("errorLogin");
             if (errorLogin != null) {
         %>
-
         <!-- TOAST flotante -->
         <div id="toast" class="toast show">
             <%= errorLogin %>
         </div>
-
         <script>
             // Hacer desaparecer el toast después de 3 segundos
             setTimeout(function() {
@@ -49,19 +47,12 @@
                 }
             }, 3000);
         </script>
-
         <% } %>
-
-
         <div class="create-account">
             <p> ¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">aqui</a></p>
         </div>
-        <div class="create-account">
-            <p> IR A REGISTRO<a href="<%= request.getContextPath() %>/JSP/resgistrar_entrada_salida.jsp">aqui</a></p>
-        </div>
     </section>
 </div>
-
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
