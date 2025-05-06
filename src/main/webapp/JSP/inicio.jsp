@@ -93,27 +93,8 @@
             <div class="estadistica"><%=totalUsuario%></div>
         </div>
         <div>
-            <%
-                int porcentaje = 0;
-                try {
-
-                    Connection conn = ConexionDB.getInstance().getConexion();
-                    String sql = "SELECT COUNT(*) AS porcentaje FROM PERSONA";
-                    String sql2 = "SELECT COUNT(p.rut) AS total FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut WHERE r.tipo_registro = 'INGRESO'";
-
-                    PreparedStatement ps = conn.prepareStatement(sql);
-                    ResultSet rs = ps.executeQuery();
-
-                    if (rs.next()) {
-                        totalPersonas = rs.getInt("total");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Error al consultar en la database: "+e.getMessage());
-                }
-            %>
             <div class="etiqueta">Porcentaje de asistencia total del personal</div>
-            <div class="estadistica">%</div>
+            <div class="estadistica"><%=request.getAttribute("porcentajeAsistencia")%></div>
         </div>
     </div>
 </div>

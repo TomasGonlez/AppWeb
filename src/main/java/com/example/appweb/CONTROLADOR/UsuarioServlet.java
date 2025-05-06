@@ -2,6 +2,7 @@ package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.UsuarioDAO;
 import com.example.appweb.DAO.registroDAO;
+import com.example.appweb.DAO.reporteDAO;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
 import jakarta.servlet.ServletException;
@@ -125,8 +126,13 @@ public class UsuarioServlet extends HttpServlet {
         // Obtiene la lista combinada de registros con nombre
         List<RegistroPersona> lista = registroDAO.obtenerRegistros();
 
+        reporteDAO reporte = new reporteDAO();
+
+        double porcentajeAsistencia = reporte.obtenerPorcentajeAsistenciaHoy();
+
         // Añade la lista al request
         request.setAttribute("listaRegistros", lista);
+        request.setAttribute("porcentajeAsistencia", porcentajeAsistencia);
 
         // Redirige al JSP
         request.getRequestDispatcher("JSP/inicio.jsp").forward(request, response);
