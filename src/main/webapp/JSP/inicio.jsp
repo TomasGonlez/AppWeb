@@ -52,45 +52,12 @@
     <!-- Estadísticas -->
     <div class="estadisticas">
         <div>
-            <%
-                int totalPersonas = 0;
-                try {
-
-                    Connection conn = ConexionDB.getInstance().getConexion();
-                    String sql = "SELECT COUNT(*) AS total FROM PERSONA";
-                    PreparedStatement ps = conn.prepareStatement(sql);
-                    ResultSet rs = ps.executeQuery();
-
-                    if (rs.next()) {
-                        totalPersonas = rs.getInt("total");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Error al consultar en la database: "+e.getMessage());
-                }
-            %>
             <div class="etiqueta">Personas registradas en el sistema</div>
-            <div class="estadistica"><%=totalPersonas%></div>
+            <div class="estadistica"><%=request.getAttribute("totalPersonas")%></div>
         </div>
         <div>
-            <%
-                int totalUsuario = 0;
-                try {
-                    Connection conn = ConexionDB.getInstance().getConexion();
-                    String sql = "SELECT COUNT(*) AS total FROM USUARIO";
-                    PreparedStatement ps = conn.prepareStatement(sql);
-                    ResultSet rs = ps.executeQuery();
-
-                    if (rs.next()) {
-                        totalUsuario = rs.getInt("total");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Error al consultar en la database: "+e.getMessage());
-                }
-            %>
             <div class="etiqueta">Usuarios registrados en el sistema</div>
-            <div class="estadistica"><%=totalUsuario%></div>
+            <div class="estadistica"><%=request.getAttribute("totalUsuarios")%></div>
         </div>
         <div>
             <div class="etiqueta">Porcentaje de asistencia total del personal</div>
@@ -98,6 +65,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

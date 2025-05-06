@@ -42,6 +42,39 @@ public class reporteDAO {
 
         return lista;
     }
+    public int personasSistema(){
+        int totalPersonas = 0;
+        String sql = "SELECT COUNT(*) FROM PERSONA";
+
+        try{
+            Connection conn = ConexionDB.getInstance().getConexion();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                totalPersonas = rs.getInt(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error al consultar en la database: "+e.getMessage());
+        }
+        return totalPersonas;
+    }
+    public int usuariosSistema(){
+        int totalUsuario = 0;
+        try {
+            Connection conn = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT COUNT(*) AS total FROM USUARIO";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                totalUsuario = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error al consultar en la database: "+e.getMessage());
+        }
+        return totalUsuario;
+    }
     public double obtenerPorcentajeAsistenciaHoy() {
         double porcentaje = 0.0;
         String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";

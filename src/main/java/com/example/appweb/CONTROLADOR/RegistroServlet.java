@@ -72,7 +72,7 @@ public class RegistroServlet extends HttpServlet {
                 nuevoRegistro.setFechaHora(Date.valueOf(fechaPer));
                 nuevoRegistro.setTipoRegistro(tipoRegistroPer);
                 RegistroDAO.registrar(nuevoRegistro);
-                response.sendRedirect("JSP/login2.jsp");
+                response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
             }else{
                 //Se crea el registro en la tabla persona (rut y nombre)
                 boolean exitoPersona = PersonaDAO.registrar(nuevaPersona);
@@ -82,7 +82,7 @@ public class RegistroServlet extends HttpServlet {
                 nuevoRegistro.setFechaHora(Date.valueOf(fechaPer));
                 nuevoRegistro.setTipoRegistro(tipoRegistroPer);
                 RegistroDAO.registrar(nuevoRegistro);
-                response.sendRedirect("JSP/login2.jsp");
+                response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();

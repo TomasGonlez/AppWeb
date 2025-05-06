@@ -68,7 +68,7 @@ public class UsuarioServlet extends HttpServlet {
             boolean exito = usuarioDAO.guardar(nuevoUsuario);
 
             if (exito) {
-                response.sendRedirect("JSP/login2.jsp");
+                response.sendRedirect("JSP/crearUsuario.jsp");
             } else {
                 response.sendRedirect("JSP/error.jsp");
             }
@@ -93,7 +93,6 @@ public class UsuarioServlet extends HttpServlet {
             response.sendRedirect("JSP/error.jsp");
         }
     }
-
     private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try{
             String nameUsuario = request.getParameter("nombreUsuario");
@@ -120,19 +119,20 @@ public class UsuarioServlet extends HttpServlet {
         }
     }
     private void listarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Crea una instancia de RegistroDAO (asegúrate de haberla creado)
+        // Crear instancias
         registroDAO registroDAO = new registroDAO();
-
-        // Obtiene la lista combinada de registros con nombre
-        List<RegistroPersona> lista = registroDAO.obtenerRegistros();
-
         reporteDAO reporte = new reporteDAO();
 
-        double porcentajeAsistencia = reporte.obtenerPorcentajeAsistenciaHoy();
 
-        // Añade la lista al request
+        List<RegistroPersona> lista = registroDAO.obtenerRegistros();
+        double porcentajeAsistencia = reporte.obtenerPorcentajeAsistenciaHoy();
+        int totalPersonas = reporte.personasSistema();
+        int totalUsuarios = reporte.usuariosSistema();
+
         request.setAttribute("listaRegistros", lista);
         request.setAttribute("porcentajeAsistencia", porcentajeAsistencia);
+        request.setAttribute("totalPersonas", totalPersonas);
+        request.setAttribute("totalUsuarios", totalUsuarios);
 
         // Redirige al JSP
         request.getRequestDispatcher("JSP/inicio.jsp").forward(request, response);
