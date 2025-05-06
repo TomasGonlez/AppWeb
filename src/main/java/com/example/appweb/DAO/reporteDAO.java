@@ -40,4 +40,36 @@ public class reporteDAO {
 
         return lista;
     }
+    public double obtenerPorcentajeAsistenciaHoy() {
+        double porcentaje = 0.0;
+        String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";
+        String ingresoSQL = "SELECT COUNT(DISTINCT r.rut) AS presentes FROM REGISTRO r WHERE r.tipo_registro = 'INGRESO' AND DATE(r.fecha_hora) = CURRENT_DATE";
+
+        try (Connection conn = ConexionDB.getInstance().getConexion();
+             PreparedStatement pstTotal = conn.prepareStatement(totalSQL);
+             PreparedStatement pstIngreso = conn.prepareStatement(ingresoSQL)) {
+
+            ResultSet rsTotal = pstTotal.executeQuery();
+            int totalper = 0;
+            totalper = rsTotal.getInt("totalper");
+            System.out.println("Las personas que hay en la tabla PERSONA: " + totalper);
+
+            ResultSet rsIngreso = pstIngreso.executeQuery();
+            int peringreso = 0;
+            peringreso = rsIngreso.getInt("peringreso");
+            System.out.println("Las personas que han registrado su INGRESO hoy son: " + peringreso);
+
+            if (rsTotal.next() && rsIngreso.next()) {
+                int total = rsTotal.getInt("total");
+                int presentes = rsIngreso.getInt("presentes");
+
+                if (total > 0) {
+                    porcentaje = (presentes * 100.0) / total;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return porcentaje;
+    }
 }
