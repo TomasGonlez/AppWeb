@@ -5,10 +5,10 @@
 <html lang="es">
 <head>
   <!-- Viewport esencial para responsive -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Registros Generales</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/inicio_styles.css" rel="stylesheet" />
+  <link href="<%= request.getContextPath() %>/CSS/reportes_style.css" rel="stylesheet" />
 </head>
 <body>
 <jsp:include page="navbar.jsp"></jsp:include>
@@ -17,36 +17,36 @@
   <h5 class="mb-3">Registro de accesos recientes</h5>
 
   <!-- Tabla de registros -->
-  <table class="registro-tabla">
-    <thead>
-    <tr>
-      <th>RUT</th>
-      <th>NOMBRE</th>
-      <th>REGISTRO</th>
-      <th>FECHA</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%
-      List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("listaRegistros");
-      if(registros != null){
-        for (RegistroPersona r :  registros){
-    %>
-    <tr>
-      <td><%=r.getRut()%></td>
-      <td><%=r.getNombre()%></td>
-      <td><%=r.getTipoRegistro()%></td>
-      <td><%=r.getFechaHora()%></td>
-    </tr>
-    <%
-      }}else{
-    %>
-    <tr><td colspan="4">No hay registros disponibles.</td></tr>
-    <%
-      }
-    %>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>RUT</th>
+        <th>NOMBRE</th>
+        <th>TIPO REGISTRO</th>
+        <th>FECHA</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%
+        List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("listaRegistros");
+        if(registros != null){
+          for (RegistroPersona r :  registros){
+      %>
+      <tr>
+        <td data-label="RUT"><%=r.getRut()%></td>
+        <td data-label="NOMBRE"><%=r.getNombre()%></td>
+        <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
+        <td data-label="FECHA"><%=r.getFechaHora()%></td>
+      </tr>
+      <%}
+      }else {
+      %>
+      <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
+      <%}%>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Estadísticas -->
   <div class="estadisticas">
