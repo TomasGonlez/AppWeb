@@ -2,8 +2,10 @@ package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.personaDAO;
 import com.example.appweb.DAO.registroDAO;
+import com.example.appweb.DAO.reporteDAO;
 import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
+import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +15,10 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
 
 public class RegistroServlet extends HttpServlet {
 
@@ -36,7 +42,15 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/error.jsp");
         }
     }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter("accion");
 
+        if ("listarRegistros".equals(accion)) {
+            listarRegistros(request, response);
+        } else {
+            response.sendRedirect("JSP/error.jsp");
+        }
+    }
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //Datos para la tabla Persona
         String rutPer = request.getParameter("rutPersona");
@@ -88,5 +102,29 @@ public class RegistroServlet extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("JSP/error.jsp");
         }
+    }
+    private void listarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Crear instancias
+        registroDAO registroDAO = new registroDAO();
+        reporteDAO reporte = new reporteDAO();
+
+
+        List<RegistroPersona> lista = registroDAO.obtenerRegistros();
+        double porcentajeAsistencia = reporte.obtenerPorcentajeAsistenciaHoy();
+        int totalPersonas = reporte.personasSistema();
+        int totalUsuarios = reporte.usuariosSistema();
+
+        // Nueva implementación con formato en español
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", new Locale("es", "ES"));
+        String fechaActual = LocalDate.now().format(formatter);
+
+        request.setAttribute("listaRegistros", lista);
+        request.setAttribute("porcentajeAsistencia", porcentajeAsistencia);
+        request.setAttribute("totalPersonas", totalPersonas);
+        request.setAttribute("totalUsuarios", totalUsuarios);
+        request.setAttribute("fechaActual", fechaActual);
+
+        // Redirige al JSP
+        request.getRequestDispatcher("JSP/ver_registros.jsp").forward(request, response);
     }
 }

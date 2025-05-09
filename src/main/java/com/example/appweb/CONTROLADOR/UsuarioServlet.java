@@ -38,16 +38,6 @@ public class UsuarioServlet extends HttpServlet {
             response.sendRedirect("JSP/error.jsp");
         }
     }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String accion = request.getParameter("accion");
-
-        if ("listarRegistros".equals(accion)) {
-            listarRegistros(request, response);
-        } else {
-            response.sendRedirect("JSP/error.jsp");
-        }
-    }
-
     private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nombreCompleto = request.getParameter("nombreCompletoUser");
         String correo = request.getParameter("correoUser");
@@ -90,7 +80,7 @@ public class UsuarioServlet extends HttpServlet {
                 //Guardar el objeto usuario en la sesion
                 session.setAttribute("usuarioLogueado", usuario);
 
-                response.sendRedirect(request.getContextPath() + "/UsuarioServlet?accion=listarRegistros");
+                response.sendRedirect(request.getContextPath() + "/RegistroServlet?accion=listarRegistros");
             }else{
                 // SI FALLA EL LOGIN, redirige al login2.jsp PERO CON UN MENSAJE
                 request.setAttribute("errorLogin", "Credenciales incorrectas. Inténtalo nuevamente.");
@@ -101,29 +91,5 @@ public class UsuarioServlet extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("JSP/error.jsp");
         }
-    }
-    private void listarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Crear instancias
-        registroDAO registroDAO = new registroDAO();
-        reporteDAO reporte = new reporteDAO();
-
-
-        List<RegistroPersona> lista = registroDAO.obtenerRegistros();
-        double porcentajeAsistencia = reporte.obtenerPorcentajeAsistenciaHoy();
-        int totalPersonas = reporte.personasSistema();
-        int totalUsuarios = reporte.usuariosSistema();
-
-        // Nueva implementación con formato en español
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", new Locale("es", "ES"));
-        String fechaActual = LocalDate.now().format(formatter);
-
-        request.setAttribute("listaRegistros", lista);
-        request.setAttribute("porcentajeAsistencia", porcentajeAsistencia);
-        request.setAttribute("totalPersonas", totalPersonas);
-        request.setAttribute("totalUsuarios", totalUsuarios);
-        request.setAttribute("fechaActual", fechaActual);
-
-        // Redirige al JSP
-        request.getRequestDispatcher("JSP/inicio.jsp").forward(request, response);
     }
 }
