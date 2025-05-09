@@ -2,8 +2,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.appweb.MODELO.RegistroPersona" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <!-- Viewport esencial para responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registros Generales</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/inicio_styles.css" rel="stylesheet" />
