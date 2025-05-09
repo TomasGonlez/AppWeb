@@ -68,7 +68,7 @@ public class UsuarioServlet extends HttpServlet {
             boolean exito = usuarioDAO.guardar(nuevoUsuario);
 
             if (exito) {
-                response.sendRedirect("JSP/crearUsuario.jsp");
+                response.sendRedirect("JSP/crearUsuario_NO_SESSION.jsp");
             } else {
                 response.sendRedirect("JSP/error.jsp");
             }

@@ -49,7 +49,7 @@
         </script>
         <% } %>
         <div class="create-account">
-            <p> ¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">aqui</a></p>
+            <p> ¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario_NO_SESSION.jsp">aqui</a></p>
         </div>
     </section>
 </div>
