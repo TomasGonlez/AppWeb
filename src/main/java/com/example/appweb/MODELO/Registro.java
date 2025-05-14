@@ -9,6 +9,7 @@ public class Registro {
     private int idUsuario;
     private Date fecha;
     private String tipoRegistro;
+    private String hora;
 
     public int getIdRegistro() {
         return idRegistro;
@@ -48,5 +49,13 @@ public class Registro {
 
     public void setTipoRegistro(String tipoRegistro) {
         this.tipoRegistro = tipoRegistro;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 }

@@ -14,7 +14,7 @@ public class reporteDAO {
     public List<RegistroPersona> obtenerRegistrosPorFecha(String desde, String hasta) {
         List<RegistroPersona> lista = new ArrayList<>();
 
-        String sql = "SELECT r.rut, p.nombre, r.fecha, r.tipo_registro " +
+        String sql = "SELECT r.rut, p.nombre, r.fecha, r.tipo_registro, r.hora " +
                 "FROM registro r " +
                 "JOIN persona p ON r.rut = p.rut " +
                 "WHERE TRUNC(r.fecha) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
@@ -32,6 +32,7 @@ public class reporteDAO {
                 reg.setNombre(rs.getString("nombre"));
                 reg.setFecha(rs.getDate("fecha"));
                 reg.setTipoRegistro(rs.getString("tipo_registro"));
+                reg.setHora(rs.getString("hora"));
 
                 lista.add(reg);
             }

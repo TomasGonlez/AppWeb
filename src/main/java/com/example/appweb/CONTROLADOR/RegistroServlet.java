@@ -59,6 +59,7 @@ public class RegistroServlet extends HttpServlet {
         //Datos para la tabla registro
         String tipoRegistroPer = request.getParameter("tipoRegistro");
         String fechaPer = request.getParameter("fechaPersona");
+        String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         // ✅ Recuperar el usuario logueado desde la sesión
         HttpSession session = request.getSession(false);
@@ -85,6 +86,7 @@ public class RegistroServlet extends HttpServlet {
                 nuevoRegistro.setIdUsuario(idUsuario);
                 nuevoRegistro.setFecha(Date.valueOf(fechaPer));
                 nuevoRegistro.setTipoRegistro(tipoRegistroPer);
+                nuevoRegistro.setHora(horaPer);
                 RegistroDAO.registrar(nuevoRegistro);
                 response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
             }else{
@@ -95,6 +97,7 @@ public class RegistroServlet extends HttpServlet {
                 nuevoRegistro.setIdUsuario(idUsuario);
                 nuevoRegistro.setFecha(Date.valueOf(fechaPer));
                 nuevoRegistro.setTipoRegistro(tipoRegistroPer);
+                nuevoRegistro.setHora(horaPer);
                 RegistroDAO.registrar(nuevoRegistro);
                 response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
             }

@@ -57,6 +57,7 @@
                     <th>Nombre</th>
                     <th>Tipo Registro</th>
                     <th>Fecha</th>
+                    <th>Hora</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,11 +71,12 @@
                     <td data-label="NOMBRE"><%=r.getNombre()%></td>
                     <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
                     <td data-label="FECHA"><%=r.getFecha()%></td>
+                    <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
                 <%}
                 }else {
                 %>
-                <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
+                <tr><td colspan="" class="text-center">No se encontraron registros</td></tr>
                 <%}%>
                 </tbody>
             </table>
