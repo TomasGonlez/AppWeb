@@ -80,6 +80,7 @@ h2 {
     width: 100%;
     margin-bottom: 0;
     font-size: 0.85rem;
+    text-align: center;
 }
 
 .table th {
@@ -88,12 +89,14 @@ h2 {
     padding: 0.75rem;
     text-align: center;
     font-weight: 600;
+    vertical-align: middle;
 }
 
 .table td {
     padding: 0.6rem;
     vertical-align: middle;
     border-top: 1px solid #ecf0f1;
+    text-align: center;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -240,20 +243,21 @@ h2 {
         }
 
         .table td {
-            text-align: right;
-            padding-left: 50%;
+            text-align: center;
+            padding-left: 0.5em;
             position: relative;
             border-bottom: 1px solid #eee;
+
         }
 
         .table td::before {
             content: attr(data-label);
-            position: absolute;
+            position: static;
             left: 0.5rem;
-            width: 45%;
+            width: 100%;
             padding-right: 0.5rem;
             font-weight: bold;
-            text-align: left;
+            text-align: center;
         }
 
         .table td:last-child {
