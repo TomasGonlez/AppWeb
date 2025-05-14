@@ -17,17 +17,17 @@
   <h5 class="mb-3">Registro de accesos recientes</h5>-->
 <div class="container-fluid flex-grow-1 p-0">
   <main class="container py-3">
-    <h2 class="text-center mb-4">Registro de Ingreso Diario</h2>
+    <h2 class="text-center mb-4">Tabla Registros recientes</h2>
 
     <!-- Tabla de registros -->
     <div class="table-responsive">
       <table class="table">
         <thead>
         <tr>
-          <th>RUT</th>
-          <th>NOMBRE</th>
-          <th>TIPO REGISTRO</th>
-          <th>FECHA</th>
+          <th>Rut</th>
+          <th>Nombre</th>
+          <th>Tipo Registro</th>
+          <th>Fecha</th>
         </tr>
         </thead>
         <tbody>
@@ -54,7 +54,7 @@
     <!-- Estadísticas -->
     <div class="estadisticas">
       <div class="estadistica-container">
-        <div class="estadistica-label">Personas registradas en el Gestor de Asistencia</div>
+        <div class="estadistica-label">Empleados registrados en el Gestor de Asistencia</div>
         <div class="estadistica-value"><%=request.getAttribute("totalPersonas")%></div>
       </div>
 
