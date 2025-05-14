@@ -9,9 +9,6 @@
         response.sendRedirect(request.getContextPath() + "/JSP/error1.jsp");
         return;
     }
-
-    // 2. Obtención de registros (MANTENIDO)
-    List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("registros");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,7 +32,8 @@
         </div>
 
         <!-- Formulario optimizado para móviles -->
-        <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="get">
+        <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
+            <input type="hidden" name="accion" value="listar">
             <div class="col-12 col-sm-6 col-md-3">
                 <label for="desde" class="form-label">Desde:</label>
                 <input type="date" id="desde" name="desde" class="form-control form-control-sm" required>
@@ -47,6 +45,7 @@
             <div class="col-12 col-md-2">
                 <button type="submit" class="btn btn-primary w-100 btn-sm">GENERAR</button>
             </div>
+
         </form>
 
         <!-- Tabla responsive -->
@@ -61,18 +60,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% if (registros != null && !registros.isEmpty()) {
-                    for (RegistroPersona reg : registros) { %>
+                <%
+                    List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("registros");
+                    if(registros != null){
+                        for (RegistroPersona r :  registros){
+                %>
                 <tr>
-                    <td data-label="RUT"><%= reg.getRut() %></td>
-                    <td data-label="Nombre"><%= reg.getNombre() %></td>
-                    <td data-label="Tipo Registro"><%= reg.getTipoRegistro() %></td>
-                    <td data-label="Fecha"><%= reg.getFecha() %></td>
+                    <td data-label="RUT"><%=r.getRut()%></td>
+                    <td data-label="NOMBRE"><%=r.getNombre()%></td>
+                    <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
+                    <td data-label="FECHA"><%=r.getFecha()%></td>
                 </tr>
-                <% }
-                } else { %>
+                <%}
+                }else {
+                %>
                 <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
-                <% } %>
+                <%}%>
                 </tbody>
             </table>
         </div>
