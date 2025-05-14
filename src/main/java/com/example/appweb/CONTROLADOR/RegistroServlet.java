@@ -83,7 +83,7 @@ public class RegistroServlet extends HttpServlet {
                 Registro nuevoRegistro = new Registro();
                 nuevoRegistro.setRut(rutPer);
                 nuevoRegistro.setIdUsuario(idUsuario);
-                nuevoRegistro.setFechaHora(Date.valueOf(fechaPer));
+                nuevoRegistro.setFecha(Date.valueOf(fechaPer));
                 nuevoRegistro.setTipoRegistro(tipoRegistroPer);
                 RegistroDAO.registrar(nuevoRegistro);
                 response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
@@ -93,7 +93,7 @@ public class RegistroServlet extends HttpServlet {
                 Registro nuevoRegistro = new Registro();
                 nuevoRegistro.setRut(rutPer);
                 nuevoRegistro.setIdUsuario(idUsuario);
-                nuevoRegistro.setFechaHora(Date.valueOf(fechaPer));
+                nuevoRegistro.setFecha(Date.valueOf(fechaPer));
                 nuevoRegistro.setTipoRegistro(tipoRegistroPer);
                 RegistroDAO.registrar(nuevoRegistro);
                 response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");

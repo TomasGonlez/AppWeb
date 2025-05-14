@@ -14,10 +14,10 @@ public class reporteDAO {
     public List<RegistroPersona> obtenerRegistrosPorFecha(String desde, String hasta) {
         List<RegistroPersona> lista = new ArrayList<>();
 
-        String sql = "SELECT r.rut, p.nombre, r.fecha_hora, r.tipo_registro " +
+        String sql = "SELECT r.rut, p.nombre, r.fecha, r.tipo_registro " +
                 "FROM registro r " +
                 "JOIN persona p ON r.rut = p.rut " +
-                "WHERE TRUNC(r.fecha_hora) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+                "WHERE TRUNC(r.fecha) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
 
         try {
             Connection conn = ConexionDB.getInstance().getConexion();
@@ -30,7 +30,7 @@ public class reporteDAO {
                 RegistroPersona reg = new RegistroPersona();
                 reg.setRut(rs.getString("rut"));
                 reg.setNombre(rs.getString("nombre"));
-                reg.setFechaHora(rs.getDate("fecha_hora"));
+                reg.setFecha(rs.getDate("fecha"));
                 reg.setTipoRegistro(rs.getString("tipo_registro"));
 
                 lista.add(reg);
@@ -78,7 +78,7 @@ public class reporteDAO {
     public double obtenerPorcentajeAsistenciaHoy() {
         double porcentaje = 0.0;
         String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";
-        String ingresoSQL = "SELECT COUNT(DISTINCT rut) AS presentes FROM REGISTRO WHERE tipo_registro = 'INGRESO' AND fecha_hora = TRUNC(SYSDATE)";
+        String ingresoSQL = "SELECT COUNT(DISTINCT rut) AS presentes FROM REGISTRO WHERE tipo_registro = 'INGRESO' AND fecha = TRUNC(SYSDATE)";
 
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement pstTotal = conn.prepareStatement(totalSQL);

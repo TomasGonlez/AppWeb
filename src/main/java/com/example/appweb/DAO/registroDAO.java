@@ -14,11 +14,11 @@ public class registroDAO {
     public boolean registrar(Registro registro) {
         try{
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "INSERT INTO REGISTRO (rut,id_usuario,fecha_hora,tipo_registro) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO REGISTRO (rut,id_usuario,fecha,tipo_registro) VALUES (?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, registro.getRut());
             stmt.setInt(2, registro.getIdUsuario());
-            stmt.setDate(3, registro.getFechaHora());
+            stmt.setDate(3, registro.getFecha());
             stmt.setString(4,registro.getTipoRegistro());
 
             return stmt.executeUpdate() > 0;
@@ -29,7 +29,7 @@ public class registroDAO {
     }
     public List<RegistroPersona> obtenerRegistros(){
         List<RegistroPersona> lista = new ArrayList<>();
-        String sql="SELECT p.rut, p.nombre, r.tipo_registro, r.fecha_hora FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut";
+        String sql="SELECT p.rut, p.nombre, r.tipo_registro, r.fecha FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut";
         try(Connection conn = ConexionDB.getInstance().getConexion();
         PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){
@@ -38,7 +38,7 @@ public class registroDAO {
                 rp.setRut(rs.getString("rut"));
                 rp.setNombre(rs.getString("nombre"));
                 rp.setTipoRegistro(rs.getString("tipo_registro"));
-                rp.setFechaHora(rs.getDate("fecha_hora"));
+                rp.setFecha(rs.getDate("fecha"));
                 lista.add(rp);
             }
         }catch(Exception e){

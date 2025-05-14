@@ -5,16 +5,16 @@ import java.sql.Date;
 public class RegistroPersona {
     private String rut;
     private String nombre;
-    private Date fechaHora;
+    private Date fecha;
     private String tipoRegistro;
 
     public RegistroPersona() {}
 
     // Constructor completo
-    public RegistroPersona(String rut, String nombre, Date fechaHora, String tipoRegistro) {
+    public RegistroPersona(String rut, String nombre, Date fecha, String tipoRegistro) {
         this.rut = rut;
         this.nombre = nombre;
-        this.fechaHora = fechaHora;
+        this.fecha = fecha;
         this.tipoRegistro = tipoRegistro;
     }
 
@@ -35,12 +35,12 @@ public class RegistroPersona {
         this.nombre = nombre;
     }
 
-    public Date getFechaHora() {
-        return fechaHora;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechaHora(Date fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getTipoRegistro() {

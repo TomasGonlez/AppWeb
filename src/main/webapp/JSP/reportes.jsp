@@ -67,7 +67,7 @@
                     <td data-label="RUT"><%= reg.getRut() %></td>
                     <td data-label="Nombre"><%= reg.getNombre() %></td>
                     <td data-label="Tipo Registro"><%= reg.getTipoRegistro() %></td>
-                    <td data-label="Fecha"><%= reg.getFechaHora() %></td>
+                    <td data-label="Fecha"><%= reg.getFecha() %></td>
                 </tr>
                 <% }
                 } else { %>

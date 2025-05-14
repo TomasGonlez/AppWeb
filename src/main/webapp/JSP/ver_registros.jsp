@@ -40,7 +40,7 @@
           <td data-label="RUT"><%=r.getRut()%></td>
           <td data-label="NOMBRE"><%=r.getNombre()%></td>
           <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
-          <td data-label="FECHA"><%=r.getFechaHora()%></td>
+          <td data-label="FECHA"><%=r.getFecha()%></td>
         </tr>
         <%}
         }else {
@@ -53,18 +53,21 @@
 
     <!-- Estadísticas -->
     <div class="estadisticas">
-      <div>
-        <div class="etiqueta">Personas registradas en el Gestor de Asistencia</div>
-        <div class="estadistica"><%=request.getAttribute("totalPersonas")%></div>
+      <div class="estadistica-container">
+        <div class="estadistica-label">Personas registradas en el Gestor de Asistencia</div>
+        <div class="estadistica-value"><%=request.getAttribute("totalPersonas")%></div>
       </div>
-      <div>
-        <div class="etiqueta">Usuarios registrados en el Gestor de Asistencia</div>
-        <div class="estadistica"><%=request.getAttribute("totalUsuarios")%></div>
+
+      <div class="estadistica-container">
+        <div class="estadistica-label">Usuarios registrados en el Gestor de Asistencia</div>
+        <div class="estadistica-value"><%=request.getAttribute("totalUsuarios")%></div>
       </div>
-      <div>
-        <div class="etiqueta">Porcentaje de asistencia del personal para hoy <%=request.getAttribute("fechaActual")%> es:</div>
-        <div class="estadistica"><%=request.getAttribute("porcentajeAsistencia")%></div>
+
+      <div class="estadistica-container">
+        <div class="estadistica-label">Porcentaje de asistencia del personal para hoy <%=request.getAttribute("fechaActual")%> es </div>
+        <div class="estadistica-value highlight"><%=request.getAttribute("porcentajeAsistencia")%></div>
       </div>
+
     </div>
   </main>
 </div>

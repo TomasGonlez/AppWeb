@@ -7,7 +7,7 @@ public class Registro {
     private int idRegistro;
     private String Rut;
     private int idUsuario;
-    private Date fechaHora;
+    private Date fecha;
     private String tipoRegistro;
 
     public int getIdRegistro() {
@@ -34,12 +34,12 @@ public class Registro {
         this.idUsuario = idUsuario;
     }
 
-    public Date getFechaHora() {
-        return fechaHora;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechaHora(Date fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getTipoRegistro() {
