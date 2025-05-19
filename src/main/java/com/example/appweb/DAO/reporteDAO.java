@@ -98,15 +98,19 @@ public class reporteDAO {
         double porcentaje = 0.0;
         String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";
         String ingresoSQL = "SELECT COUNT(DISTINCT rut) AS presentes FROM REGISTRO WHERE tipo_registro = 'INGRESO' AND fecha = TRUNC(SYSDATE)";
-
+        String dependenciasSQL = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND TRUNC(r.fecha)= SYSDATE";
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement pstTotal = conn.prepareStatement(totalSQL);
              PreparedStatement pstIngreso = conn.prepareStatement(ingresoSQL);
+             PreparedStatement pstDependencias = conn.prepareStatement(dependenciasSQL);
+
              ResultSet rsTotal = pstTotal.executeQuery();
-             ResultSet rsIngreso = pstIngreso.executeQuery()) {
+             ResultSet rsIngreso = pstIngreso.executeQuery();
+             ResultSet rsDependencias = pstDependencias.executeQuery()) {
 
             int total = 0;
             int presentes = 0;
+            int presentesDependencias = 0;
 
             // Leer el total de personas
             if (rsTotal.next()) {
@@ -118,6 +122,10 @@ public class reporteDAO {
             if (rsIngreso.next()) {
                 presentes = rsIngreso.getInt("presentes");
                 System.out.println("Personas que ingresaron hoy: " + presentes); // Sout aquí
+            }
+            if (rsDependencias.next()) {
+                presentesDependencias = rsDependencias.getInt("presentesDependencias");
+                System.out.println("Personas que estan actualmente en las dependencias: " + presentesDependencias);
             }
 
             // Calcular porcentaje
