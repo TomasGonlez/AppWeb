@@ -1,6 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.reporteDAO;
+import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.RegistroPersona;
 
 
@@ -17,6 +18,8 @@ public class ReporteServlet extends HttpServlet {
 
         if ("listar".equals(accion)) {
             ObtenerRegistroFecha(request, response);
+        } else if ("listarDependencias".equals(accion)) {
+            ObtenerRegistrosDependencia(request, response);
         } else {
             response.sendRedirect("JSP/error.jsp");
         }
@@ -44,31 +47,14 @@ public class ReporteServlet extends HttpServlet {
         }
 
     }
-    /*protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String desde = request.getParameter("desde");
-        String hasta = request.getParameter("hasta");
-
-        if (desde == null || hasta == null || desde.isEmpty() || hasta.isEmpty()) {
-            request.setAttribute("error", "Debe ingresar ambas fechas.");
+    private void ObtenerRegistrosDependencia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try{
+            reporteDAO DAO = new reporteDAO();
+            List<Registro> personasDependencia = DAO.obtenerRegistrosDependencias();
+            request.setAttribute("registrosDependencia", personasDependencia);
             request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
-            return;
-        }
-
-        try {
-            reporteDAO dao = new reporteDAO();
-            List<RegistroPersona> registros = dao.obtenerRegistrosPorFecha(desde, hasta);
-
-            request.setAttribute("registros", registros);
-            request.setAttribute("desde", desde);
-            request.setAttribute("hasta", hasta);
-
-            request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
-            request.setAttribute("error", "Error al obtener registros.");
-            request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
         }
-    }*/
+    }
 }

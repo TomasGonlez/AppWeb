@@ -1,6 +1,7 @@
 <%@ page import="com.example.appweb.MODELO.Usuario" %>
 <%@ page import="com.example.appweb.MODELO.RegistroPersona" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.appweb.MODELO.Registro" %>
 
 <%
     // 1. Validación de usuario logueado (MANTENIDO)
@@ -24,7 +25,7 @@
 <jsp:include page="navbar.jsp" />
 <div class="container-fluid flex-grow-1 p-0">
     <main class="container py-3">
-        <h2 class="text-center mb-4">Reportes</h2>
+        <h2 class="text-center mb-4">Reportes de Ingresos y Salidas</h2>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <strong>Por rango de fechas</strong>
@@ -45,7 +46,6 @@
             <div class="col-12 col-md-2">
                 <button type="submit" class="btn btn-primary w-100 btn-sm">GENERAR</button>
             </div>
-
         </form>
 
         <!-- Tabla responsive -->
@@ -75,6 +75,56 @@
                 }else {
                 %>
                 <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
+                <%}%>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-center mb-4">Reporte de Personas</h2>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <strong>Personas en las dependencias</strong>
+            <span class="text-muted"><%= new java.util.Date().toString() %></span>
+        </div>
+
+        <!-- Formulario optimizado para móviles -->
+        <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
+            <input type="hidden" name="accion" value="listarDependencias">
+            <div class="col-12 col-md-2">
+                <button type="submit" class="btn btn-primary w-100 btn-sm">Generar Personas en las Dependencias</button>
+            </div>
+        </form>
+        <!-- Tabla responsive -->
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID_REGISTRO</th>
+                    <th>RUT</th>
+                    <th>ID_USUARIO</th>
+                    <th>Fecha</th>
+                    <th>Tipo Registro</th>
+                    <th>Hora</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    List<Registro> regDependencia = (List<Registro>) request.getAttribute("registrosDependencia");
+                    if(regDependencia != null){
+                        for (Registro r :  regDependencia){
+                %>
+                <tr>
+                    <td data-label="ID REGISTRO"><%=r.getIdRegistro()%></td>
+                    <td data-label="RUT"><%=r.getRut()%></td>
+                    <td data-label="ID USUARIO"><%=r.getIdUsuario()%></td>
+                    <td data-label="FECHA"><%=r.getFecha()%></td>
+                    <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
+                    <td data-label="HORA"><%=r.getHora()%></td>
+                </tr>
+                <%}
+                }else {
+                %>
+                <tr><td colspan="6" class="text-center">No se encontraron registros</td></tr>
                 <%}%>
                 </tbody>
             </table>

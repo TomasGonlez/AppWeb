@@ -1,5 +1,6 @@
 package com.example.appweb.DAO;
 
+import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.UTIL.ConexionDB;
 
@@ -43,6 +44,37 @@ public class reporteDAO {
 
         return lista;
     }
+
+    public List<Registro> obtenerRegistrosDependencias() {
+        List<Registro> listaDependencia = new ArrayList<>();
+
+        String sql = "SELECT r.rut, p.nombre, r.fecha, r.tipo_registro, r.hora " +
+                "FROM registro r " +
+                "JOIN persona p ON r.rut = p.rut " +
+                "WHERE TRUNC(r.fecha) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+        String SQL = "SELECT r1.id_registro, r1.rut, r1.id_usuario, r1.fecha,r1.tipo_registro , r1.hora FROM REGISTRO r1 WHERE r1.tipo_registro = 'INGRESO' AND NOT EXISTS " +
+            "(SELECT 1 FROM REGISTRO r2 WHERE r2.rut = r1.rut AND r2.tipo_registro = 'SALIDA' AND r2.fecha = r1.fecha AND r2.hora > r1.hora)";
+
+        try {
+            Connection conn = ConexionDB.getInstance().getConexion();
+            PreparedStatement stmt = conn.prepareStatement(SQL);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Registro reg = new Registro();
+                reg.setIdRegistro(rs.getInt("id_registro"));
+                reg.setRut(rs.getString("rut"));
+                reg.setIdUsuario(rs.getInt("id_usuario"));
+                reg.setFecha(rs.getDate("fecha"));
+                reg.setTipoRegistro(rs.getString("tipo_registro"));
+                reg.setHora(rs.getString("hora"));
+                listaDependencia.add(reg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaDependencia;
+    }
+
     public int personasSistema(){
         int totalPersonas = 0;
         String sql = "SELECT COUNT(*) FROM PERSONA";
