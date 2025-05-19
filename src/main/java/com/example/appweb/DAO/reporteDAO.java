@@ -81,7 +81,7 @@ public class reporteDAO {
         int totalDependencias = 0;
         try{
             Connection conn = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND TRUNC(r.fecha)= SYSDATE";
+            String sql = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha= TRUNC(SYSDATE)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -98,7 +98,7 @@ public class reporteDAO {
         double porcentaje = 0.0;
         String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";
         String ingresoSQL = "SELECT COUNT(DISTINCT rut) AS presentes FROM REGISTRO WHERE tipo_registro = 'INGRESO' AND fecha = TRUNC(SYSDATE)";
-        String dependenciasSQL = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND TRUNC(r.fecha)= SYSDATE";
+        String dependenciasSQL = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha = TRUNC(SYSDATE)";
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement pstTotal = conn.prepareStatement(totalSQL);
              PreparedStatement pstIngreso = conn.prepareStatement(ingresoSQL);
@@ -110,7 +110,7 @@ public class reporteDAO {
 
             int total = 0;
             int presentes = 0;
-            int presentesDependencias = 0;
+            int presenteDependencias = 0;
 
             // Leer el total de personas
             if (rsTotal.next()) {
@@ -124,8 +124,8 @@ public class reporteDAO {
                 System.out.println("Personas que ingresaron hoy: " + presentes); // Sout aquí
             }
             if (rsDependencias.next()) {
-                presentesDependencias = rsDependencias.getInt("presentesDependencias");
-                System.out.println("Personas que estan actualmente en las dependencias: " + presentesDependencias);
+                presenteDependencias = rsDependencias.getInt("presenteDependencias");
+                System.out.println("Personas que estan actualmente en las dependencias: " + presenteDependencias);
             }
 
             // Calcular porcentaje
