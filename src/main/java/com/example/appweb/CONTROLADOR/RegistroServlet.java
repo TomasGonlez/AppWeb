@@ -116,7 +116,8 @@ public class RegistroServlet extends HttpServlet {
         double porcentajeAsistencia = reporte.obtenerPorcentajeAsistenciaHoy();
         int totalPersonas = reporte.personasSistema();
         int totalUsuarios = reporte.usuariosSistema();
-        int personasDependencias = reporte.dependenciasSistema();
+
+        int personaDependencias = reporte.dependenciasSistema();
 
         // Nueva implementación con formato en español
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", new Locale("es", "ES"));
@@ -127,9 +128,7 @@ public class RegistroServlet extends HttpServlet {
         request.setAttribute("totalPersonas", totalPersonas);
         request.setAttribute("totalUsuarios", totalUsuarios);
         request.setAttribute("fechaActual", fechaActual);
-        request.setAttribute("dependencias", personasDependencias);
-
-
+        request.setAttribute("personaDependencias", personaDependencias);
         // Redirige al JSP
         request.getRequestDispatcher("JSP/ver_registros.jsp").forward(request, response);
     }

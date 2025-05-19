@@ -81,8 +81,13 @@ public class reporteDAO {
         int totalDependencias = 0;
         try{
             Connection conn = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha= TRUNC(SYSDATE)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            String sql = "SELECT COUNT(p.nombre) FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha= TRUNC(SYSDATE)";
+                //String SQL = "SELECT r1.rut, r1.id_usuario, r1.fecha, r1.hora AS HORA_INGRESO FROM REGISTRO r1 WHERE r1.tipo_registro = 'INGRESO' AND NOT EXISTS " +
+                //    "(SELECT 1 FROM REGISTRO r2 WHERE r2.rut = r1.rut AND r2.tipo_registro = 'SALIDA' AND r2.fecha = r1.fecha AND r2.hora > r1.hora)";
+            //Consulta para determinar la CANTIDAD de personas que se encuentran en las dependencias, FALTA REALIZAR EL REPORTE de las personas que se encuentran en las dependencias)
+            String SQL = "SELECT COUNT(r1.rut) FROM REGISTRO r1 WHERE r1.tipo_registro = 'INGRESO' AND NOT EXISTS " +
+                    "(SELECT 1 FROM REGISTRO r2 WHERE r2.rut = r1.rut AND r2.tipo_registro = 'SALIDA' AND r2.fecha = r1.fecha AND r2.hora > r1.hora)";
+            PreparedStatement ps = conn.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 totalDependencias = rs.getInt(1);
@@ -98,19 +103,20 @@ public class reporteDAO {
         double porcentaje = 0.0;
         String totalSQL = "SELECT COUNT(*) AS total FROM PERSONA";
         String ingresoSQL = "SELECT COUNT(DISTINCT rut) AS presentes FROM REGISTRO WHERE tipo_registro = 'INGRESO' AND fecha = TRUNC(SYSDATE)";
-        String dependenciasSQL = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha = TRUNC(SYSDATE)";
+        //String dependenciasSQL = "SELECT COUNT(p.nombre) AS dependencia FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha = TRUNC(SYSDATE)";
+
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement pstTotal = conn.prepareStatement(totalSQL);
              PreparedStatement pstIngreso = conn.prepareStatement(ingresoSQL);
-             PreparedStatement pstDependencias = conn.prepareStatement(dependenciasSQL);
+             //PreparedStatement pstDependencias = conn.prepareStatement(dependenciasSQL);
 
              ResultSet rsTotal = pstTotal.executeQuery();
-             ResultSet rsIngreso = pstIngreso.executeQuery();
-             ResultSet rsDependencias = pstDependencias.executeQuery()) {
+             //ResultSet rsDependencias = pstDependencias.executeQuery()
+             ResultSet rsIngreso = pstIngreso.executeQuery()) {
 
             int total = 0;
             int presentes = 0;
-            int presenteDependencias = 0;
+            //int presenteDependencias = 0;
 
             // Leer el total de personas
             if (rsTotal.next()) {
@@ -123,10 +129,10 @@ public class reporteDAO {
                 presentes = rsIngreso.getInt("presentes");
                 System.out.println("Personas que ingresaron hoy: " + presentes); // Sout aquí
             }
-            if (rsDependencias.next()) {
-                presenteDependencias = rsDependencias.getInt("presenteDependencias");
-                System.out.println("Personas que estan actualmente en las dependencias: " + presenteDependencias);
-            }
+            //if (rsDependencias.next()) {
+              //  presenteDependencias = rsDependencias.getInt("dependencia");
+                //System.out.println("Personas que estan actualmente en las dependencias: " + presenteDependencias);
+            //}
 
             // Calcular porcentaje
             if (total > 0) {
