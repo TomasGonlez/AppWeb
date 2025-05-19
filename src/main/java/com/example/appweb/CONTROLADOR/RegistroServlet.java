@@ -127,7 +127,8 @@ public class RegistroServlet extends HttpServlet {
         request.setAttribute("totalPersonas", totalPersonas);
         request.setAttribute("totalUsuarios", totalUsuarios);
         request.setAttribute("fechaActual", fechaActual);
-        personasDependencias
+        request.setAttribute("dependencias", personasDependencias);
+
 
         // Redirige al JSP
         request.getRequestDispatcher("JSP/ver_registros.jsp").forward(request, response);

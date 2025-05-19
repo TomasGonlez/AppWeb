@@ -82,12 +82,17 @@ public class reporteDAO {
         try{
             Connection conn = ConexionDB.getInstance().getConexion();
             String sql = "SELECT p.nombre FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND TRUNC(r.fecha)= SYSDATE";
-
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                totalDependencias = rs.getInt(1);
+                System.out.println("Total de personas en las dependencias actualmente es: "+totalDependencias);
+            }
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("Error al consultar en la database: "+e.getMessage());
         }
-
+        return totalDependencias;
     }
     public double obtenerPorcentajeAsistenciaHoy() {
         double porcentaje = 0.0;
