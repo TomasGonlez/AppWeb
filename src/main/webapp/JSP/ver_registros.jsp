@@ -66,9 +66,15 @@
       </div>
 
       <div class="estadistica-container">
+        <div class="estadistica-label">Personas que se encuentran en las dependencias</div>
+        <div class="estadistica-value"><%=request.getAttribute("personasDependencias")%></div>
+      </div>
+
+      <div class="estadistica-container">
         <div class="estadistica-label">Porcentaje de asistencia del personal para hoy <%=request.getAttribute("fechaActual")%> es </div>
         <div class="estadistica-value highlight"><%=request.getAttribute("porcentajeAsistencia")%></div>
       </div>
+
 
     </div>
   </main>
