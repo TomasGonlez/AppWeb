@@ -46,6 +46,12 @@
             <button type="submit" class="register-button" value="registrar">Registrar</button>
             <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="INGRESO">
         </form>
+        <% String error = (String) request.getAttribute("error"); %>
+        <% if (error != null) { %>
+        <div style="color:red; font-weight:bold;" class="mt-3 text-center">
+            <%= error %>
+        </div>
+        <% } %>
     </section>
 </div>
 

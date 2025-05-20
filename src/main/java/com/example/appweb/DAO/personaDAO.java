@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 
 public class personaDAO {
 
-    public boolean registrar(Persona persona) {
+    public void registrar(Persona persona) {
 
         try{
             Connection con = ConexionDB.getInstance().getConexion();
@@ -19,10 +19,8 @@ public class personaDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, persona.getRut());
             stmt.setString(2, persona.getNombre());
-            return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
     public boolean buscarRut(String rut) {
@@ -33,11 +31,29 @@ public class personaDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, rut);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                  existe= true;
             }
             return existe;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return existe;
+    }
+    public boolean buscarNombre(String nombre, String rut) {
+        boolean existe = false;
+        try{
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT nombre FROM PERSONA WHERE rut = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,rut);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String nombreDB = rs.getString("nombre");
+                if(nombre.equals(nombreDB)) {
+                    existe= true;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

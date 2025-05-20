@@ -36,7 +36,7 @@ public class RegistroServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if ("registrar".equals(accion)) {
-            registrarPersona(request, response);
+            registrarPersona2(request, response);
 
         }else {
             response.sendRedirect("JSP/error.jsp");
@@ -52,12 +52,9 @@ public class RegistroServlet extends HttpServlet {
         }
     }
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        //Datos para la tabla Persona
+        //Capturo los datos del fronted y los almaceno en variables
         String rutPer = request.getParameter("rutPersona");
         String nombrePer = request.getParameter("nombrePersona");
-
-        //Datos para la tabla registro
         String tipoRegistroPer = request.getParameter("tipoRegistro");
         String fechaPer = request.getParameter("fechaPersona");
         String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
@@ -93,7 +90,7 @@ public class RegistroServlet extends HttpServlet {
                 response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
             }else{
                 //Se crea el registro en la tabla persona (rut y nombre)
-                boolean exitoPersona = PersonaDAO.registrar(nuevaPersona);
+                PersonaDAO.registrar(nuevaPersona);
                 Registro nuevoRegistro = new Registro();
                 nuevoRegistro.setRut(rutPer);
                 nuevoRegistro.setIdUsuario(idUsuario);
@@ -108,6 +105,63 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/error.jsp");
         }
     }
+    private void registrarPersona2(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Registro tempRegistro = new Registro();
+
+        //Capturo los datos del fronted y los almaceno en variables
+        String rutPer = request.getParameter("rutPersona");
+        String nombrePer = request.getParameter("nombrePersona");
+        String tipoRegistroPer = request.getParameter("tipoRegistro");
+        String fechaPer = request.getParameter("fechaPersona");
+        String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        //Validar rut que se ingresa exista en la tabla
+        boolean validar = PersonaDAO.buscarRut(rutPer);
+        //System.out.println("El rut "+ rutPer+" esta validado?: "+validar);
+
+        //Si el validar es true significa que debo verificar que el nombre que se captura sea el mismo que en la tabla
+        boolean verificar = PersonaDAO.buscarNombre(nombrePer,rutPer);
+        //System.out.println("El nombre "+ nombrePer+" esta verificado?: "+verificar);
+
+
+        // ✅ Recuperar el usuario logueado desde la sesión
+        HttpSession session = request.getSession(false);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            response.sendRedirect("JSP/login2.jsp");
+            return;
+        }
+
+        if (validar) {
+            if(verificar) {
+                tempRegistro.setRut(rutPer);
+                tempRegistro.setIdUsuario(usuario.getIdUsuario());
+                tempRegistro.setFecha(Date.valueOf(fechaPer));
+                tempRegistro.setTipoRegistro(tipoRegistroPer);
+                tempRegistro.setHora(horaPer);
+                RegistroDAO.registrar(tempRegistro);
+                response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
+            }else{
+                // El nombre que se captura no es el mismo que hay en la base de datos
+                request.setAttribute("error", "El nombre ingresado no coincide con el registrado para ese RUT.");
+                request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+            }
+        }else{
+            Persona tempPersona = new Persona();
+            tempPersona.setRut(rutPer);
+            tempPersona.setNombre(nombrePer);
+            PersonaDAO.registrar(tempPersona);
+            tempRegistro.setRut(rutPer);
+            tempRegistro.setIdUsuario(usuario.getIdUsuario());
+            tempRegistro.setFecha(Date.valueOf(fechaPer));
+            tempRegistro.setTipoRegistro(tipoRegistroPer);
+            tempRegistro.setHora(horaPer);
+            RegistroDAO.registrar(tempRegistro);
+            response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
+        }
+    }
+
     private void listarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Crear instancias
         registroDAO registroDAO = new registroDAO();
