@@ -19,6 +19,7 @@ public class personaDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, persona.getRut());
             stmt.setString(2, persona.getNombre());
+            stmt.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -46,11 +46,23 @@
             <button type="submit" class="register-button" value="registrar">Registrar</button>
             <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="INGRESO">
         </form>
-        <% String error = (String) request.getAttribute("error"); %>
-        <% if (error != null) { %>
-        <div style="color:red; font-weight:bold;" class="mt-3 text-center">
-            <%= error %>
+        <%
+            String errorLogin = (String) request.getAttribute("errorLogin");
+            if (errorLogin != null) {
+        %>
+        <!-- TOAST flotante -->
+        <div id="toast" class="toast show">
+            <%= errorLogin %>
         </div>
+        <script>
+            // Hacer desaparecer el toast después de 3 segundos
+            setTimeout(function() {
+                var toast = document.getElementById('toast');
+                if (toast) {
+                    toast.classList.remove('show');
+                }
+            }, 3000);
+        </script>
         <% } %>
     </section>
 </div>

@@ -132,7 +132,9 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/login2.jsp");
             return;
         }
-
+        int idUsuario = usuario.getIdUsuario(); // <-- Aquí está el valor correcto
+        System.out.println("El id de usuario es: " + idUsuario);
+        System.out.println("El rut es: " + rutPer);
         if (validar) {
             if(verificar) {
                 tempRegistro.setRut(rutPer);
@@ -144,7 +146,7 @@ public class RegistroServlet extends HttpServlet {
                 response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
             }else{
                 // El nombre que se captura no es el mismo que hay en la base de datos
-                request.setAttribute("error", "El nombre ingresado no coincide con el registrado para ese RUT.");
+                request.setAttribute("errorLogin", "El nombre ingresado no coincide con el rut del Sistema");
                 request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
             }
         }else{
@@ -152,7 +154,7 @@ public class RegistroServlet extends HttpServlet {
             tempPersona.setRut(rutPer);
             tempPersona.setNombre(nombrePer);
             PersonaDAO.registrar(tempPersona);
-            tempRegistro.setRut(rutPer);
+            tempRegistro.setRut(tempPersona.getRut());
             tempRegistro.setIdUsuario(usuario.getIdUsuario());
             tempRegistro.setFecha(Date.valueOf(fechaPer));
             tempRegistro.setTipoRegistro(tipoRegistroPer);
