@@ -83,6 +83,17 @@ public class RegistroServlet extends HttpServlet {
         System.out.println("El rut es: " + rutPer);
         if (validar) {
             if(verificar) {
+                // Validación de alternancia
+                Date fechaSQL = Date.valueOf(fechaPer);
+                String ultimoTipo = RegistroDAO.obtenerUltimoTipoRegistro(rutPer, fechaSQL);
+
+                if (ultimoTipo != null && ultimoTipo.equals(tipoRegistroPer)) {
+                    // Mismo tipo de registro consecutivo no permitido
+                    request.setAttribute("errorLogin", "No puedes registrar dos '" + tipoRegistroPer + "' consecutivos. Debes alternar entre INGRESO y SALIDA.");
+                    request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+                    return;
+                }
+
                 tempRegistro.setRut(rutPer);
                 tempRegistro.setIdUsuario(usuario.getIdUsuario());
                 tempRegistro.setFecha(Date.valueOf(fechaPer));

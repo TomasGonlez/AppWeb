@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class registroDAO {
@@ -47,5 +48,22 @@ public class registroDAO {
             e.printStackTrace();
         }
         return lista;
+    }
+    public static String obtenerUltimoTipoRegistro(String rut, Date fecha) {
+        String tipo = null;
+        try {
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT tipo_registro FROM REGISTRO WHERE rut = ? AND fecha = ? ORDER BY hora DESC FETCH FIRST 1 ROWS ONLY";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, rut);
+            stmt.setDate(2, (java.sql.Date) fecha);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tipo = rs.getString("tipo_registro");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tipo;
     }
 }
