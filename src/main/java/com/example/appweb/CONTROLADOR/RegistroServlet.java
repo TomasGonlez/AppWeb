@@ -36,7 +36,7 @@ public class RegistroServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if ("registrar".equals(accion)) {
-            registrarPersona2(request, response);
+            registrarPersona(request, response);
 
         }else {
             response.sendRedirect("JSP/error.jsp");
@@ -51,61 +51,7 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/error.jsp");
         }
     }
-    private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //Capturo los datos del fronted y los almaceno en variables
-        String rutPer = request.getParameter("rutPersona");
-        String nombrePer = request.getParameter("nombrePersona");
-        String tipoRegistroPer = request.getParameter("tipoRegistro");
-        String fechaPer = request.getParameter("fechaPersona");
-        String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
-
-        // ✅ Recuperar el usuario logueado desde la sesión
-        HttpSession session = request.getSession(false);
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (usuario == null) {
-            response.sendRedirect("JSP/login2.jsp");
-            return;
-        }
-
-        int idUsuario = usuario.getIdUsuario(); // <-- Aquí está el valor correcto
-        System.out.println("El id de usuario es: " + idUsuario);
-        try {
-            Persona nuevaPersona = new Persona();
-            nuevaPersona.setRut(rutPer);
-            nuevaPersona.setNombre(nombrePer);
-
-            boolean buscarPersona = PersonaDAO.buscarRut(rutPer);
-
-            if (buscarPersona) {
-                //Si entra a este if significa que el rut que se esta ingresando en registrar entrada/salida ya existe en la tabla PERSONA
-                // por ende no debemos crear el registro en la tabla persona, solo crear un nuevo registro en tabla registro
-                Registro nuevoRegistro = new Registro();
-                nuevoRegistro.setRut(rutPer);
-                nuevoRegistro.setIdUsuario(idUsuario);
-                nuevoRegistro.setFecha(Date.valueOf(fechaPer));
-                nuevoRegistro.setTipoRegistro(tipoRegistroPer);
-                nuevoRegistro.setHora(horaPer);
-                RegistroDAO.registrar(nuevoRegistro);
-                response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
-            }else{
-                //Se crea el registro en la tabla persona (rut y nombre)
-                PersonaDAO.registrar(nuevaPersona);
-                Registro nuevoRegistro = new Registro();
-                nuevoRegistro.setRut(rutPer);
-                nuevoRegistro.setIdUsuario(idUsuario);
-                nuevoRegistro.setFecha(Date.valueOf(fechaPer));
-                nuevoRegistro.setTipoRegistro(tipoRegistroPer);
-                nuevoRegistro.setHora(horaPer);
-                RegistroDAO.registrar(nuevoRegistro);
-                response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("JSP/error.jsp");
-        }
-    }
-    private void registrarPersona2(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Registro tempRegistro = new Registro();
 
         //Capturo los datos del fronted y los almaceno en variables
