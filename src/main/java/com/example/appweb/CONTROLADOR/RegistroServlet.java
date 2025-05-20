@@ -52,6 +52,7 @@ public class RegistroServlet extends HttpServlet {
         }
     }
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         //Datos para la tabla Persona
         String rutPer = request.getParameter("rutPersona");
         String nombrePer = request.getParameter("nombrePersona");
@@ -69,6 +70,7 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/login2.jsp");
             return;
         }
+
         int idUsuario = usuario.getIdUsuario(); // <-- Aquí está el valor correcto
         System.out.println("El id de usuario es: " + idUsuario);
         try {

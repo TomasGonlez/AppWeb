@@ -50,7 +50,7 @@ public class ReporteServlet extends HttpServlet {
     private void ObtenerRegistrosDependencia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             reporteDAO DAO = new reporteDAO();
-            List<Registro> personasDependencia = DAO.obtenerRegistrosDependencias();
+            List<RegistroPersona> personasDependencia = DAO.obtenerRegistrosDependencias();
             request.setAttribute("registrosDependencia", personasDependencia);
             request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
         }catch (Exception e){

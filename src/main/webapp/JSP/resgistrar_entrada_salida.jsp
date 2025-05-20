@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: tommy
-  Date: 26-04-2025
-  Time: 3:24
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page import="com.example.appweb.MODELO.Usuario" %>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");

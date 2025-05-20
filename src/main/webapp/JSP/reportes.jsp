@@ -99,9 +99,8 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID_REGISTRO</th>
-                    <th>RUT</th>
-                    <th>ID_USUARIO</th>
+                    <th>Nombre</th>
+                    <th>Rut</th>
                     <th>Fecha</th>
                     <th>Tipo Registro</th>
                     <th>Hora</th>
@@ -109,14 +108,13 @@
                 </thead>
                 <tbody>
                 <%
-                    List<Registro> regDependencia = (List<Registro>) request.getAttribute("registrosDependencia");
+                    List<RegistroPersona> regDependencia = (List<RegistroPersona>) request.getAttribute("registrosDependencia");
                     if(regDependencia != null){
-                        for (Registro r :  regDependencia){
+                        for (RegistroPersona r :  regDependencia){
                 %>
                 <tr>
-                    <td data-label="ID REGISTRO"><%=r.getIdRegistro()%></td>
+                    <td data-label="NOMBRE"><%=r.getNombre()%></td>
                     <td data-label="RUT"><%=r.getRut()%></td>
-                    <td data-label="ID USUARIO"><%=r.getIdUsuario()%></td>
                     <td data-label="FECHA"><%=r.getFecha()%></td>
                     <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
                     <td data-label="HORA"><%=r.getHora()%></td>
@@ -124,7 +122,7 @@
                 <%}
                 }else {
                 %>
-                <tr><td colspan="6" class="text-center">No se encontraron registros</td></tr>
+                <tr><td colspan="5" class="text-center">No se encontraron registros</td></tr>
                 <%}%>
                 </tbody>
             </table>
