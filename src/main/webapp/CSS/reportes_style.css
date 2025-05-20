@@ -65,7 +65,21 @@ h2 {
     border-radius: 4px;
     font-size: 0.9rem;
 }
-
+/* Scroll interno para tabla de registros (máx. 8 filas visibles) */
+.tabla-con-scroll {
+    max-height: 350px; /* altura aproximada para 8 filas */
+    overflow-y: auto;
+    border: 1px solid #ecf0f1;
+    border-radius: 6px;
+}
+/* Fijar encabezado de tabla */
+.tabla-con-scroll thead th {
+    position: sticky;
+    top: 0;
+    background-color: #3498db;
+    color: white;
+    z-index: 1;
+}
 /* Tabla de reportes */
 .table-responsive {
     width: 100%;
@@ -209,7 +223,10 @@ h2 {
     .date-range-form .col-auto {
         width: 100%;
     }
-
+    .tabla-con-scroll {
+        max-height: 300px; /* más ajustado para pantallas pequeñas */
+        overflow-y: auto;
+    }
     /* Tabla adaptativa para móviles */
     .table-responsive {
         border: none;

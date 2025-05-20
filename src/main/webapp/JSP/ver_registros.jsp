@@ -20,8 +20,8 @@
     <h2 class="text-center mb-4">Tabla Registros recientes</h2>
 
     <!-- Tabla de registros -->
-    <div class="table-responsive">
-      <table class="table">
+    <div class="table-responsive tabla-con-scroll">
+      <table class="table table-striped">
         <thead>
         <tr>
           <th>Rut</th>

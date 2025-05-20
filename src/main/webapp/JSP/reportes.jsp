@@ -91,7 +91,7 @@
         <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
             <input type="hidden" name="accion" value="listarDependencias">
             <div class="col-12 col-md-2">
-                <button type="submit" class="btn btn-primary w-100 btn-sm">Generar Personas en las Dependencias</button>
+                <button type="submit" class="btn btn-primary w-150 btn-sm">Generar Personas en las Dependencias</button>
             </div>
         </form>
         <!-- Tabla responsive -->

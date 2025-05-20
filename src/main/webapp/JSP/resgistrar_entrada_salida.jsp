@@ -28,7 +28,7 @@
             <button id="toggleButton" class="toggle-button">INGRESO</button>
         </div>
 
-        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post">
+        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
             <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
             <div class="mb-3">
