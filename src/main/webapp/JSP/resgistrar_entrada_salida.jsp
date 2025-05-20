@@ -33,7 +33,7 @@
             <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>
-                <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="Ingresar rut" required>
+                <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="Ingresar rut" required oninput="formatearRut(this)">
             </div>
             <div class="mb-3">
                 <label for="nombrePersona" class="form-label">Ingresar Nombre:</label>
@@ -73,6 +73,29 @@
             tipoRegistro.value = 'INGRESO';
         }
     });
+    function formatearRut(input) {
+        let valor = input.value.replace(/\D/g, ''); // Elimina todo lo que no sea dígito
+
+        if (valor.length === 0) {
+            input.value = '';
+            return;
+        }
+
+        let cuerpo = valor.slice(0, -1);
+        let dv = valor.slice(-1);
+
+        let cuerpoFormateado = '';
+        let contador = 0;
+        for (let i = cuerpo.length - 1; i >= 0; i--) {
+            cuerpoFormateado = cuerpo[i] + cuerpoFormateado;
+            contador++;
+            if (contador % 3 === 0 && i !== 0) {
+                cuerpoFormateado = '.' + cuerpoFormateado;
+            }
+        }
+
+        input.value = cuerpoFormateado + '-' + dv;
+    }
 </script>
 </body>
 </html>
