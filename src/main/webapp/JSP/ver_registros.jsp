@@ -66,7 +66,7 @@
       </div>
 
       <div class="estadistica-container">
-        <div class="estadistica-label">Personas que se encuentran en las dependencias</div>
+        <div class="estadistica-label">Empleados que se encuentran en las dependencias</div>
         <div class="estadistica-value"><%=request.getAttribute("personaDependencias")%></div>
       </div>
 
