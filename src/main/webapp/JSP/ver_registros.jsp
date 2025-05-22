@@ -7,8 +7,13 @@
   <!-- Viewport esencial para responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Registros Generales</title>
+  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- DataTables Bootstrap 5 CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/reportes_style.css" rel="stylesheet" />
+
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
@@ -21,7 +26,7 @@
 
     <!-- Tabla de registros -->
     <div class="table-responsive tabla-con-scroll">
-      <table class="table table-striped">
+      <table class="table table-striped table-bordered tabla-data">
         <thead>
         <tr>
           <th>Rut</th>
@@ -79,6 +84,27 @@
     </div>
   </main>
 </div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables core + Bootstrap 5 integration -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('.tabla-data').DataTable({
+      ordering: false,
+      searching: true,
+      pageLength: 5,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Traducción al español
+      }
+    });
+  });
+</script>
 </body>
 </html>

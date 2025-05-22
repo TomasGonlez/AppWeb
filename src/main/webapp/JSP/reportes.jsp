@@ -49,8 +49,8 @@
         </form>
 
         <!-- Tabla responsive -->
-        <div class="table-responsive">
-            <table class="table">
+        <div class="table-responsive tabla-con-scroll">
+            <table class="table table-striped table-bordered tabla-data">
                 <thead>
                 <tr>
                     <th>RUT</th>
@@ -137,5 +137,18 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.tabla-data').DataTable({
+            ordering: false,
+            searching: true,
+            pageLength: 5,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Traducción al español
+            }
+        });
+    });
+</script>
 </body>
 </html>
