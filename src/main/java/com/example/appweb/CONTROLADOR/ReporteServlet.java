@@ -29,7 +29,7 @@ public class ReporteServlet extends HttpServlet {
         String hasta = request.getParameter("hasta");
 
         if (desde == null || hasta == null || desde.isEmpty() || hasta.isEmpty()) {
-            request.setAttribute("error", "Debe ingresar ambas fechas.");
+            request.setAttribute("error"    , "Debe ingresar ambas fechas.");
             request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
         }
         try{
@@ -38,6 +38,9 @@ public class ReporteServlet extends HttpServlet {
             request.setAttribute("registros", registrosLista);
             request.setAttribute("desde", desde);
             request.setAttribute("hasta", hasta);
+
+            // NUEVA LÍNEA para que los datos estén disponibles para exportar:
+            request.getSession().setAttribute("registros", registrosLista);
 
             request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
         }catch(Exception e){

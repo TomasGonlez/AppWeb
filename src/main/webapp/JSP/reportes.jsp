@@ -47,7 +47,6 @@
                 <button type="submit" class="btn btn-primary w-100 btn-sm">GENERAR</button>
             </div>
         </form>
-
         <!-- Tabla responsive -->
         <div class="table-responsive tabla-con-scroll">
             <table class="table table-striped table-bordered tabla-data">
@@ -57,6 +56,7 @@
                     <th>Nombre</th>
                     <th>Tipo Registro</th>
                     <th>Fecha</th>
+                    <th>Hora</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,11 +70,12 @@
                     <td data-label="NOMBRE"><%=r.getNombre()%></td>
                     <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
                     <td data-label="FECHA"><%=r.getFecha()%></td>
+                    <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
                 <%}
                 }else {
                 %>
-                <tr><td colspan="4" class="text-center">No se encontraron registros</td></tr>
+                <tr><td colspan="5" class="text-center">No se encontraron registros</td></tr>
                 <%}%>
                 </tbody>
             </table>
@@ -129,10 +130,17 @@
         </div>
 
         <!-- Botones de exportación -->
+        <%
+            // Botones de exportación solo si hay registros
+            if (registros != null && !registros.isEmpty()) {
+        %>
         <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
             <a href="<%=request.getContextPath()%>/ExportarPDFServlet" class="btn btn-primary btn-sm me-md-2">Exportar PDF</a>
-            <a href="<%=request.getContextPath()%>/ExportarExcelServlet" class="btn btn-primary btn-sm">Exportar EXCEL</a>
+            <a href="<%=request.getContextPath()%>/ExportarEXCELServlet" class="btn btn-primary btn-sm">Exportar EXCEL</a>
         </div>
+        <%
+            }
+        %>
     </main>
 </div>
 
