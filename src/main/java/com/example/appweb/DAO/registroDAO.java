@@ -31,7 +31,7 @@ public class registroDAO {
     }
     public List<RegistroPersona> obtenerRegistros(){
         List<RegistroPersona> lista = new ArrayList<>();
-        String sql="SELECT p.rut, p.nombre, r.tipo_registro, r.fecha, r.hora FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut";
+        String sql="SELECT p.rut, p.nombre, r.tipo_registro, r.fecha, r.hora FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut ORDER BY id_registro DESC";
         try(Connection conn = ConexionDB.getInstance().getConexion();
         PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){

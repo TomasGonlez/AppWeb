@@ -111,6 +111,11 @@ public class RegistroServlet extends HttpServlet {
                 request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
             }
         }else{
+            if (!tipoRegistroPer.equals("INGRESO")) {
+                request.setAttribute("errorLogin", "El primer registro debe ser un INGRESO.");
+                request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+                return;
+            }
             Persona tempPersona = new Persona();
             tempPersona.setRut(rutPer);
             tempPersona.setNombre(nombrePer);
