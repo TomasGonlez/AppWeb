@@ -49,14 +49,13 @@ public class registroDAO {
         }
         return lista;
     }
-    public static String obtenerUltimoTipoRegistro(String rut, Date fecha) {
+    public static String obtenerUltimoTipoRegistroGeneral(String rut) {
         String tipo = null;
         try {
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT tipo_registro FROM REGISTRO WHERE rut = ? AND fecha = ? ORDER BY hora DESC FETCH FIRST 1 ROWS ONLY";
+            String sql = "SELECT tipo_registro FROM REGISTRO WHERE rut = ? ORDER BY fecha DESC, hora DESC FETCH FIRST 1 ROWS ONLY";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, rut);
-            stmt.setDate(2, (java.sql.Date) fecha);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 tipo = rs.getString("tipo_registro");
