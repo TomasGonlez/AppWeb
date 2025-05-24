@@ -103,25 +103,31 @@ public class reporteDAO {
         return totalUsuario;
     }
 
-    public int dependenciasSistema(){
+    public int dependenciasSistema() {
         int totalDependencias = 0;
-        try{
-            Connection conn = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT COUNT(p.nombre) FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut WHERE r.tipo_registro = 'INGRESO' AND r.fecha= TRUNC(SYSDATE)";
-                //String SQL = "SELECT r1.rut, r1.id_usuario, r1.fecha, r1.hora AS HORA_INGRESO FROM REGISTRO r1 WHERE r1.tipo_registro = 'INGRESO' AND NOT EXISTS " +
-                //    "(SELECT 1 FROM REGISTRO r2 WHERE r2.rut = r1.rut AND r2.tipo_registro = 'SALIDA' AND r2.fecha = r1.fecha AND r2.hora > r1.hora)";
-            //Consulta para determinar la CANTIDAD de personas que se encuentran en las dependencias, FALTA REALIZAR EL REPORTE de las personas que se encuentran en las dependencias)
-            String SQL = "SELECT COUNT(r1.rut) FROM REGISTRO r1 WHERE r1.tipo_registro = 'INGRESO' AND NOT EXISTS " +
-                    "(SELECT 1 FROM REGISTRO r2 WHERE r2.rut = r1.rut AND r2.tipo_registro = 'SALIDA' AND r2.fecha = r1.fecha AND r2.hora > r1.hora)";
-            PreparedStatement ps = conn.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+        String sql = "SELECT COUNT(DISTINCT r1.rut) " +
+                "FROM REGISTRO r1 " +
+                "WHERE r1.tipo_registro = 'INGRESO' " +
+                "AND NOT EXISTS ( " +
+                "    SELECT 1 FROM REGISTRO r2 " +
+                "    WHERE r2.rut = r1.rut " +
+                "    AND r2.tipo_registro = 'SALIDA' " +
+                "    AND ( " +
+                "        (r2.fecha > r1.fecha) OR " +  // SALIDA en fecha posterior
+                "        (r2.fecha = r1.fecha AND TO_TIMESTAMP(r2.hora, 'HH24:MI:SS') > TO_TIMESTAMP(r1.hora, 'HH24:MI:SS')) " +  // SALIDA mismo día pero hora posterior
+                "    ) " +
+                ")";
+
+        try (Connection conn = ConexionDB.getInstance().getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
                 totalDependencias = rs.getInt(1);
-                System.out.println("Total de personas en las dependencias actualmente es: "+totalDependencias);
+                System.out.println("[DEBUG] Personas en dependencias (histórico): " + totalDependencias);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error al consultar en la database: "+e.getMessage());
         }
         return totalDependencias;
     }
