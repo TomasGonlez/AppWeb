@@ -5,18 +5,18 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/ExportarPDFServlet")
+
 public class ExportarPDFServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<RegistroPersona> registros = (List<RegistroPersona>) request.getSession().getAttribute("registros");
 
+
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=reporte_registros.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=Reporte registros.pdf");
 
         try {
             Document document = new Document();
@@ -36,6 +36,7 @@ public class ExportarPDFServlet extends HttpServlet {
             table.addCell("Fecha");
             table.addCell("Hora");
 
+            System.out.println("ExportarPDFServlet - registros en sesión: " + (registros != null ? registros.size() : "null"));
             if (registros != null) {
                 for (RegistroPersona r : registros) {
                     table.addCell(r.getRut());
@@ -45,7 +46,7 @@ public class ExportarPDFServlet extends HttpServlet {
                     table.addCell(r.getHora());
                 }
             }
-
+            document.add(table);
             document.close();
         } catch (DocumentException e) {
             throw new IOException(e.getMessage());

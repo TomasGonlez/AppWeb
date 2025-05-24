@@ -5,18 +5,17 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/ExportarEXCELServlet")
+
 public class ExportarEXCELServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<RegistroPersona> registros = (List<RegistroPersona>) request.getSession().getAttribute("registros");
 
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=reporte_registros.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=Reporte registros.xlsx");
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Registros");

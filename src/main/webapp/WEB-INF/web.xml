@@ -31,4 +31,26 @@
         <servlet-name>ReporteServlet</servlet-name>
         <url-pattern>/ReporteServlet</url-pattern>
     </servlet-mapping>
+
+    <!--Mapeo descarga reporte formato EXCEL -->
+    <servlet>
+        <servlet-name>ExportarEXCELServlet</servlet-name>
+        <servlet-class>com.example.appweb.CONTROLADOR.ExportarEXCELServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExportarEXCELServlet</servlet-name>
+        <url-pattern>/ExportarEXCELServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--Mapeo descarga reporte formato PDF -->
+    <servlet>
+        <servlet-name>ExportarPDFServlet</servlet-name>
+        <servlet-class>com.example.appweb.CONTROLADOR.ExportarPDFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExportarPDFServlet</servlet-name>
+        <url-pattern>/ExportarPDFServlet</url-pattern>
+    </servlet-mapping>
+
+    
 </web-app>

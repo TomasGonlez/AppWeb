@@ -41,6 +41,7 @@ public class ReporteServlet extends HttpServlet {
 
             // NUEVA LÍNEA para que los datos estén disponibles para exportar:
             request.getSession().setAttribute("registros", registrosLista);
+            System.out.println("Guardando en sesión: " + registrosLista.size() + " registros");
 
             request.getRequestDispatcher("/JSP/reportes.jsp").forward(request, response);
         }catch(Exception e){
