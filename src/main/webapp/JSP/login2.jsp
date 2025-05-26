@@ -13,7 +13,7 @@
 <body>
 <div class="main-wrapper">
     <header class="header">
-        <h2>Sistema de control de acceso</h2>
+        <h2>Sistema Control de Acceso</h2>
     </header>
     <section class="content">
         <div class="logo-container">

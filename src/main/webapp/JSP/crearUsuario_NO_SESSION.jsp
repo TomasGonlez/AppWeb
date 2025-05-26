@@ -8,15 +8,15 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/crear_usuario_style.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/login_style.css">
 </head>
 <body>
-<header class="header">
-    <h2>Sistema Control de Acceso</h2>
-</header>
 <div class="main-wrapper">
+    <header class="header">
+        <h2>Sistema Control de Acceso</h2>
+    </header>
     <section class="content">
-        <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
+        <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
 
             <div class="mb-3">
