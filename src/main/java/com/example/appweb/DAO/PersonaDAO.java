@@ -1,7 +1,6 @@
 package com.example.appweb.DAO;
 
 import com.example.appweb.MODELO.Persona;
-import com.example.appweb.MODELO.Usuario;
 import com.example.appweb.UTIL.ConexionDB;
 
 import java.sql.Connection;
@@ -9,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-public class personaDAO {
+public class PersonaDAO {
 
     public void registrar(Persona persona) {
 

@@ -8,10 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class registroDAO {
+public class RegistroDAO {
     public boolean registrar(Registro registro) {
         try{
             Connection con = ConexionDB.getInstance().getConexion();
