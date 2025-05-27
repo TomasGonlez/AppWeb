@@ -13,20 +13,35 @@ import java.util.List;
 
 public class registroDAO {
     public boolean registrar(Registro registro) {
-        try{
+
+        try {
+            // Validación solo para SALIDAS
+            if ("SALIDA".equals(registro.getTipoRegistro())) {
+                java.sql.Date ultimoIngreso = obtenerUltimaFechaIngreso(registro.getRut());
+
+                if (ultimoIngreso == null) {
+                    throw new IllegalArgumentException("No hay un INGRESO registrado para este RUT.");
+                }
+
+                if (registro.getFecha().before(ultimoIngreso)) {
+                    throw new IllegalArgumentException("La SALIDA no puede ser antes del último INGRESO (" + ultimoIngreso + ")");
+                }
+            }
+
+            // Insertar registro si pasa las validaciones
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "INSERT INTO REGISTRO (rut,id_usuario,fecha,tipo_registro,hora) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO REGISTRO (rut, id_usuario, fecha, tipo_registro, hora) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, registro.getRut());
             stmt.setInt(2, registro.getIdUsuario());
             stmt.setDate(3, registro.getFecha());
-            stmt.setString(4,registro.getTipoRegistro());
-            stmt.setString(5,registro.getHora());
+            stmt.setString(4, registro.getTipoRegistro());
+            stmt.setString(5, registro.getHora());
 
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            throw new RuntimeException("Error al registrar: " + e.getMessage());
         }
     }
     public List<RegistroPersona> obtenerRegistros(){
@@ -64,5 +79,17 @@ public class registroDAO {
             e.printStackTrace();
         }
         return tipo;
+    }
+    public java.sql.Date obtenerUltimaFechaIngreso(String rut) {
+        String sql = "SELECT fecha FROM REGISTRO WHERE rut = ? AND tipo_registro = 'INGRESO' ORDER BY fecha DESC, hora DESC FETCH FIRST 1 ROWS ONLY";
+        try (Connection con = ConexionDB.getInstance().getConexion();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, rut);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() ? rs.getDate("fecha") : null; // Cambiado a getDate()
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

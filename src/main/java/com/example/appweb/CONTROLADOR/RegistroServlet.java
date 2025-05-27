@@ -93,12 +93,13 @@ public class RegistroServlet extends HttpServlet {
                                            Usuario usuario, String rutPer, String nombrePer,
                                            String tipoRegistroPer, String fechaPer, String horaPer,
                                            boolean nombreVerificado) throws IOException, ServletException {
+        // 1. Validar coincidencia de nombre y RUT
         if (!nombreVerificado) {
             enviarError(request, response, "El nombre ingresado no coincide con el rut del Sistema");
             return;
         }
 
-        // Validar alternancia de registros
+        // 2. Validar alternancia de tipos (INGRESO -> SALIDA -> INGRESO)
         String ultimoTipo = RegistroDAO.obtenerUltimoTipoRegistroGeneral(rutPer);
 
         if (ultimoTipo == null && !tipoRegistroPer.equals("INGRESO")) {
@@ -112,11 +113,43 @@ public class RegistroServlet extends HttpServlet {
             return;
         }
 
-        // Registrar el movimiento
-        Registro registro = crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
-        RegistroDAO.registrar(registro);
-        response.sendRedirect("JSP/registrar_entrada_salida.jsp");
+        // 3. [NUEVA VALIDACIÓN] Verificar coherencia de fechas para SALIDAS
+        if (tipoRegistroPer.equals("SALIDA")) {
+            try {
+                // Convertir fecha del formulario a Date
+                Date fechaSalida = Date.valueOf(fechaPer);
+
+                // Obtener fecha del último INGRESO (CORRECCIÓN AQUÍ)
+                Date ultimoIngreso = RegistroDAO.obtenerUltimaFechaIngreso(rutPer);
+
+                // Validar existencia de INGRESO previo
+                if (ultimoIngreso == null) {
+                    enviarError(request, response, "No hay un INGRESO registrado para este usuario.");
+                    return;
+                }
+
+                // Validar que SALIDA sea posterior al INGRESO
+                if (fechaSalida.before(ultimoIngreso)) {
+                    enviarError(request, response,
+                            "La SALIDA no puede ser antes del último INGRESO (" + ultimoIngreso + ")");
+                    return;
+                }
+            } catch (Exception e) {
+                enviarError(request, response, "Error al validar fechas: " + e.getMessage());
+                return;
+            }
+        }
+
+        // 4. Si pasa todas las validaciones, registrar en BD
+        try {
+            Registro registro = crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
+            RegistroDAO.registrar(registro);
+            response.sendRedirect("JSP/registrar_entrada_salida.jsp");
+        } catch (Exception e) {
+            enviarError(request, response, "Error al guardar el registro: " + e.getMessage());
+        }
     }
+
 
     private void procesarNuevoRegistro(HttpServletRequest request, HttpServletResponse response,
                                        Usuario usuario, String rutPer, String nombrePer,
