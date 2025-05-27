@@ -2,6 +2,7 @@ package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.UsuarioDAO;
 import com.example.appweb.MODELO.Usuario;
+import com.example.appweb.SERVICIO.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 
 public class UsuarioServlet extends HttpServlet {
 
-    private UsuarioDAO usuarioDAO;
+    /**private UsuarioDAO usuarioDAO;
 
     @Override
     public void init() throws ServletException{
@@ -107,5 +108,80 @@ public class UsuarioServlet extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("JSP/error.jsp");
         }
+    }**/
+    private UsuarioService usuarioService;
+
+    @Override
+    public void init() throws ServletException {
+        usuarioService = new UsuarioService();
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+
+        switch (accion) {
+            case "registrar":
+                registrarUsuario(request, response);
+                break;
+            case "login":
+                loginUsuario(request, response);
+                break;
+            default:
+                response.sendRedirect("JSP/error.jsp");
+        }
+    }
+
+    private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Usuario nuevoUsuario = usuarioService.construirUsuarioDesdeRequest(request);
+
+            if (usuarioService.existeNombreUsuario(nuevoUsuario.getNombreUser())) {
+                request.setAttribute("errorNombreUSER", "El nombre de usuario ya existe.");
+                request.getRequestDispatcher("JSP/crearUsuario.jsp").forward(request, response);
+                return;
+            }
+
+            boolean exito = usuarioService.registrarUsuario(nuevoUsuario);
+
+            if (exito) {
+                HttpSession session = request.getSession(false);
+
+                if (session != null && session.getAttribute("usuarioLogueado") != null) {
+                    response.sendRedirect("JSP/crearUsuario.jsp");
+                } else {
+                    request.setAttribute("exitoRegistro", "Usuario registrado con éxito");
+                    request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
+                }
+            } else {
+                response.sendRedirect("JSP/error.jsp");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("JSP/error.jsp");
+        }
+    }
+
+    private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String nombre = request.getParameter("nombreUsuario");
+            String contrasena = request.getParameter("contrasenaUsuario");
+
+            Usuario usuario = usuarioService.loginUsuario(nombre, contrasena);
+
+            if (usuario != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("usuarioLogueado", usuario);
+                response.sendRedirect(request.getContextPath() + "/RegistroServlet?accion=listarRegistros");
+            } else {
+                request.setAttribute("errorLogin", "Credenciales incorrectas. Inténtalo nuevamente.");
+                request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("JSP/error.jsp");
+        }
+    }
+
 }

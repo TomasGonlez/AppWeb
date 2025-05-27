@@ -1,7 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
-import com.example.appweb.DAO.personaDAO;
-import com.example.appweb.DAO.registroDAO;
+import com.example.appweb.DAO.PersonaDAO;
+import com.example.appweb.DAO.RegistroDAO;
 import com.example.appweb.DAO.ReporteDAO;
 import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
@@ -25,13 +25,13 @@ import java.util.Map;
 
 public class RegistroServlet extends HttpServlet {
 
-    private personaDAO PersonaDAO;
-    private registroDAO RegistroDAO;
+    private PersonaDAO PersonaDAO;
+    private RegistroDAO RegistroDAO;
 
     @Override
     public void init() throws ServletException{
-        PersonaDAO = new personaDAO();
-        RegistroDAO = new registroDAO();
+        PersonaDAO = new PersonaDAO();
+        RegistroDAO = new RegistroDAO();
 
     }
     @Override
@@ -205,7 +205,7 @@ public class RegistroServlet extends HttpServlet {
 // Métodos auxiliares
 
     private List<RegistroPersona> obtenerTodosLosRegistros() {
-        registroDAO registroDAO = new registroDAO();
+        RegistroDAO registroDAO = new RegistroDAO();
         return registroDAO.obtenerRegistros();
     }
 

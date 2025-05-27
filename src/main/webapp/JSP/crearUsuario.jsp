@@ -15,7 +15,7 @@
 
 <div class="main-wrapper">
     <section class="content">
-        <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post">
+        <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
 
             <div class="mb-3">
