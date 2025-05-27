@@ -80,7 +80,7 @@ public class RegistroServlet extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null) {
-            response.sendRedirect("JSP/login2.jsp");
+            response.sendRedirect("JSP/login.jsp");
             return;
         }
         int idUsuario = usuario.getIdUsuario(); // <-- Aquí está el valor correcto
@@ -96,12 +96,12 @@ public class RegistroServlet extends HttpServlet {
                 // Validar alternancia global
                 if (ultimoTipo == null && !tipoRegistroPer.equals("INGRESO")) {
                     request.setAttribute("errorLogin", "El primer registro debe ser un INGRESO.");
-                    request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+                    request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
                     return;
                 }
                 if (ultimoTipo != null && ultimoTipo.equals(tipoRegistroPer)) {
                     request.setAttribute("errorLogin", "No puedes registrar dos '" + tipoRegistroPer + "' consecutivos. Debes alternar entre INGRESO y SALIDA.");
-                    request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+                    request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
                     return;
                 }
 
@@ -111,16 +111,16 @@ public class RegistroServlet extends HttpServlet {
                 tempRegistro.setTipoRegistro(tipoRegistroPer);
                 tempRegistro.setHora(horaPer);
                 RegistroDAO.registrar(tempRegistro);
-                response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
+                response.sendRedirect("JSP/registrar_entrada_salida.jsp");
             }else{
                 // El nombre que se captura no es el mismo que hay en la base de datos
                 request.setAttribute("errorLogin", "El nombre ingresado no coincide con el rut del Sistema");
-                request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+                request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
             }
         }else{
             if (!tipoRegistroPer.equals("INGRESO")) {
                 request.setAttribute("errorLogin", "El primer registro debe ser un INGRESO.");
-                request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+                request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
                 return;
             }
             Persona tempPersona = new Persona();
@@ -133,7 +133,7 @@ public class RegistroServlet extends HttpServlet {
             tempRegistro.setTipoRegistro(tipoRegistroPer);
             tempRegistro.setHora(horaPer);
             RegistroDAO.registrar(tempRegistro);
-            response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
+            response.sendRedirect("JSP/registrar_entrada_salida.jsp");
         }
     }**/
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -142,7 +142,7 @@ public class RegistroServlet extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null) {
-            response.sendRedirect("JSP/login2.jsp");
+            response.sendRedirect("JSP/login.jsp");
             return;
         }
         // 2. Obtener parámetros de la solicitud
@@ -197,7 +197,7 @@ public class RegistroServlet extends HttpServlet {
         // Registrar el movimiento
         Registro registro = crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
         RegistroDAO.registrar(registro);
-        response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
+        response.sendRedirect("JSP/registrar_entrada_salida.jsp");
     }
 
     private void procesarNuevoRegistro(HttpServletRequest request, HttpServletResponse response,
@@ -218,7 +218,7 @@ public class RegistroServlet extends HttpServlet {
         // Registrar el movimiento
         Registro registro = crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
         RegistroDAO.registrar(registro);
-        response.sendRedirect("JSP/resgistrar_entrada_salida.jsp");
+        response.sendRedirect("JSP/registrar_entrada_salida.jsp");
     }
 
     private Registro crearRegistro(String rut, int idUsuario, String fecha, String tipoRegistro, String hora) {
@@ -234,7 +234,7 @@ public class RegistroServlet extends HttpServlet {
     private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
             throws IOException, ServletException {
         request.setAttribute("errorLogin", mensaje);
-        request.getRequestDispatcher("JSP/resgistrar_entrada_salida.jsp").forward(request, response);
+        request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
     }
 
     /**private void listarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

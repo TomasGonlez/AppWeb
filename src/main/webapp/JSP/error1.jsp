@@ -13,7 +13,7 @@
 <body>
   <h2>❌ Ocurrió un error al registrar la persona en la base de datos.</h2>
   <p>Revisa los datos e intenta nuevamente.</p>
-  <p><a href="<%=request.getContextPath()%>/JSP/login2.jsp">Volver al login</a></p>
+  <p><a href="<%=request.getContextPath()%>/JSP/login.jsp">Volver al login</a></p>
 
 </body>
 </html>

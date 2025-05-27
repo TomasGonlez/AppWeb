@@ -13,7 +13,7 @@
 <body>
   <h2>❌ Ocurrió un error ya que no se enocntro la accion</h2>
   <p>Revisa los datos e intenta nuevamente.</p>
-  <p><a href="<%=request.getContextPath()%>/JSP/login2.jsp">Volver al login</a></p>
+  <p><a href="<%=request.getContextPath()%>/JSP/login.jsp">Volver al login</a></p>
 
 </body>
 </html>

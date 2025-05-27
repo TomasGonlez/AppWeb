@@ -81,7 +81,7 @@ public class UsuarioServlet extends HttpServlet {
                 } else {
                     // Caso 2: No hay sesión -> Redirige al login con mensaje de éxito
                     request.setAttribute("exitoRegistro", "Usuario registrado con éxito");
-                    request.getRequestDispatcher("JSP/login2.jsp").forward(request, response);
+                    request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
                 }
             } else {
                 response.sendRedirect("JSP/error.jsp");
@@ -106,9 +106,9 @@ public class UsuarioServlet extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/RegistroServlet?accion=listarRegistros");
             }else{
-                // SI FALLA EL LOGIN, redirige al login2.jsp PERO CON UN MENSAJE
+                // SI FALLA EL LOGIN, redirige al login.jsp PERO CON UN MENSAJE
                 request.setAttribute("errorLogin", "Credenciales incorrectas. Inténtalo nuevamente.");
-                request.getRequestDispatcher("JSP/login2.jsp").forward(request, response);
+                request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

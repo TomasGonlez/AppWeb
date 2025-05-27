@@ -28,7 +28,7 @@
       <!-- Menú de navegación -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/JSP/resgistrar_entrada_salida.jsp">Registrar</a>
+          <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_entrada_salida.jsp">Registrar</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">Crear Usuario</a>
