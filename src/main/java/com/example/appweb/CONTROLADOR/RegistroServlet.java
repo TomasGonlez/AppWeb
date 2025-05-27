@@ -7,6 +7,7 @@ import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
+import com.example.appweb.UTIL.ValidadorFechas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -149,6 +150,13 @@ public class RegistroServlet extends HttpServlet {
         String nombrePer = request.getParameter("nombrePersona");
         String tipoRegistroPer = request.getParameter("tipoRegistro");
         String fechaPer = request.getParameter("fechaPersona");
+
+        try {
+            ValidadorFechas.validarFechaNoFutura(fechaPer);
+        } catch (IllegalArgumentException e) {
+            enviarError(request, response, e.getMessage());
+            return;
+        }
         String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
         // 3. Validaciones iniciales
         boolean rutValido = PersonaDAO.buscarRut(rutPer);
