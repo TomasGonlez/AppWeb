@@ -17,7 +17,7 @@
     <section class="content">
         <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
-
+            <input type="hidden" name="origen" value="SESSION">
             <div class="mb-3">
                 <label for="nombreCompletoUser" class="form-label">Nombre Completo</label>
                 <input type="text" class="form-control" id="nombreCompletoUser" name="nombreCompletoUser"
@@ -54,9 +54,14 @@
 </div>
 
 <!-- Toast para error de nombre de usuario -->
-<% if (request.getAttribute("errorNombreUSER") != null) { %>
+<% if (request.getAttribute("errorRegistroUsuario") != null) { %>
 <div id="toastNombreUser" class="toast toast-error show">
-    <%= request.getAttribute("errorNombreUSER") %>
+    <%= request.getAttribute("errorRegistroUsuario") %>
+</div>
+<% } %>
+<% if (request.getAttribute("errorLogin") != null) { %>
+<div id="toastNombreUser" class="toast toast-error show">
+    <%= request.getAttribute("errorLogin") %>
 </div>
 <% } %>
 

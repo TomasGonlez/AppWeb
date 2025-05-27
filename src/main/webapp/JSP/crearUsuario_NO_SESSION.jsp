@@ -18,7 +18,7 @@
     <section class="content">
         <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
-
+            <input type="hidden" name="origen" value="NO_SESSION">
             <div class="mb-3">
                 <label for="nombreCompletoUser" class="form-label">Nombre Completo</label>
                 <input type="text" class="form-control" id="nombreCompletoUser" name="nombreCompletoUser" placeholder="Ingresar nombre completo" required>

@@ -137,8 +137,7 @@ public class UsuarioServlet extends HttpServlet {
             Usuario nuevoUsuario = usuarioService.construirUsuarioDesdeRequest(request);
 
             if (usuarioService.existeNombreUsuario(nuevoUsuario.getNombreUser())) {
-                request.setAttribute("errorNombreUSER", "El nombre de usuario ya existe.");
-                request.getRequestDispatcher("JSP/crearUsuario.jsp").forward(request, response);
+                enviarError(request, response, "El nombre de usuario ya existe.");
                 return;
             }
 
@@ -154,12 +153,12 @@ public class UsuarioServlet extends HttpServlet {
                     request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
                 }
             } else {
-                response.sendRedirect("JSP/error.jsp");
+                enviarError(request, response, "Error al registrar el usuario.");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("JSP/error.jsp");
+            enviarError(request, response, "Se produjo un error inesperado al registrar el usuario.");
         }
     }
 
@@ -175,13 +174,21 @@ public class UsuarioServlet extends HttpServlet {
                 session.setAttribute("usuarioLogueado", usuario);
                 response.sendRedirect(request.getContextPath() + "/RegistroServlet?accion=listarRegistros");
             } else {
-                request.setAttribute("errorLogin", "Credenciales incorrectas. Inténtalo nuevamente.");
-                request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
+                enviarErrorLogin(request, response, "Credenciales incorrectas. Inténtalo nuevamente.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("JSP/error.jsp");
+            enviarErrorLogin(request, response, "Error inesperado durante el login.");
         }
     }
-
+    private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
+            throws ServletException, IOException {
+        request.setAttribute("errorRegistroUsuario", mensaje);
+        request.getRequestDispatcher("/JSP/crearUsuario.jsp").forward(request, response);
+    }
+    private void enviarErrorLogin(HttpServletRequest request, HttpServletResponse response, String mensaje)
+            throws ServletException, IOException {
+        request.setAttribute("errorLogin", mensaje);
+        request.getRequestDispatcher("/JSP/login.jsp").forward(request, response);
+    }
 }
