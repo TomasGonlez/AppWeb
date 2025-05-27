@@ -190,7 +190,7 @@ public class RegistroServlet extends HttpServlet {
 
         if (ultimoTipo != null && ultimoTipo.equals(tipoRegistroPer)) {
             enviarError(request, response,
-                    "No puedes registrar dos '" + tipoRegistroPer + "' consecutivos. Debes alternar entre INGRESO y SALIDA.");
+                    "No puedes registrar dos " + tipoRegistroPer + " consecutivos. Debes alternar entre INGRESO y SALIDA.");
             return;
         }
 
