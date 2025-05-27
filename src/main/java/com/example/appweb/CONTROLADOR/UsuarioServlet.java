@@ -72,7 +72,17 @@ public class UsuarioServlet extends HttpServlet {
             boolean exito = usuarioDAO.guardar(nuevoUsuario);
 
             if (exito) {
-                response.sendRedirect("JSP/crearUsuario_NO_SESSION.jsp");
+                // Verificar si hay sesión activa
+                HttpSession session = request.getSession(false); // false = no crear nueva sesión
+
+                if (session != null && session.getAttribute("usuarioLogueado") != null) {
+                    // Caso 1: Hay sesión -> Redirige a crearUsuario.jsp
+                    response.sendRedirect("JSP/crearUsuario.jsp");
+                } else {
+                    // Caso 2: No hay sesión -> Redirige al login con mensaje de éxito
+                    request.setAttribute("exitoRegistro", "Usuario registrado con éxito");
+                    request.getRequestDispatcher("JSP/login2.jsp").forward(request, response);
+                }
             } else {
                 response.sendRedirect("JSP/error.jsp");
             }

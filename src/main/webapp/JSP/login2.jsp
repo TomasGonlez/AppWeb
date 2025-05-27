@@ -15,46 +15,62 @@
     <header class="header">
         <h2>Sistema Control de Acceso</h2>
     </header>
+
     <section class="content">
         <div class="logo-container">
             <div class="logo">Logo de la<br>Empresa</div>
         </div>
+
         <form class="login-form" action="<%= request.getContextPath() %>/UsuarioServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="login">
+
             <div class="mb-3">
                 <label for="nombreUsuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresar usuario" autocomplete="off" required>
+                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario"
+                       placeholder="Ingresar usuario" autocomplete="off" required>
             </div>
+
             <div class="mb-3">
                 <label for="contrasenaUsuario" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresar contraseña" autocomplete="off" required>
+                <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario"
+                       placeholder="Ingresar contraseña" autocomplete="off" required>
             </div>
+
             <button type="submit" class="login-button">Iniciar Sesion</button>
         </form>
-        <%
-            String errorLogin = (String) request.getAttribute("errorLogin");
-            if (errorLogin != null) {
-        %>
-        <!-- TOAST flotante -->
-        <div id="toast" class="toast show">
-            <%= errorLogin %>
-        </div>
-        <script>
-            // Hacer desaparecer el toast después de 3 segundos
-            setTimeout(function() {
-                var toast = document.getElementById('toast');
-                if (toast) {
-                    toast.classList.remove('show');
-                }
-            }, 3000);
-        </script>
-        <% } %>
+
         <div class="create-account">
-            <p> ¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario_NO_SESSION.jsp">aqui</a></p>
+            <p>¿No tienes cuenta? Crea una <a href="<%= request.getContextPath() %>/JSP/crearUsuario_NO_SESSION.jsp">aquí</a></p>
         </div>
     </section>
 </div>
-<!-- Bootstrap JS -->
+
+<!-- Toasts/Notificaciones -->
+<% if (request.getAttribute("exitoRegistro") != null) { %>
+<div id="toastExito" class="toast toast-success show">
+    <%= request.getAttribute("exitoRegistro") %>
+</div>
+<% } %>
+
+<% if (request.getAttribute("errorLogin") != null) { %>
+<div id="toastError" class="toast toast-error show">
+    <%= request.getAttribute("errorLogin") %>
+</div>
+<% } %>
+
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Control de Toasts
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.toast.show');
+
+        toasts.forEach(toast => {
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        });
+    });
+</script>
 </body>
 </html>
