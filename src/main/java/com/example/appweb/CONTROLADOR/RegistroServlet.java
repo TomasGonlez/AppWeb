@@ -144,14 +144,12 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/login2.jsp");
             return;
         }
-
         // 2. Obtener parámetros de la solicitud
         String rutPer = request.getParameter("rutPersona");
         String nombrePer = request.getParameter("nombrePersona");
         String tipoRegistroPer = request.getParameter("tipoRegistro");
         String fechaPer = request.getParameter("fechaPersona");
         String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
-
         // 3. Validaciones iniciales
         boolean rutValido = PersonaDAO.buscarRut(rutPer);
         boolean nombreVerificado = PersonaDAO.buscarNombre(nombrePer, rutPer);

@@ -33,7 +33,7 @@
             <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>
-                <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="Ingresar rut" required oninput="formatearRut(this)">
+                <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="Ingresar rut" required oninput="formatearRut(this)" maxlength="12">
             </div>
             <div class="mb-3">
                 <label for="nombrePersona" class="form-label">Ingresar Nombre:</label>
@@ -86,7 +86,13 @@
         }
     });
     function formatearRut(input) {
-        let valor = input.value.replace(/\D/g, ''); // Elimina todo lo que no sea dígito
+        // Elimnatodo lo que no sea digito o 'kK' para el digito verificador
+        let valor = input.value.replace(/[^0-9kK]/g, '');
+
+        // Limitar a 9 caracteres numéricos (8 para cuerpo, 1 para DV)
+        if (valor.length > 9) {
+            valor = valor.substring(0, 9);
+        }
 
         if (valor.length === 0) {
             input.value = '';
@@ -94,14 +100,13 @@
         }
 
         let cuerpo = valor.slice(0, -1);
-        let dv = valor.slice(-1);
+        let dv = valor.slice(-1).toUpperCase();
 
+        // Formatear con puntos cada 3 dígitos
         let cuerpoFormateado = '';
-        let contador = 0;
-        for (let i = cuerpo.length - 1; i >= 0; i--) {
+        for (let i = cuerpo.length - 1, j = 1; i >= 0; i--, j++) {
             cuerpoFormateado = cuerpo[i] + cuerpoFormateado;
-            contador++;
-            if (contador % 3 === 0 && i !== 0) {
+            if (j % 3 === 0 && i !== 0) {
                 cuerpoFormateado = '.' + cuerpoFormateado;
             }
         }
