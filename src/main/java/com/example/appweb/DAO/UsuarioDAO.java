@@ -76,6 +76,23 @@ public class UsuarioDAO {
         }
         return user;
     }
+    public boolean existeNombreUsuario(String nombreUsuario) {
+        boolean existe = false;
+        String sql = "SELECT COUNT(*) FROM USUARIO WHERE nombreUser = ?";
+        try (Connection con = ConexionDB.getInstance().getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, nombreUsuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                existe = rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return existe;
+    }
+
+
 
 }
 

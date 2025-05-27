@@ -48,5 +48,18 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<% if (request.getAttribute("errorNombreUSER") != null) { %>
+    <div id="toast" class="toast show">
+        <%= request.getAttribute("errorNombreUSER") %>
+    </div>
+<% } %>
+<script>
+    // Desaparece después de 3 segundos
+    setTimeout(() => {
+        const toast = document.getElementById("toast");
+        if (toast) toast.classList.remove("show");
+    }, 3000);
+</script>
 </body>
 </html>

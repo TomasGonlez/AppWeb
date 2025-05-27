@@ -5,7 +5,10 @@ import com.example.appweb.DAO.registroDAO;
 import com.example.appweb.DAO.reporteDAO;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,13 +40,24 @@ public class UsuarioServlet extends HttpServlet {
         } else {
             response.sendRedirect("JSP/error.jsp");
         }
+
     }
-    private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nombreCompleto = request.getParameter("nombreCompletoUser");
         String correo = request.getParameter("correoUser");
         int numero = Integer.parseInt(request.getParameter("numeroUser"));
         String nombre = request.getParameter("nombreUser");
         String contrasena = request.getParameter("contrasena");
+
+
+        String nombreUsuario = request.getParameter("nombreUser");
+        UsuarioDAO dao = new UsuarioDAO();
+        if (dao.existeNombreUsuario(nombreUsuario)) {
+            request.setAttribute("errorNombreUSER", "El nombre de usuario ya existe.");
+            RequestDispatcher rd = request.getRequestDispatcher("JSP/crearUsuario.jsp");
+            rd.forward(request,response);
+            return;
+        }
 
         try {
             LocalDate fecha = LocalDate.now();
