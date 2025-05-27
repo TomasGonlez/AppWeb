@@ -1,6 +1,5 @@
 package com.example.appweb.DAO;
 
-import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.UTIL.ConexionDB;
 
@@ -10,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class reporteDAO {
+public class ReporteDAO {
 
     public List<RegistroPersona> obtenerRegistrosPorFecha(String desde, String hasta) {
         List<RegistroPersona> lista = new ArrayList<>();
@@ -124,7 +123,7 @@ public class reporteDAO {
 
             if (rs.next()) {
                 totalDependencias = rs.getInt(1);
-                System.out.println("[DEBUG] Personas en dependencias (histórico): " + totalDependencias);
+                //System.out.println("[DEBUG] Personas en dependencias (histórico): " + totalDependencias);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,13 +152,13 @@ public class reporteDAO {
             // Leer el total de personas
             if (rsTotal.next()) {
                 total = rsTotal.getInt("total");
-                System.out.println("Total de personas registradas: " + total); // Sout aquí
+                //System.out.println("Total de personas registradas: " + total); // Sout aquí
             }
 
             // Leer los presentes hoy
             if (rsIngreso.next()) {
                 presentes = rsIngreso.getInt("presentes");
-                System.out.println("Personas que ingresaron hoy: " + presentes); // Sout aquí
+                //System.out.println("Personas que ingresaron hoy: " + presentes); // Sout aquí
             }
             //if (rsDependencias.next()) {
               //  presenteDependencias = rsDependencias.getInt("dependencia");
@@ -169,7 +168,7 @@ public class reporteDAO {
             // Calcular porcentaje
             if (total > 0) {
                 porcentaje = (presentes * 100.0) / total;
-                System.out.println("Porcentaje de asistencia hoy: " + porcentaje + "%"); // Sout del resultado
+                //System.out.println("Porcentaje de asistencia hoy: " + porcentaje + "%"); // Sout del resultado
             } else {
                 System.out.println("No hay personas registradas (total = 0)."); // Manejo de caso sin datos
             }

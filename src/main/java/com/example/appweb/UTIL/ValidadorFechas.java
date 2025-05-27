@@ -14,4 +14,15 @@ public class ValidadorFechas {
             throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD");
         }
     }
+    public static void validarRangoFechas(String desdeStr, String hastaStr) throws IllegalArgumentException {
+        try {
+            LocalDate desde = LocalDate.parse(desdeStr);
+            LocalDate hasta = LocalDate.parse(hastaStr);
+            if (desde.isAfter(hasta)) {
+                throw new IllegalArgumentException("La fecha 'desde' no puede ser mayor que la fecha 'hasta'");
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD");
+        }
+    }
 }

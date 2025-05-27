@@ -55,7 +55,6 @@
         </form>
     </section>
 </div>
-
 <!-- Toast de error -->
 <% if (request.getAttribute("errorLogin") != null) { %>
 <div id="toastError" class="toast toast-error show">

@@ -34,7 +34,7 @@
 
         <!-- Formulario optimizado para móviles -->
         <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
-            <input type="hidden" name="accion" value="listar">
+            <input type="hidden" name="accion" value="reporteFechas">
             <div class="col-12 col-sm-6 col-md-3">
                 <label for="desde" class="form-label">Desde:</label>
                 <input type="date" id="desde" name="desde" class="form-control form-control-sm" required>
@@ -90,7 +90,7 @@
 
         <!-- Formulario optimizado para móviles -->
         <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
-            <input type="hidden" name="accion" value="listarDependencias">
+            <input type="hidden" name="accion" value="reporteDependencias">
             <div class="col-12 col-md-2">
                 <button type="submit" class="btn btn-primary w-150 btn-sm">Generar Personas en las Dependencias</button>
             </div>
@@ -143,7 +143,12 @@
         %>
     </main>
 </div>
-
+<!-- Toast de error -->
+<% if (request.getAttribute("errorLogin") != null) { %>
+<div id="toastError" class="toast toast-error show">
+    <%= request.getAttribute("errorLogin") %>
+</div>
+<% } %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -156,6 +161,17 @@
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Traducción al español
             }
         });
+    });
+</script>
+<script>
+    // Control de Toast
+    document.addEventListener('DOMContentLoaded', function() {
+        const toast = document.getElementById('toastError');
+        if (toast) {
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
     });
 </script>
 </body>

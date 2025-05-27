@@ -1,14 +1,9 @@
 package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.UsuarioDAO;
-import com.example.appweb.DAO.registroDAO;
-import com.example.appweb.DAO.reporteDAO;
-import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,9 +11,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
 
 public class UsuarioServlet extends HttpServlet {
 
