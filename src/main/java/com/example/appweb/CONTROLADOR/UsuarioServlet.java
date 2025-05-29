@@ -133,32 +133,40 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String origenFormulario = request.getParameter("origen");
         try {
             Usuario nuevoUsuario = usuarioService.construirUsuarioDesdeRequest(request);
 
             if (usuarioService.existeNombreUsuario(nuevoUsuario.getNombreUser())) {
-                enviarError(request, response, "El nombre de usuario ya existe.");
+                enviarError(request, response, "El nombre de usuario ya existe.",origenFormulario);
                 return;
             }
-
             boolean exito = usuarioService.registrarUsuario(nuevoUsuario);
 
             if (exito) {
-                HttpSession session = request.getSession(false);
+                /**HttpSession session = request.getSession(false);
 
                 if (session != null && session.getAttribute("usuarioLogueado") != null) {
                     response.sendRedirect("JSP/crearUsuario.jsp");
                 } else {
                     request.setAttribute("exitoRegistro", "Usuario registrado con éxito");
                     request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
+                }**/
+                if("SESSION".equals(origenFormulario)) {
+                    response.sendRedirect("JSP/crearUsuario.jsp");
+                } else if ("NO_SESSION".equals(origenFormulario)) {
+                    request.setAttribute("exitoRegistro", "Usuario registrado con éxito");
+                    request.getRequestDispatcher("JSP/login.jsp").forward(request, response);
+                }else{
+                    enviarError(request, response, "Origen del formulario no reconocido.",origenFormulario);
+                    //System.out.println("Origen del formulario no reconocido");
                 }
             } else {
-                enviarError(request, response, "Error al registrar el usuario.");
+                enviarError(request, response, "Error al registrar el usuario.",origenFormulario);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            enviarError(request, response, "Se produjo un error inesperado al registrar el usuario.");
+            enviarError(request, response, "Se produjo un error inesperado al registrar el usuario.",origenFormulario);
         }
     }
 
@@ -181,10 +189,17 @@ public class UsuarioServlet extends HttpServlet {
             enviarErrorLogin(request, response, "Error inesperado durante el login.");
         }
     }
-    private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
+    private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje, String origenForm)
             throws ServletException, IOException {
+
         request.setAttribute("errorRegistroUsuario", mensaje);
-        request.getRequestDispatcher("/JSP/crearUsuario.jsp").forward(request, response);
+        if("SESSION".equals(origenForm)) {
+            request.getRequestDispatcher("/JSP/crearUsuario.jsp").forward(request, response);
+        }else if("NO_SESSION".equals(origenForm)) {
+            request.getRequestDispatcher("/JSP/crearUsuario_NO_SESSION.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("/JSP/login.jsp").forward(request, response);
+        }
     }
     private void enviarErrorLogin(HttpServletRequest request, HttpServletResponse response, String mensaje)
             throws ServletException, IOException {

@@ -25,6 +25,7 @@ public class UsuarioService {
         return usuarioDAO.loginUsuario(nombreUsuario, contrasena);
     }
 
+
     public Usuario construirUsuarioDesdeRequest(HttpServletRequest request) {
         Usuario usuario = new Usuario();
         usuario.setNombreCompletoUser(request.getParameter("nombreCompletoUser"));
