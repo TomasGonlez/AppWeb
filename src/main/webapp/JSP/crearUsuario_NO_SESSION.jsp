@@ -47,6 +47,12 @@
         </form>
     </section>
 </div>
+<!-- Toast para error de nombre de usuario -->
+<% if (request.getAttribute("errorRegistroUsuario") != null) { %>
+<div id="toastNombreUser" class="toast toast-error show">
+    <%= request.getAttribute("errorRegistroUsuario") %>
+</div>
+<% } %>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

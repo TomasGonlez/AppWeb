@@ -2,11 +2,12 @@ package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.PersonaDAO;
 import com.example.appweb.DAO.RegistroDAO;
-import com.example.appweb.DAO.ReporteDAO;
 import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
+import com.example.appweb.UTIL.RegistroUtils;
+import com.example.appweb.UTIL.RegistroUtils.*;
 import com.example.appweb.UTIL.ValidadorFechas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -16,11 +17,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class RegistroServlet extends HttpServlet {
@@ -55,7 +52,6 @@ public class RegistroServlet extends HttpServlet {
         }
     }
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        // 1. Validar sesión de usuario
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
@@ -63,7 +59,7 @@ public class RegistroServlet extends HttpServlet {
             response.sendRedirect("JSP/login.jsp");
             return;
         }
-        // 2. Obtener parámetros de la solicitud
+
         String rutPer = request.getParameter("rutPersona");
         String nombrePer = request.getParameter("nombrePersona");
         String tipoRegistroPer = request.getParameter("tipoRegistro");
@@ -72,15 +68,16 @@ public class RegistroServlet extends HttpServlet {
         try {
             ValidadorFechas.validarFechaNoFutura(fechaPer);
         } catch (IllegalArgumentException e) {
-            enviarError(request, response, e.getMessage());
+            RegistroUtils.enviarError(request, response, e.getMessage());
             return;
         }
+
         String horaPer = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
-        // 3. Validaciones iniciales
+
         boolean rutValido = PersonaDAO.buscarRut(rutPer);
         boolean nombreVerificado = PersonaDAO.buscarNombre(nombrePer, rutPer);
 
-        // 4. Lógica principal
+
         if (rutValido) {
             procesarRegistroExistente(request, response, usuario, rutPer, nombrePer, tipoRegistroPer,
                     fechaPer, horaPer, nombreVerificado);
@@ -95,7 +92,7 @@ public class RegistroServlet extends HttpServlet {
                                            boolean nombreVerificado) throws IOException, ServletException {
         // 1. Validar coincidencia de nombre y RUT
         if (!nombreVerificado) {
-            enviarError(request, response, "El nombre ingresado no coincide con el rut del Sistema");
+            RegistroUtils.enviarError(request, response, "El nombre ingresado no coincide con el rut del Sistema");
             return;
         }
 
@@ -103,13 +100,12 @@ public class RegistroServlet extends HttpServlet {
         String ultimoTipo = RegistroDAO.obtenerUltimoTipoRegistroGeneral(rutPer);
 
         if (ultimoTipo == null && !tipoRegistroPer.equals("INGRESO")) {
-            enviarError(request, response, "El primer registro debe ser un INGRESO.");
+            RegistroUtils.enviarError(request, response, "El primer registro debe ser un INGRESO.");
             return;
         }
 
         if (ultimoTipo != null && ultimoTipo.equals(tipoRegistroPer)) {
-            enviarError(request, response,
-                    "No puedes registrar dos " + tipoRegistroPer + " consecutivos. Debes alternar entre INGRESO y SALIDA.");
+            RegistroUtils.enviarError(request, response,"No puedes registrar dos " + tipoRegistroPer + " consecutivos. Debes alternar entre INGRESO y SALIDA.");
             return;
         }
 
@@ -124,29 +120,29 @@ public class RegistroServlet extends HttpServlet {
 
                 // Validar existencia de INGRESO previo
                 if (ultimoIngreso == null) {
-                    enviarError(request, response, "No hay un INGRESO registrado para este usuario.");
+                    RegistroUtils.enviarError(request, response, "No hay un INGRESO registrado para este usuario.");
                     return;
                 }
 
                 // Validar que SALIDA sea posterior al INGRESO
                 if (fechaSalida.before(ultimoIngreso)) {
-                    enviarError(request, response,
+                    RegistroUtils.enviarError(request, response,
                             "La SALIDA no puede ser antes del último INGRESO (" + ultimoIngreso + ")");
                     return;
                 }
             } catch (Exception e) {
-                enviarError(request, response, "Error al validar fechas: " + e.getMessage());
+                RegistroUtils.enviarError(request, response, "Error al validar fechas: " + e.getMessage());
                 return;
             }
         }
 
         // 4. Si pasa todas las validaciones, registrar en BD
         try {
-            Registro registro = crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
+            Registro registro = RegistroUtils.crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
             RegistroDAO.registrar(registro);
             response.sendRedirect("JSP/registrar_entrada_salida.jsp");
         } catch (Exception e) {
-            enviarError(request, response, "Error al guardar el registro: " + e.getMessage());
+            RegistroUtils.enviarError(request, response, "Error al guardar el registro: " + e.getMessage());
         }
     }
 
@@ -156,7 +152,7 @@ public class RegistroServlet extends HttpServlet {
                                        String tipoRegistroPer, String fechaPer, String horaPer)
             throws IOException, ServletException {
         if (!tipoRegistroPer.equals("INGRESO")) {
-            enviarError(request, response, "El primer registro debe ser un INGRESO.");
+            RegistroUtils.enviarError(request, response, "El primer registro debe ser un INGRESO.");
             return;
         }
 
@@ -167,9 +163,32 @@ public class RegistroServlet extends HttpServlet {
         PersonaDAO.registrar(persona);
 
         // Registrar el movimiento
-        Registro registro = crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
+        Registro registro = RegistroUtils.crearRegistro(rutPer, usuario.getIdUsuario(), fechaPer, tipoRegistroPer, horaPer);
         RegistroDAO.registrar(registro);
         response.sendRedirect("JSP/registrar_entrada_salida.jsp");
+    }
+
+
+    private void listarRegistros(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // 1. Obtener datos necesarios
+        List<RegistroPersona> registros = RegistroUtils.obtenerTodosLosRegistros();
+        Map<String, Object> metricas = RegistroUtils.obtenerMetricasDelSistema();
+        String fechaFormateada = RegistroUtils.obtenerFechaActualFormateada();
+
+        // 2. Configurar atributos para la vista
+        RegistroUtils.configurarAtributosVista(request, registros, metricas, fechaFormateada);
+
+        // 3. Redirigir a la vista JSP
+        RegistroUtils.redirigirAVista(request, response, "JSP/ver_registros.jsp");
+    }
+
+    // Métodos auxiliares
+    /*private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
+            throws IOException, ServletException {
+        request.setAttribute("errorLogin", mensaje);
+        request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
     }
 
     private Registro crearRegistro(String rut, int idUsuario, String fecha, String tipoRegistro, String hora) {
@@ -181,29 +200,6 @@ public class RegistroServlet extends HttpServlet {
         registro.setHora(hora);
         return registro;
     }
-
-    private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
-            throws IOException, ServletException {
-        request.setAttribute("errorLogin", mensaje);
-        request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
-    }
-    private void listarRegistros(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        // 1. Obtener datos necesarios
-        List<RegistroPersona> registros = obtenerTodosLosRegistros();
-        Map<String, Object> metricas = obtenerMetricasDelSistema();
-        String fechaFormateada = obtenerFechaActualFormateada();
-
-        // 2. Configurar atributos para la vista
-        configurarAtributosVista(request, registros, metricas, fechaFormateada);
-
-        // 3. Redirigir a la vista JSP
-        redirigirAVista(request, response, "JSP/ver_registros.jsp");
-    }
-
-// Métodos auxiliares
-
     private List<RegistroPersona> obtenerTodosLosRegistros() {
         RegistroDAO registroDAO = new RegistroDAO();
         return registroDAO.obtenerRegistros();
@@ -224,24 +220,6 @@ public class RegistroServlet extends HttpServlet {
     private String obtenerFechaActualFormateada() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", new Locale("es", "ES"));
         return LocalDate.now().format(formatter);
-    }
+    }*/
 
-    private void configurarAtributosVista(HttpServletRequest request,
-                                          List<RegistroPersona> registros,
-                                          Map<String, Object> metricas,
-                                          String fechaFormateada) {
-        request.setAttribute("listaRegistros", registros);
-        request.setAttribute("porcentajeAsistencia", metricas.get("porcentajeAsistencia"));
-        request.setAttribute("totalPersonas", metricas.get("totalPersonas"));
-        request.setAttribute("totalUsuarios", metricas.get("totalUsuarios"));
-        request.setAttribute("personaDependencias", metricas.get("personaDependencias"));
-        request.setAttribute("fechaActual", fechaFormateada);
-    }
-
-    private void redirigirAVista(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 String vista)
-            throws ServletException, IOException {
-        request.getRequestDispatcher(vista).forward(request, response);
-    }
 }
