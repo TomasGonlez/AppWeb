@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +65,33 @@ public class RegistroUtils {
                                  String vista)
             throws ServletException, IOException {
         request.getRequestDispatcher(vista).forward(request, response);
+    }
+    public static String obtenerHoraActual() {
+        return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+    }
+    public static boolean validarCoherenciaFechas(RegistroDAO dao, String rut, String fechaSalidaStr,
+                                                  HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        try {
+            Date fechaSalida = Date.valueOf(fechaSalidaStr);
+            Date fechaIngreso = dao.obtenerUltimaFechaIngreso(rut);
+
+            if (fechaIngreso == null) {
+                enviarError(request, response, "No hay un INGRESO registrado para este usuario.");
+                return false;
+            }
+
+            if (fechaSalida.before(fechaIngreso)) {
+                enviarError(request, response, "La SALIDA no puede ser antes del último INGRESO (" + fechaIngreso + ")");
+                return false;
+            }
+            return true;
+
+        } catch (Exception e) {
+            enviarError(request, response, "Error al validar fechas: " + e.getMessage());
+            return false;
+        }
     }
     public static void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
             throws IOException, ServletException {
