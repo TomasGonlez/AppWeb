@@ -183,43 +183,4 @@ public class RegistroServlet extends HttpServlet {
         // 3. Redirigir a la vista JSP
         RegistroUtils.redirigirAVista(request, response, "JSP/ver_registros.jsp");
     }
-
-    // Métodos auxiliares
-    /*private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje)
-            throws IOException, ServletException {
-        request.setAttribute("errorLogin", mensaje);
-        request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
-    }
-
-    private Registro crearRegistro(String rut, int idUsuario, String fecha, String tipoRegistro, String hora) {
-        Registro registro = new Registro();
-        registro.setRut(rut);
-        registro.setIdUsuario(idUsuario);
-        registro.setFecha(Date.valueOf(fecha));
-        registro.setTipoRegistro(tipoRegistro);
-        registro.setHora(hora);
-        return registro;
-    }
-    private List<RegistroPersona> obtenerTodosLosRegistros() {
-        RegistroDAO registroDAO = new RegistroDAO();
-        return registroDAO.obtenerRegistros();
-    }
-
-    private Map<String, Object> obtenerMetricasDelSistema() {
-        ReporteDAO reporteDAO = new ReporteDAO();
-        Map<String, Object> metricas = new HashMap<>();
-
-        metricas.put("porcentajeAsistencia", reporteDAO.obtenerPorcentajeAsistenciaHoy());
-        metricas.put("totalPersonas", reporteDAO.personasSistema());
-        metricas.put("totalUsuarios", reporteDAO.usuariosSistema());
-        metricas.put("personaDependencias", reporteDAO.dependenciasSistema());
-
-        return metricas;
-    }
-
-    private String obtenerFechaActualFormateada() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", new Locale("es", "ES"));
-        return LocalDate.now().format(formatter);
-    }*/
-
 }
