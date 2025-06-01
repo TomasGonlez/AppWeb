@@ -33,6 +33,7 @@ public class RegistroService {
 
         try {
             ValidadorFechas.validarFechaNoFutura(fecha);
+            ValidadorFechas.validarFechaPasada(fecha);
         } catch (IllegalArgumentException e) {
             RegistroUtils.enviarError(request, response, e.getMessage());
             return;
