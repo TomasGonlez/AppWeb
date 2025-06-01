@@ -92,4 +92,19 @@ public class RegistroDAO {
             return null;
         }
     }
+    public String obtenerUltimaHoraIngreso(String rut) {
+        String sql = "SELECT hora FROM REGISTRO WHERE rut = ? AND tipo_registro = 'INGRESO' ORDER BY id_Registro DESC FETCH FIRST 1 ROWS ONLY";
+        try (Connection conn = ConexionDB.getInstance().getConexion();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, rut);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("hora");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

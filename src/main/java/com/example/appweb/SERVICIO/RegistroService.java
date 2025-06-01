@@ -70,7 +70,7 @@ public class RegistroService {
         }
 
         if (tipo.equals("SALIDA")) {
-            if (!RegistroUtils.validarCoherenciaFechas(registroDAO, rut, fecha, request, response)) {
+            if (!RegistroUtils.validarCoherenciaFechas(registroDAO, rut, fecha,hora, request, response)) {
                 return;
             }
         }

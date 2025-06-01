@@ -69,7 +69,7 @@ public class RegistroUtils {
     public static String obtenerHoraActual() {
         return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
-    public static boolean validarCoherenciaFechas(RegistroDAO dao, String rut, String fechaSalidaStr,
+    public static boolean validarCoherenciaFechas(RegistroDAO dao, String rut, String fechaSalidaStr,String horaSalidaStr,
                                                   HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
@@ -86,8 +86,20 @@ public class RegistroUtils {
                 enviarError(request, response, "La SALIDA no puede ser antes del último INGRESO (" + fechaIngreso + ")");
                 return false;
             }
-            return true;
 
+            if (fechaSalida.equals(fechaIngreso)) {
+                String horaIngreso = dao.obtenerUltimaHoraIngreso(rut);
+                if (horaIngreso == null || horaSalidaStr == null) {
+                    enviarError(request, response, "No se pudo obtener la hora de ingreso o salida.");
+                    return false;
+                }
+                //Comparar las horas
+                if(horaSalidaStr.compareTo(horaIngreso) < 0) {
+                    enviarError(request,response,"La hora de SALIDA no puede ser anterior a la de INGRESO (" + horaIngreso + ")");
+                    return false;
+                }
+            }
+            return true;
         } catch (Exception e) {
             enviarError(request, response, "Error al validar fechas: " + e.getMessage());
             return false;
