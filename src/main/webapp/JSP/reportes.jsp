@@ -92,12 +92,12 @@
         <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
             <input type="hidden" name="accion" value="reporteDependencias">
             <div class="col-12 col-md-2">
-                <button type="submit" class="btn btn-primary w-150 btn-sm">Generar Personas en las Dependencias</button>
+                <button type="submit" class="btn btn-primary w-150 btn-sm">Generar Registros de Empleados en las Dependencias</button>
             </div>
         </form>
         <!-- Tabla responsive -->
-        <div class="table-responsive">
-            <table class="table">
+        <div class="table-responsive tabla-con-scroll">
+            <table class="table table-striped table-bordered table-data">
                 <thead>
                 <tr>
                     <th>Nombre</th>

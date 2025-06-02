@@ -46,9 +46,9 @@ public class ReporteDAO {
 
     public List<RegistroPersona> obtenerRegistrosDependencias() {
         List<RegistroPersona> listaDependencia = new ArrayList<>();
-        String SQL = "SELECT r1.rut,p.nombre, r1.fecha,r1.tipo_registro , r1.hora FROM REGISTRO r1 JOIN PERSONA p ON r1.rut = p.rut WHERE r1.tipo_registro = 'INGRESO' AND NOT EXISTS " +
-            "(SELECT 1 FROM REGISTRO r2 WHERE r2.rut = r1.rut AND r2.tipo_registro = 'SALIDA' AND r2.fecha = r1.fecha AND r2.hora > r1.hora)";
-
+        String SQL = "SELECT p.nombre, r.rut, r.fecha, r.tipo_registro, r.hora FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut INNER JOIN "+
+                "(SELECT rut, MAX(TO_CHAR(fecha, 'YYYY-MM-DD') || ' ' || hora) AS ultima_fecha_hora FROM REGISTRO GROUP BY rut) ult ON (TO_CHAR(r.fecha, 'YYYY-MM-DD') || ' ' || r.hora) = ult.ultima_fecha_hora "+
+                "AND r.rut = ult.rut WHERE r.tipo_registro = 'INGRESO'";
         try {
             Connection conn = ConexionDB.getInstance().getConexion();
             PreparedStatement stmt = conn.prepareStatement(SQL);

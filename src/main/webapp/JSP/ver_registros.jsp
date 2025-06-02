@@ -22,9 +22,30 @@
   <h5 class="mb-3">Registro de accesos recientes</h5>-->
 <div class="container-fluid flex-grow-1 p-0">
   <main class="container py-3">
-    <h2 class="text-center mb-4">Tabla Registros recientes</h2>
+    <!-- Estadísticas -->
+    <div class="estadisticas">
+      <div class="estadistica-container">
+        <div class="estadistica-label">Empleados registrados en el Gestor de Asistencia</div>
+        <div class="estadistica-value"><%=request.getAttribute("totalPersonas")%></div>
+      </div>
+
+      <div class="estadistica-container">
+        <div class="estadistica-label">Usuarios registrados en el Gestor de Asistencia</div>
+        <div class="estadistica-value"><%=request.getAttribute("totalUsuarios")%></div>
+      </div>
+
+      <div class="estadistica-container">
+        <div class="estadistica-label">Empleados que se encuentran en las dependencias</div>
+        <div class="estadistica-value"><%=request.getAttribute("personaDependencias")%></div>
+      </div>
+
+      <div class="estadistica-container">
+        <div class="estadistica-label">Porcentaje de asistencia del personal para hoy <%=request.getAttribute("fechaActual")%> es </div>
+        <div class="estadistica-value highlight"><%=request.getAttribute("porcentajeAsistencia")%></div>
+      </div>
 
     <!-- Tabla de registros -->
+    <h2 class="text-center mb-4">Tabla de Registros INGRESO/SALIDA recientes</h2>
     <div class="table-responsive tabla-con-scroll">
       <table class="table table-striped table-bordered tabla-data">
         <thead>
@@ -58,27 +79,6 @@
       </table>
     </div>
 
-    <!-- Estadísticas -->
-    <div class="estadisticas">
-      <div class="estadistica-container">
-        <div class="estadistica-label">Empleados registrados en el Gestor de Asistencia</div>
-        <div class="estadistica-value"><%=request.getAttribute("totalPersonas")%></div>
-      </div>
-
-      <div class="estadistica-container">
-        <div class="estadistica-label">Usuarios registrados en el Gestor de Asistencia</div>
-        <div class="estadistica-value"><%=request.getAttribute("totalUsuarios")%></div>
-      </div>
-
-      <div class="estadistica-container">
-        <div class="estadistica-label">Empleados que se encuentran en las dependencias</div>
-        <div class="estadistica-value"><%=request.getAttribute("personaDependencias")%></div>
-      </div>
-
-      <div class="estadistica-container">
-        <div class="estadistica-label">Porcentaje de asistencia del personal para hoy <%=request.getAttribute("fechaActual")%> es </div>
-        <div class="estadistica-value highlight"><%=request.getAttribute("porcentajeAsistencia")%></div>
-      </div>
 
 
     </div>
