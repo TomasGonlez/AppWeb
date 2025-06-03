@@ -23,20 +23,26 @@
 
 <div class="main-wrapper">
     <section class="content">
-        <h1><%=usuario.getIdUsuario()%></h1>
-
         <div class="toggle-container">
             <button id="toggleButton" class="toggle-button">INGRESO</button>
         </div>
 
-        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post" autocomplete="off">
+        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post" autocomplete="off" id="registroForm">
             <input type="hidden" name="accion" value="registrar">
             <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
 
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>
                 <input type="text" class="form-control" id="rutPersona" name="rutPersona"
-                       placeholder="Ingresar rut" required oninput="formatearRut(this)" maxlength="12">
+                       placeholder="Ej: 12.345.678-9" required
+                       oninput="formatearYValidarRut(this)"
+                       maxlength="12"
+                       minlength="11"
+                       pattern="^[0-9]{1,2}\.?[0-9]{3}\.?[0-9]{3}-[0-9kK]$"
+                       title="El RUT debe tener formato 12.345.678-9 (mínimo 11 caracteres)">
+                <div class="invalid-feedback" id="rutFeedback">
+                    El RUT debe tener al menos 11 caracteres con formato (ej: 12.345.678-9)
+                </div>
             </div>
 
             <div class="mb-3">
@@ -49,7 +55,6 @@
                 <label for="fechaPersona" class="form-label">Ingresar Fecha:</label>
                 <input type="date" class="form-control" id="fechaPersona" name="fechaPersona" required>
             </div>
-
             <button type="submit" class="register-button">Registrar</button>
             <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="INGRESO">
         </form>
@@ -83,8 +88,9 @@
         });
     }
 
-    // Formateador de RUT
-    function formatearRut(input) {
+    // Función mejorada para formatear y validar RUT
+    function formatearYValidarRut(input) {
+        // Formatear el RUT
         let valor = input.value.replace(/[^0-9kK]/g, '');
 
         if (valor.length > 9) {
@@ -108,9 +114,49 @@
         }
 
         input.value = cuerpoFormateado + '-' + dv;
+
+        // Validar longitud
+        if (input.value.length < 11) {
+            input.classList.add('is-invalid');
+        } else {
+            input.classList.remove('is-invalid');
+        }
     }
 
-    // Control de Toast
+    // Validación del formulario antes de enviar
+    document.getElementById('registroForm').addEventListener('submit', function(event) {
+        const rutInput = document.getElementById('rutPersona');
+
+        // Validar longitud mínima del RUT
+        if (rutInput.value.length < 11) {
+            event.preventDefault();
+            rutInput.classList.add('is-invalid');
+
+            // Mostrar toast de error si es necesario
+            mostrarError('El RUT debe tener al menos 11 caracteres (ej: 12.345.678-9)');
+        }
+    });
+
+    // Función para mostrar errores
+    function mostrarError(mensaje) {
+        let toastContainer = document.getElementById('toastError');
+
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toastError';
+            toastContainer.className = 'toast toast-error show';
+            document.body.appendChild(toastContainer);
+        }
+
+        toastContainer.textContent = mensaje;
+        toastContainer.classList.add('show');
+
+        setTimeout(() => {
+            toastContainer.classList.remove('show');
+        }, 3000);
+    }
+
+    // Control de Toast existente
     document.addEventListener('DOMContentLoaded', function() {
         const toast = document.getElementById('toastError');
         if (toast) {

@@ -10,21 +10,21 @@ public class ValidadorFechas {
             LocalDate fechaIngresada = LocalDate.parse(fechaStr);
             //System.out.println("Fecha "+fechaIngresada);
             if (fechaIngresada.isAfter(LocalDate.now())) {
-                throw new IllegalArgumentException("La fecha no puede ser futura");
+                throw new IllegalArgumentException("La fecha a ingresar no puede ser futura.");
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD");
+            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD.");
         }
     }
     public static void validarFechaPasada(String fechaStr) throws IllegalArgumentException {
         try {
             LocalDate fechaIngresada = LocalDate.parse(fechaStr);
-            System.out.println("Fecha "+fechaIngresada);
+            //System.out.println("Fecha "+fechaIngresada);
             if (fechaIngresada.isBefore(LocalDate.now())) {
-                throw new IllegalArgumentException("La fecha no puede ser Pasada");
+                throw new IllegalArgumentException("La fecha a ingresar no puede ser pasada.");
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD");
+            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD.");
         }
     }
     public static void validarRangoFechas(String desdeStr, String hastaStr) throws IllegalArgumentException {
@@ -32,10 +32,10 @@ public class ValidadorFechas {
             LocalDate desde = LocalDate.parse(desdeStr);
             LocalDate hasta = LocalDate.parse(hastaStr);
             if (desde.isAfter(hasta)) {
-                throw new IllegalArgumentException("La fecha 'desde' no puede ser mayor que la fecha 'hasta'");
+                throw new IllegalArgumentException("La fecha DESDE no puede ser mayor que la fecha HASTA.");
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD");
+            throw new IllegalArgumentException("Formato de fecha inválido. Use YYYY-MM-DD.");
         }
     }
 }
