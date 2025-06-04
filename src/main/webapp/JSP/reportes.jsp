@@ -84,7 +84,7 @@
                 <%}
                 }else {
                 %>
-                <tr><td colspan="5" class="text-center">No se encontraron registros</td></tr>
+                <tr><td colspan="5" class="text-center">No hay datos para las fechas seleccionadas</td></tr>
                 <%}%>
                 </tbody>
             </table>
@@ -101,7 +101,7 @@
         <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
             <input type="hidden" name="accion" value="reporteDependencias">
             <div class="col-12 col-md-2">
-                <button type="submit" class="btn btn-primary w-150 btn-sm">Generar Registros de Empleados en las Dependencias</button>
+                <button type="submit" class="btn btn-primary w-150 btn-sm">GENERAR</button>
             </div>
         </form>
         <!-- Tabla responsive -->
@@ -132,7 +132,7 @@
                 <%}
                 }else {
                 %>
-                <tr><td colspan="5" class="text-center">No se encontraron registros</td></tr>
+                <tr><td colspan="5" class="text-center">No hay personas en las dependencias</td></tr>
                 <%}%>
                 </tbody>
             </table>
