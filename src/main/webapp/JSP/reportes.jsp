@@ -29,7 +29,16 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <strong>Por rango de fechas</strong>
-            <span class="text-muted"><%= new java.util.Date().toString() %></span>
+            <%@ page import="java.text.SimpleDateFormat" %>
+            <%
+                // Formateador con locale español (todo en minúsculas)
+                SimpleDateFormat sdf = new SimpleDateFormat("EEEE d 'de' MMMM 'del' yyyy", new java.util.Locale("es", "ES"));
+                String fechaCompleta = sdf.format(new java.util.Date());
+
+                // Capitalizar solo la primera letra del string completo
+                fechaCompleta = fechaCompleta.substring(0, 1).toUpperCase() + fechaCompleta.substring(1);
+            %>
+            <span class="text-muted"><%= fechaCompleta %></span>
         </div>
 
         <!-- Formulario optimizado para móviles -->
@@ -85,7 +94,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <strong>Personas en las dependencias</strong>
-            <span class="text-muted"><%= new java.util.Date().toString() %></span>
+            <span class="text-muted"><%= fechaCompleta %></span>
         </div>
 
         <!-- Formulario optimizado para móviles -->
