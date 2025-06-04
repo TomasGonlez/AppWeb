@@ -17,6 +17,7 @@ function initUsuarioForm() {
     // Inicializar toast de errores
     initToast();
 
+    // Configurar el toggle de contraseña
     setupPasswordToggle();
 }
 
@@ -64,6 +65,25 @@ function validateCompleteForm(form) {
     return isValid;
 }
 
+// Función para mostrar/ocultar contraseña
+function setupPasswordToggle() {
+    const toggleButton = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('contrasena');
+
+    if (!toggleButton || !passwordInput) return;
+
+    toggleButton.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // Cambiar ícono
+        const icon = this.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        }
+    });
+}
 // Manejo del toast de errores
 function initToast() {
     const toast = document.getElementById('toastNombreUser');
@@ -84,28 +104,6 @@ function showErrorToast(mensaje) {
 
     toastContainer.textContent = mensaje;
     setTimeout(() => toastContainer.classList.remove('show'), 3000);
-}
-// Función para mostrar/ocultar contraseña
-function setupPasswordToggle() {
-    const toggleButton = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('contrasena');
-
-    if (!toggleButton || !passwordInput) return;
-
-    toggleButton.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-
-        // Cambiar ícono (opcional)
-        const icon = this.querySelector('i');
-        if (icon) {
-            icon.classList.toggle('bi-eye');
-            icon.classList.toggle('bi-eye-slash');
-        }
-
-        // Cambiar texto del botón si no usas íconos
-        this.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
-    });
 }
 // Inicializar el formulario cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initUsuarioForm);

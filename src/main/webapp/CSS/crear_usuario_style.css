@@ -167,3 +167,39 @@ main.container {
     opacity:20;
     transform: translateY(0);
 }
+/* Estilos para el grupo de contraseña unificado */
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group #contrasena {
+    border-radius: 10px;
+    padding-right: 40px; /* Espacio para el icono */
+    width: 100%;
+}
+
+.input-group #togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-70%);
+    background: none;
+    border: none;
+    padding: 0;
+    color: #3498db;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-group #togglePassword:hover {
+    color: #3498db;
+}
+
+.input-group #togglePassword i {
+    font-size: 1.2rem;
+}

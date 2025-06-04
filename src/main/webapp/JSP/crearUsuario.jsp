@@ -75,13 +75,18 @@
             <!-- Contraseña -->
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena"
-                       placeholder="Mínimo 8 caracteres" required
-                       minlength="8"
-                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                       title="Mínimo 8 caracteres, al menos una letra y un número y máximo 15 caracteres">
+                <div class="input-group">
+                    <input type="password" class="form-control" id="contrasena" name="contrasena"
+                           placeholder="Mínimo 8 caracteres" required
+                           minlength="8"
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                           title="Mínimo 8 caracteres, al menos una letra y un número">
+                    <button type="button" id="togglePassword" aria-label="Mostrar contraseña">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
                 <div class="invalid-feedback">
-                    La contraseña debe tener al menos 8 caracteres, incluyendo letras y números y un máximo de 15 caracteres
+                    La contraseña debe tener al menos 8 caracteres, incluyendo letras y números
                 </div>
                 <div class="form-text">
                     Mínimo 8 caracteres, al menos una letra y un número
