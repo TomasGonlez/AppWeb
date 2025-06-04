@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nuevo Usuario</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/crear_usuario_style.css">
+
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
@@ -78,6 +80,9 @@
                        minlength="8"
                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
                        title="Mínimo 8 caracteres, al menos una letra y un número y máximo 15 caracteres">
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="bi bi-eye"></i> <!-- Icono de ojo (opcional, requiere Bootstrap Icons) -->
+                </button>
                 <div class="invalid-feedback">
                     La contraseña debe tener al menos 8 caracteres, incluyendo letras y números y un máximo de 15 caracteres
                 </div>
