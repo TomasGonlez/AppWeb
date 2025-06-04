@@ -80,9 +80,6 @@
                        minlength="8"
                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
                        title="Mínimo 8 caracteres, al menos una letra y un número y máximo 15 caracteres">
-                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                    <i class="bi bi-eye"></i> <!-- Icono de ojo (opcional, requiere Bootstrap Icons) -->
-                </button>
                 <div class="invalid-feedback">
                     La contraseña debe tener al menos 8 caracteres, incluyendo letras y números y un máximo de 15 caracteres
                 </div>
@@ -111,16 +108,5 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/JS/validaciones/usuario_form.js" defer></script>
-<!--<script>
-    // Control de Toast
-    document.addEventListener('DOMContentLoaded', function() {
-        const toast = document.getElementById('toastNombreUser');
-        if (toast) {
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    });
-</script>-->
 </body>
 </html>
