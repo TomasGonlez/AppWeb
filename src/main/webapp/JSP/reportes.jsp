@@ -73,8 +73,9 @@
                 </thead>
                 <tbody>
                 <%
-                    if(registros != null){
-                        for (RegistroPersona r :  registros){
+                    if(registros != null) {
+                        if(!registros.isEmpty()) {
+                            for (RegistroPersona r : registros) {
                 %>
                 <tr>
                     <td data-label="RUT"><%=r.getRut()%></td>
@@ -83,13 +84,19 @@
                     <td data-label="FECHA"><%=r.getFecha()%></td>
                     <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
-                <%}
-                }else {
+                <%      }
+                } else {
                 %>
                 <tr>
                     <td colspan="5" class="text-center">No hay datos para las fechas seleccionadas</td>
                 </tr>
-                <%}%>
+                <%  }
+                } else {
+                %>
+                <tr>
+                    <td colspan="5" class="text-center">Genere un reporte por fechas para ver datos</td>
+                </tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
@@ -122,8 +129,9 @@
                 </thead>
                 <tbody>
                 <%
-                    if(regDependencia != null){
-                        for (RegistroPersona r :  regDependencia){
+                    if(regDependencia != null) {
+                        if(!regDependencia.isEmpty()) {
+                            for (RegistroPersona r : regDependencia) {
                 %>
                 <tr>
                     <td data-label="NOMBRE"><%=r.getNombre()%></td>
@@ -132,13 +140,19 @@
                     <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
                     <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
-                <%}
-                }else {
+                <%      }
+                } else {
                 %>
                 <tr>
                     <td colspan="5" class="text-center">No hay personas en las dependencias</td>
                 </tr>
-                <%}%>
+                <%  }
+                } else {
+                %>
+                <tr>
+                    <td colspan="5" class="text-center">Genere un reporte de dependencias para ver datos</td>
+                </tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
@@ -168,12 +182,13 @@
 <script>
     $(document).ready(function () {
         $('.tabla-data').DataTable({
-            ordering: false,
+            ordering: true, // Permitir ordenamiento
             searching: true,
-            pageLength: 5,
+            pageLength: 10, // Mostrar más registros por defecto
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Traducción al español
-            }
+            },
+            dom: '<"top"f>rt<"bottom"lip><"clear">' // Mejor disposición de controles
         });
     });
 </script>

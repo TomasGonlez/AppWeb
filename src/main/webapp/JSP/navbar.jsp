@@ -34,7 +34,7 @@
           <a class="nav-link" href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">Crear Usuario</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/JSP/reportes.jsp">Reportes</a>
+          <a class="nav-link" href="<%= request.getContextPath() %>/ReporteServlet">Reportes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<%= request.getContextPath() %>/RegistroServlet?accion=listarRegistros">Registros</a>

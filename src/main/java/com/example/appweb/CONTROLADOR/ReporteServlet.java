@@ -16,6 +16,15 @@ public class ReporteServlet extends HttpServlet {
     private final ReporteService service = new ReporteService();
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // LIMPIAR SIEMPRE LOS DATOS AL ENTRAR AL MÓDULO
+        request.getSession().removeAttribute("registros");
+        request.getSession().removeAttribute("registrosDependencia");
+        forward(request, response, "/JSP/reportes.jsp");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
@@ -55,20 +64,18 @@ public class ReporteServlet extends HttpServlet {
             // 1. Obtener nuevos datos para reporte por fechas
             List<RegistroPersona> registros = service.obtenerPorFechas(desde, hasta);
 
-            // 2. Obtener datos existentes de dependencias (si los hay)
-            List<RegistroPersona> registrosDependencia = (List<RegistroPersona>) request.getSession().getAttribute("registrosDependencia");
 
-            // 3. Guardar ambos conjuntos en la sesión
+            // 2. GUARDAR REPORTE SIN AFECTAR EL OTRO
             request.getSession().setAttribute("registros", registros);
             if (registrosDependencia != null) {
                 request.getSession().setAttribute("registrosDependencia", registrosDependencia);
             }
 
-            // 4. Guardar fechas en request para mostrar en la vista
+            // 3. Guardar fechas en request para mostrar en la vista
             request.setAttribute("desde", desde);
             request.setAttribute("hasta", hasta);
 
-            // 5. Redirigir
+            // 4. Redirigir
             forward(request, response, "/JSP/reportes.jsp");
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,16 +88,10 @@ public class ReporteServlet extends HttpServlet {
             // 1. Obtener nuevos datos para reporte por dependencias
             List<RegistroPersona> registros = service.obtenerPorDependencias();
 
-            // 2. Obtener datos existentes de fechas (si los hay)
-            List<RegistroPersona> registrosFechas = (List<RegistroPersona>) request.getSession().getAttribute("registros");
-
-            // 3. Guardar ambos conjuntos en la sesión
+            // 2. GUARDAR REPORTE SIN AFECTAR EL OTRO
             request.getSession().setAttribute("registrosDependencia", registros);
-            if (registrosFechas != null) {
-                request.getSession().setAttribute("registros", registrosFechas);
-            }
 
-            // 4. Redirigir
+            // 3. Redirigir
             forward(request, response, "/JSP/reportes.jsp");
         } catch (Exception e) {
             e.printStackTrace();
