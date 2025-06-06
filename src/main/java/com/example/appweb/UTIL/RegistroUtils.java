@@ -4,6 +4,7 @@ import com.example.appweb.DAO.RegistroDAO;
 import com.example.appweb.DAO.ReporteDAO;
 import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.RegistroPersona;
+import com.example.appweb.SERVICIO.ReporteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,14 +38,14 @@ public class RegistroUtils {
         RegistroDAO registroDAO = new RegistroDAO();
         return registroDAO.obtenerRegistros();
     }
-    public static Map<String, Object> obtenerMetricasDelSistema() {
-        ReporteDAO reporteDAO = new ReporteDAO();
+    public static Map<String, Object> obtenerMetricasDelSistema() throws Exception {
+        ReporteService servicio = new ReporteService();
         Map<String, Object> metricas = new HashMap<>();
 
-        metricas.put("porcentajeAsistencia", reporteDAO.obtenerPorcentajeAsistenciaHoy());
-        metricas.put("totalPersonas", reporteDAO.personasSistema());
-        metricas.put("totalUsuarios", reporteDAO.usuariosSistema());
-        metricas.put("personaDependencias", reporteDAO.dependenciasSistema());
+        metricas.put("porcentajeAsistencia", servicio.calcularPorcentajeAsistenciaHoy());
+        metricas.put("totalPersonas", servicio.contarPersonasSistema());
+        metricas.put("totalUsuarios", servicio.contarUsuariosSistema());
+        metricas.put("personaDependencias", servicio.contarDependenciasActivas());
 
         return metricas;
     }

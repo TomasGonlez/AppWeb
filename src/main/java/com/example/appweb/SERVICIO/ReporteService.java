@@ -11,11 +11,34 @@ public class ReporteService {
     public ReporteService() {
         this.dao = new ReporteDAO();
     }
+    // Obtiene lista de registros por fecha (simple delegación)
     public List<RegistroPersona> obtenerPorFechas(String desde, String hasta) throws Exception {
         return dao.obtenerRegistrosPorFecha(desde, hasta);
     }
 
+    // Obtiene lista de personas que aún están dentro
     public List<RegistroPersona> obtenerPorDependencias() throws Exception {
         return dao.obtenerRegistrosDependencias();
+    }
+
+    // Aplica lógica de negocio: calcula % de asistencia
+    public double calcularPorcentajeAsistenciaHoy() throws Exception {
+        int total = dao.contarTotalPersonas();
+        int presentes = dao.contarPresentesHoy();
+        if (total == 0) return 0.0;
+        return (presentes * 100.0) / total;
+    }
+
+    // Solo lectura directa (aún útil centralizar)
+    public int contarPersonasSistema() throws Exception {
+        return dao.contarTotalPersonas();
+    }
+
+    public int contarUsuariosSistema() throws Exception {
+        return dao.contarUsuariosSistema();
+    }
+
+    public int contarDependenciasActivas() throws Exception {
+        return dao.contarDependenciasActivas();
     }
 }
