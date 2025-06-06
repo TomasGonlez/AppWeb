@@ -52,11 +52,23 @@ public class ReporteServlet extends HttpServlet {
             return;
         }
         try {
+            // 1. Obtener nuevos datos para reporte por fechas
             List<RegistroPersona> registros = service.obtenerPorFechas(desde, hasta);
-            request.setAttribute("registros", registros);
+
+            // 2. Obtener datos existentes de dependencias (si los hay)
+            List<RegistroPersona> registrosDependencia = (List<RegistroPersona>) request.getSession().getAttribute("registrosDependencia");
+
+            // 3. Guardar ambos conjuntos en la sesión
+            request.getSession().setAttribute("registros", registros);
+            if (registrosDependencia != null) {
+                request.getSession().setAttribute("registrosDependencia", registrosDependencia);
+            }
+
+            // 4. Guardar fechas en request para mostrar en la vista
             request.setAttribute("desde", desde);
             request.setAttribute("hasta", hasta);
-            request.getSession().setAttribute("registros", registros);
+
+            // 5. Redirigir
             forward(request, response, "/JSP/reportes.jsp");
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +78,19 @@ public class ReporteServlet extends HttpServlet {
 
     private void procesarReporteDependencias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            // 1. Obtener nuevos datos para reporte por dependencias
             List<RegistroPersona> registros = service.obtenerPorDependencias();
-            request.setAttribute("registrosDependencia", registros);
+
+            // 2. Obtener datos existentes de fechas (si los hay)
+            List<RegistroPersona> registrosFechas = (List<RegistroPersona>) request.getSession().getAttribute("registros");
+
+            // 3. Guardar ambos conjuntos en la sesión
+            request.getSession().setAttribute("registrosDependencia", registros);
+            if (registrosFechas != null) {
+                request.getSession().setAttribute("registros", registrosFechas);
+            }
+
+            // 4. Redirigir
             forward(request, response, "/JSP/reportes.jsp");
         } catch (Exception e) {
             e.printStackTrace();
