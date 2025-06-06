@@ -10,6 +10,9 @@
         response.sendRedirect(request.getContextPath() + "/JSP/error1.jsp");
         return;
     }
+    // Obtener datos de AMBAS tablas de la sesión
+    List<RegistroPersona> registros = (List<RegistroPersona>) session.getAttribute("registros");
+    List<RegistroPersona> regDependencia = (List<RegistroPersona>) session.getAttribute("registrosDependencia");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -70,7 +73,6 @@
                 </thead>
                 <tbody>
                 <%
-                    List<RegistroPersona> registros = (List<RegistroPersona>) session.getAttribute("registros");
                     if(registros != null){
                         for (RegistroPersona r :  registros){
                 %>
@@ -84,7 +86,9 @@
                 <%}
                 }else {
                 %>
-                <tr><td colspan="5" class="text-center">No hay datos para las fechas seleccionadas</td></tr>
+                <tr>
+                    <td colspan="5" class="text-center">No hay datos para las fechas seleccionadas</td>
+                </tr>
                 <%}%>
                 </tbody>
             </table>
@@ -118,7 +122,6 @@
                 </thead>
                 <tbody>
                 <%
-                    List<RegistroPersona> regDependencia = (List<RegistroPersona>) session.getAttribute("registrosDependencia");
                     if(regDependencia != null){
                         for (RegistroPersona r :  regDependencia){
                 %>
@@ -132,7 +135,9 @@
                 <%}
                 }else {
                 %>
-                <tr><td colspan="5" class="text-center">No hay personas en las dependencias</td></tr>
+                <tr>
+                    <td colspan="5" class="text-center">No hay personas en las dependencias</td>
+                </tr>
                 <%}%>
                 </tbody>
             </table>
