@@ -67,9 +67,6 @@ public class ReporteServlet extends HttpServlet {
 
             // 2. GUARDAR REPORTE SIN AFECTAR EL OTRO
             request.getSession().setAttribute("registros", registros);
-            if (registrosDependencia != null) {
-                request.getSession().setAttribute("registrosDependencia", registrosDependencia);
-            }
 
             // 3. Guardar fechas en request para mostrar en la vista
             request.setAttribute("desde", desde);
