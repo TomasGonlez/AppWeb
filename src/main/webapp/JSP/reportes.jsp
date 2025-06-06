@@ -100,7 +100,18 @@
                 </tbody>
             </table>
         </div>
-
+        <!-- Botones de exportación -->
+        <%
+            // Botones de exportación solo si hay registros
+            if (registros != null && !registros.isEmpty()) {
+        %>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+            <a href="<%=request.getContextPath()%>/ExportarPDFServlet" class="btn btn-primary btn-sm me-md-2">Exportar PDF</a>
+            <a href="<%=request.getContextPath()%>/ExportarEXCELServlet" class="btn btn-primary btn-sm">Exportar EXCEL</a>
+        </div>
+        <%
+            }
+        %>
         <h2 class="text-center mb-4">Reporte de Personas</h2>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -157,18 +168,6 @@
             </table>
         </div>
 
-        <!-- Botones de exportación -->
-        <%
-            // Botones de exportación solo si hay registros
-            if (registros != null && !registros.isEmpty()) {
-        %>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
-            <a href="<%=request.getContextPath()%>/ExportarPDFServlet" class="btn btn-primary btn-sm me-md-2">Exportar PDF</a>
-            <a href="<%=request.getContextPath()%>/ExportarEXCELServlet" class="btn btn-primary btn-sm">Exportar EXCEL</a>
-        </div>
-        <%
-            }
-        %>
     </main>
 </div>
 <!-- Toast de error -->
