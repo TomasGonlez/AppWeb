@@ -31,7 +31,7 @@
             <strong>Por rango de fechas</strong>
             <%@ page import="java.text.SimpleDateFormat" %>
             <%
-                // Formateador con locale español (todo en minúsculas)
+                // Formateador con locale español
                 SimpleDateFormat sdf = new SimpleDateFormat("EEEE d 'de' MMMM 'del' yyyy", new java.util.Locale("es", "ES"));
                 String fechaCompleta = sdf.format(new java.util.Date());
 
