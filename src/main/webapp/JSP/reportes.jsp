@@ -70,7 +70,7 @@
                 </thead>
                 <tbody>
                 <%
-                    List<RegistroPersona> registros = (List<RegistroPersona>) request.getAttribute("registros");
+                    List<RegistroPersona> registros = (List<RegistroPersona>) session.getAttribute("registros");
                     if(registros != null){
                         for (RegistroPersona r :  registros){
                 %>
@@ -118,7 +118,7 @@
                 </thead>
                 <tbody>
                 <%
-                    List<RegistroPersona> regDependencia = (List<RegistroPersona>) request.getAttribute("registrosDependencia");
+                    List<RegistroPersona> regDependencia = (List<RegistroPersona>) session.getAttribute("registrosDependencia");
                     if(regDependencia != null){
                         for (RegistroPersona r :  regDependencia){
                 %>
