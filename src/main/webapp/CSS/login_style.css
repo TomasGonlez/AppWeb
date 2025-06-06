@@ -186,7 +186,7 @@ main.container {
     position: absolute;
     right: 10px;
     top: 50%;
-    transform: translateY(-70%);
+    transform: translateY(-15%);
     background: none;
     border: none;
     padding: 0;
@@ -200,7 +200,7 @@ main.container {
 }
 
 .input-group #togglePassword:hover {
-    color: #2980b9;
+    color: #3498db;
 }
 
 .input-group #togglePassword i {
