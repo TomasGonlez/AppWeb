@@ -35,11 +35,10 @@
                 <label for="contrasenaUsuario" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario"
                        placeholder="Ingresar contraseña" autocomplete="off" required>
-                <button type="button" id="togglePassword" tabindex="-1">
-                    <i class="bi bi-eye-fill" id="toggleIcon"></i>
+                <button type="button" id="togglePassword">
+                    <i class="bi bi-eye"></i>
                 </button>
             </div>
-
             <button type="submit" class="login-button">Iniciar Sesion</button>
         </form>
 

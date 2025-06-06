@@ -46,13 +46,17 @@ public class RegistroServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if ("listarRegistros".equals(accion)) {
-            listarRegistros(request, response);
+            try {
+                listarRegistros(request, response);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         } else {
             response.sendRedirect("JSP/error.jsp");
         }
     }
     private void listarRegistros(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws Exception {
 
         List<RegistroPersona> registros = RegistroUtils.obtenerTodosLosRegistros();
         Map<String, Object> metricas = RegistroUtils.obtenerMetricasDelSistema();

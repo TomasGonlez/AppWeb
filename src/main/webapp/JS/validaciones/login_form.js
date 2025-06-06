@@ -1,7 +1,7 @@
 // Función principal de inicialización
 function initLoginForm() {
     initFormSubmitHandler();
-    initTogglePasswordHandler();
+    setupPasswordToggle();
     initToastAutoHide();
 }
 
@@ -20,23 +20,23 @@ function initFormSubmitHandler() {
         }
     });
 }
-
 // Controla el botón para mostrar/ocultar la contraseña
-function initTogglePasswordHandler() {
+function setupPasswordToggle() {
     const toggleButton = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('contrasenaUsuario');
-    const toggleIcon = document.getElementById('toggleIcon');
 
-    if (!toggleButton || !passwordInput || !toggleIcon) return;
+    if (!toggleButton || !passwordInput) return;
 
-    toggleButton.addEventListener('click', function () {
-        const isHidden = passwordInput.type === 'password';
+    toggleButton.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
 
-        passwordInput.type = isHidden ? 'text' : 'password';
-
-        // Cambia el ícono dinámicamente
-        toggleIcon.classList.remove('bi-eye-fill', 'bi-eye-slash-fill');
-        toggleIcon.classList.add(isHidden ? 'bi-eye-slash-fill' : 'bi-eye-fill');
+        // Cambiar ícono
+        const icon = this.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        }
     });
 }
 
