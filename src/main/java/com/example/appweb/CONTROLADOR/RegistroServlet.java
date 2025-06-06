@@ -63,7 +63,6 @@ public class RegistroServlet extends HttpServlet {
         String fechaFormateada = RegistroUtils.obtenerFechaActualFormateada();
 
         RegistroUtils.configurarAtributosVista(request, registros, metricas, fechaFormateada);
-
         RegistroUtils.redirigirAVista(request, response, "JSP/ver_registros.jsp");
     }
 }

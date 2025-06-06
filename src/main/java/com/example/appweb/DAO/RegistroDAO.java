@@ -13,11 +13,11 @@ import java.util.List;
 
 public class RegistroDAO {
     public boolean registrar(Registro registro) {
-
         try {
             // Validación solo para SALIDAS
             if ("SALIDA".equals(registro.getTipoRegistro())) {
                 java.sql.Date ultimoIngreso = obtenerUltimaFechaIngreso(registro.getRut());
+                String ultimaHora = obtenerUltimaHoraIngreso(registro.getRut());
 
                 if (ultimoIngreso == null) {
                     throw new IllegalArgumentException("No hay un INGRESO registrado para este RUT.");
@@ -25,6 +25,11 @@ public class RegistroDAO {
 
                 if (registro.getFecha().before(ultimoIngreso)) {
                     throw new IllegalArgumentException("La SALIDA no puede ser antes del último INGRESO (" + ultimoIngreso + ")");
+                }
+                if (registro.getFecha().equals(ultimoIngreso)) {
+                    if (registro.getHora().compareTo(ultimaHora) <= 0) {
+                        throw new IllegalArgumentException("La SALIDA debe ser posterior al último INGRESO en la misma fecha.");
+                    }
                 }
             }
 

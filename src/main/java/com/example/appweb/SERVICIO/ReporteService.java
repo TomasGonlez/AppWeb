@@ -26,7 +26,8 @@ public class ReporteService {
         int total = dao.contarTotalPersonas();
         int presentes = dao.contarPresentesHoy();
         if (total == 0) return 0.0;
-        return (presentes * 100.0) / total;
+        double porcentaje = (presentes * 100.0) / total;
+        return Math.round(porcentaje*100.0)/100.0;
     }
 
     // Solo lectura directa (aún útil centralizar)
