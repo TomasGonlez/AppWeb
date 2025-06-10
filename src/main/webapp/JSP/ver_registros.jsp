@@ -63,7 +63,7 @@
           if(registros != null){
             for (RegistroPersona r :  registros){
         %>
-        <tr>
+        <tr class="<%= r.getTipoRegistro().equals("SALIDA") ? "registro-salida" : "registro-ingreso" %>">
           <td data-label="RUT"><%=r.getRut()%></td>
           <td data-label="NOMBRE"><%=r.getNombre()%></td>
           <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
