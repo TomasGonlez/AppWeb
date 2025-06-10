@@ -52,8 +52,14 @@
             </div>
 
             <div class="mb-3">
-                <label for="fechaPersona" class="form-label">Ingresar Fecha:</label>
-                <input type="date" class="form-control" id="fechaPersona" name="fechaPersona" required>
+                <label for="fechaPersona" class="form-label"> Ingresar Fecha:</label>
+                <input
+                        type="date"
+                        class="form-control modern-date"
+                        id="fechaPersona"
+                        name="fechaPersona"
+                        required
+                >
             </div>
             <button type="submit" class="register-button">Registrar</button>
             <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="INGRESO">
