@@ -435,3 +435,359 @@ body::before {
         background: rgba(51, 65, 85, 0.95);
     }
 }
+/* ========================================
+   CSS ADICIONAL PARA VER_REGISTROS.JSP
+   Añadir al final de login_styles.css
+   ======================================== */
+
+/* Navbar moderna */
+.navbar {
+    background: rgba(37, 99, 235, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+    transform: translateY(-1px);
+}
+
+/* Container principal */
+.main-container {
+    min-height: 100vh;
+    background: var(--background-gradient);
+    padding: 2rem 0;
+}
+
+/* Estadísticas modernas */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.estadistica-container {
+    background: var(--card-background);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.estadistica-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.estadistica-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.estadistica-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.estadistica-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.estadistica-value.highlight {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 3rem;
+}
+
+/* Título de tabla moderno */
+.tabla-titulo {
+    text-align: center;
+    margin: 3rem 0 2rem 0;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    position: relative;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.tabla-titulo::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+/* Contenedor de tabla moderno */
+.tabla-container {
+    background: var(--card-background);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+    margin: 0 1rem;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Estilos de tabla modernos */
+.tabla-data {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: transparent;
+    margin: 0;
+}
+
+.tabla-data thead th {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: center;
+    border: none;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.tabla-data thead th:first-child {
+    border-top-left-radius: var(--border-radius);
+}
+
+.tabla-data thead th:last-child {
+    border-top-right-radius: var(--border-radius);
+}
+
+.tabla-data tbody tr {
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.tabla-data tbody tr:hover {
+    background: rgba(37, 99, 235, 0.1);
+    transform: scale(1.01);
+}
+
+.tabla-data tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+    text-align: center;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.tabla-data tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-data tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--border-radius);
+}
+
+.tabla-data tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--border-radius);
+}
+
+/* Indicadores de tipo de registro */
+.registro-ingreso {
+    border-left: 4px solid var(--success-color) !important;
+}
+
+.registro-salida {
+    border-left: 4px solid var(--error-color) !important;
+}
+
+.registro-ingreso td:nth-child(3) {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.registro-salida td:nth-child(3) {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
+/* DataTables personalización */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+    border: 2px solid rgba(37, 99, 235, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.dataTables_wrapper .dataTables_length select:focus,
+.dataTables_wrapper .dataTables_filter input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background: var(--card-background);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    color: var(--primary-color) !important;
+    border-radius: 8px;
+    margin: 0 2px;
+    transition: var(--transition);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .estadisticas {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .estadistica-container {
+        padding: 1.5rem;
+    }
+
+    .estadistica-value {
+        font-size: 2rem;
+    }
+
+    .estadistica-value.highlight {
+        font-size: 2.5rem;
+    }
+
+    .tabla-titulo {
+        font-size: 1.5rem;
+        margin: 2rem 0 1.5rem 0;
+    }
+
+    .tabla-container {
+        margin: 0 0.5rem;
+        padding: 1rem;
+    }
+
+    .tabla-data thead th,
+    .tabla-data tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    /* Tabla responsive con cards en móvil */
+    @media (max-width: 576px) {
+        .tabla-data thead {
+            display: none;
+        }
+
+        .tabla-data tbody tr {
+            display: block;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tabla-data tbody td {
+            display: block;
+            text-align: left;
+            border: none;
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 40%;
+        }
+
+        .tabla-data tbody td:before {
+            content: attr(data-label) ": ";
+            position: absolute;
+            left: 0;
+            width: 35%;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+    }
+}
+
+/* Animaciones de carga escalonadas */
+.estadistica-container:nth-child(1) { animation-delay: 0.1s; }
+.estadistica-container:nth-child(2) { animation-delay: 0.2s; }
+.estadistica-container:nth-child(3) { animation-delay: 0.3s; }
+.estadistica-container:nth-child(4) { animation-delay: 0.4s; }
+
+/* Modo oscuro para los nuevos elementos */
+@media (prefers-color-scheme: dark) {
+    .navbar {
+        background: rgba(30, 58, 138, 0.95) !important;
+    }
+
+    .tabla-data tbody tr {
+        background: rgba(51, 65, 85, 0.5);
+    }
+
+    .tabla-data tbody tr:hover {
+        background: rgba(37, 99, 235, 0.2);
+    }
+
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+        background: rgba(51, 65, 85, 0.8);
+        color: var(--text-primary);
+        border-color: rgba(37, 99, 235, 0.3);
+    }
+}
