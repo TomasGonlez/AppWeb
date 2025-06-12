@@ -609,7 +609,7 @@ body::before {
     border-bottom: 1px solid rgba(37, 99, 235, 0.1);
     text-align: center;
     font-weight: 400;
-    color: var(--text-primary);
+    /*color: var(--text-primary);*/
 }
 
 .tabla-data tbody tr:last-child td {
@@ -791,3 +791,426 @@ body::before {
         border-color: rgba(37, 99, 235, 0.3);
     }
 }
+/* ========================================
+   CSS ADICIONAL PARA REGISTRAR_ENTRADA_SALIDA.JSP
+   Añadir al final de login_styles.css
+   ======================================== */
+
+/* Toggle Button Moderno */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.toggle-button {
+    background: linear-gradient(135deg, var(--success-color), #047857);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    min-width: 140px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.toggle-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.toggle-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(5, 150, 105, 0.3);
+}
+
+.toggle-button:hover::before {
+    left: 100%;
+}
+
+.toggle-button.salida {
+    background: linear-gradient(135deg, var(--error-color), #b91c1c);
+}
+
+.toggle-button.salida:hover {
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+}
+
+.toggle-button:active {
+    transform: translateY(0);
+}
+
+/* Formulario de registro modernizado */
+.register-form {
+    width: 100%;
+    max-width: 480px;
+    background: var(--card-background);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+    margin: 0 auto;
+}
+
+/* Etiquetas del formulario */
+.register-form .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    display: block;
+}
+
+/* Campos de entrada mejorados */
+.register-form .form-control {
+    border: 2px solid rgba(37, 99, 235, 0.1);
+    border-radius: var(--border-radius);
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.9);
+    transition: var(--transition);
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.register-form .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+.register-form .form-control::placeholder {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Campo de fecha moderno */
+.register-form .modern-date {
+    position: relative;
+    cursor: pointer;
+}
+
+.register-form .modern-date::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+}
+
+/* Botón de registro mejorado */
+.register-button {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.register-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.register-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
+}
+
+.register-button:hover::before {
+    left: 100%;
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+/* Validación mejorada */
+.register-form .form-control.is-invalid {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    animation: shake 0.5s ease-in-out;
+}
+
+.register-form .form-control.is-valid {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.register-form .invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(#7e7c7c);
+    font-weight: 500;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.register-form .valid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--success-color);
+    font-weight: 500;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* Animación de shake para errores */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Contenedor principal específico para registro */
+.registro-wrapper {
+    min-height: 100vh;
+    background: var(--background-gradient);
+    padding-top: 2rem;
+    position: relative;
+}
+
+.registro-wrapper::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+            radial-gradient(circle at 30% 70%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+    z-index: -1;
+    animation: backgroundShift 20s ease-in-out infinite alternate;
+}
+
+/* Título de página */
+.page-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+/* Indicador visual de estado */
+.status-indicator {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--success-color);
+    border: 3px solid white;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.toggle-button.salida + .register-form .status-indicator,
+.salida-mode .status-indicator {
+    background: var(--error-color);
+}
+
+/* Loading state para el botón */
+.register-button.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.register-button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* RUT Input con formato chileno mejorado */
+.rut-input-group {
+    position: relative;
+}
+
+.rut-input-group::after {
+    content: 'CL';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .registro-wrapper {
+        padding-top: 1rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .register-form {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .toggle-button {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-form {
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .toggle-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8rem;
+        min-width: 100px;
+    }
+
+    .register-button {
+        padding: 0.875rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .toggle-button,
+    .register-button,
+    .register-form .form-control {
+        transition: none;
+    }
+
+    .registro-wrapper::before {
+        animation: none;
+    }
+}
+
+/* Modo oscuro para elementos de registro */
+@media (prefers-color-scheme: dark) {
+    .register-form .form-control {
+        background: rgba(51, 65, 85, 0.8);
+        color: var(--text-primary);
+        border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .register-form .form-control:focus {
+        background: rgba(51, 65, 85, 0.95);
+    }
+
+    .rut-input-group::after {
+        background: rgba(37, 99, 235, 0.2);
+        color: var(--text-secondary);
+    }
+}
+
+/* Estados adicionales del formulario */
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group.has-success .form-control {
+    border-color: var(--success-color);
+}
+
+.form-group.has-error .form-control {
+    border-color: var(--error-color);
+}
+
+/* Animaciones escalonadas */
+.toggle-container { animation-delay: 0.1s; }
+.register-form { animation-delay: 0.3s; }
+.form-group:nth-child(1) { animation-delay: 0.4s; }
+.form-group:nth-child(2) { animation-delay: 0.5s; }
+.form-group:nth-child(3) { animation-delay: 0.6s; }
