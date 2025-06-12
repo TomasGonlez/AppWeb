@@ -1,4 +1,20 @@
-/* Reset y estilos base */
+/* =============================================== */
+/* Estilos Base y Reset */
+/* =============================================== */
+:root {
+    --primary-color: #3498db;
+    --primary-hover: #2980b9;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --text-dark: #2c3e50;
+    --text-muted: #7f8c8d;
+    --light-gray: #ecf0f1;
+    --lighter-gray: #f8f9fa;
+    --border-radius: 0.375rem;
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,290 +23,273 @@
 
 body, html {
     height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f5f7f8;
-    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: var(--text-dark);
+    line-height: 1.6;
 }
 
-/* Layout principal */
+/* =============================================== */
+/* Layout Principal */
+/* =============================================== */
 .container-fluid {
     padding: 0;
 }
 
 main.container {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin: 1rem auto;
-    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 1.5rem auto;
+    padding: 2rem;
     width: 95%;
     max-width: 1200px;
 }
 
-/* Navbar (coherente con tu diseño) */
-.navbar {
-    background-color: #3498db;
-    color: white;
-    padding: 0.75rem 1rem;
-    font-weight: bold;
+/* =============================================== */
+/* Componentes Reutilizables */
+/* =============================================== */
+.section-header {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--light-gray);
 }
 
-/* Títulos */
-h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
+.section-title {
+    color: var(--text-dark);
     font-size: 1.5rem;
-}
-
-/* Formulario de fechas */
-.date-range-form {
-    margin-bottom: 1.5rem;
-}
-
-.date-range-form .form-group {
-    margin-bottom: 0.75rem;
-}
-
-.date-range-form label {
-    display: block;
-    margin-bottom: 0.25rem;
     font-weight: 600;
-    color: #34495e;
+    display: flex;
+    align-items: center;
 }
 
-.date-range-form .form-control {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-    font-size: 0.9rem;
-}
-/* Scroll interno para tabla de registros (máx. 8 filas visibles) */
-.tabla-con-scroll {
-    max-height: 350px; /* altura aproximada para 8 filas */
-    overflow-y: auto;
-    border: 1px solid #ecf0f1;
-    border-radius: 6px;
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #3498db #ecf0f1;
-}
-.tabla-con-scroll::-webkit-scrollbar {
-    width: 8px;
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
 }
 
-.tabla-con-scroll::-webkit-scrollbar-track {
-    background: #ecf0f1;
-    border-radius: 6px;
+.card:hover {
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 
-.tabla-con-scroll::-webkit-scrollbar-thumb {
-    background-color: #3498db;
-    border-radius: 6px;
-    border: 2px solid #ecf0f1;
-}
-/* Fijar encabezado de tabla */
-.tabla-con-scroll thead th {
-    position: sticky;
-    top: 0;
-    background-color: #3498db;
-    color: white;
-    z-index: 1;
-}
-/* Tabla de reportes */
+/* =============================================== */
+/* Tablas Mejoradas */
+/* =============================================== */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ecf0f1;
-    border-radius: 6px;
+}
+
+.tabla-con-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--lighter-gray);
+}
+
+.tabla-con-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.tabla-con-scroll::-webkit-scrollbar-track {
+    background: var(--lighter-gray);
+    border-radius: var(--border-radius);
+}
+
+.tabla-con-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--lighter-gray);
 }
 
 .table {
     width: 100%;
     margin-bottom: 0;
-    font-size: 0.85rem;
-    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .table th {
-    background-color: #3498db;
+    background-color: var(--primary-color);
     color: white;
-    padding: 0.75rem;
-    text-align: center;
+    padding: 1rem;
     font-weight: 600;
-    vertical-align: middle;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border: none;
 }
 
 .table td {
-    padding: 0.6rem;
+    padding: 0.75rem 1rem;
     vertical-align: middle;
-    border-top: 1px solid #ecf0f1;
-    text-align: center;
+    border-top: 1px solid var(--light-gray);
+    transition: var(--transition);
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(52, 152, 219, 0.05);
-}
- .tabla-data {
-     font-size: 14px;
- }
-
-.tabla-data thead {
-    background-color: #007bff;
-    color: white;
-}
-/* Hover y cursor pointer en filas de tabla */
-.tabla-data tbody tr:hover {
-    background-color: #f1f5f9;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.tabla-data tbody tr {
-    transition: box-shadow 0.3s ease;
+.table-hover tbody tr:hover td {
+    background-color: rgba(52, 152, 219, 0.1);
+    transform: translateX(2px);
 }
 
-.tabla-data tbody tr:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* Estilos para filas según tipo de registro */
+.registro-ingreso {
+    border-left: 4px solid var(--success-color);
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 0.3em 0.8em;
-    margin-left: 3px;
+.registro-salida {
+    border-left: 4px solid var(--danger-color);
 }
 
+/* Badges para tipos de registro */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+
+/* =============================================== */
+/* Formularios y Controles */
+/* =============================================== */
+.form-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .input-group-text {
+    border-radius: var(--border-radius) !important;
+}
+
+.input-group-text {
+    background-color: var(--lighter-gray);
+    color: var(--primary-color);
+}
+
+/* =============================================== */
 /* Botones */
+/* =============================================== */
 .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    transition: all 0.2s;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary {
-    background-color: #3498db;
-    border-color: #3498db;
-    box-shadow: 0 2px 5px rgba(52, 152, 219, 0.5);
-    transition: all 0.3s ease;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
-    border-color: #2980b9;
-    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.7);
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
 }
 
-/* Contenedor de botones de exportación */
-.export-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-    margin-top: 1.5rem;
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-/* Mensaje cuando no hay registros */
-.no-records {
-    text-align: center;
-    padding: 1.5rem;
-    color: #7f8c8d;
-    font-style: italic;
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-/* ESTILOS PARA ESTADÍSTICAS (agregar al CSS existente) */
-.estadisticas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    justify-content: center;
+.btn-outline-success {
+    color: var(--success-color);
+    border-color: var(--success-color);
 }
 
-.estadistica-container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 1.5rem;
-    min-width: 250px;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 2px solid #3498db;
+.btn-outline-success:hover {
+    background-color: var(--success-color);
+    color: white;
 }
 
-.estadistica-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    border-color: #2980b9;
-    transition: all 0.3s ease;
-}
-
-.estadistica-label {
-    font-size: 1rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.estadistica-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #3498db;
-}
-
-.estadistica-value.highlight {
-    color: #e74c3c;
-    font-size: 2.2rem;
-}
 /* =============================================== */
-/* Estilos específicos para móviles (Samsung A12) */
+/* Toast de Error */
 /* =============================================== */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--danger-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: var(--transition);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+}
 
-@media (max-width: 767px) {
-    body {
-        font-size: 14px;
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast i {
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+}
+
+/* =============================================== */
+/* Estilos Responsivos */
+/* =============================================== */
+@media (max-width: 991.98px) {
+    main.container {
+        padding: 1.5rem;
     }
 
+    .table th, .table td {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 767.98px) {
     main.container {
         padding: 1rem;
-        width: 100%;
+        margin: 0.5rem auto;
         border-radius: 0;
     }
 
-    h2 {
-        font-size: 1.3rem;
+    .section-title {
+        font-size: 1.25rem;
     }
 
-    /* Formulario apilado verticalmente */
-    .date-range-form .row {
-        flex-direction: column;
-        gap: 0.5rem;
+    .table th, .table td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
     }
 
-    .date-range-form .col-auto {
-        width: 100%;
-    }
     .tabla-con-scroll {
-        max-height: 300px; /* más ajustado para pantallas pequeñas */
-        overflow-y: auto;
-    }
-    /* Tabla adaptativa para móviles */
-    .table-responsive {
-        border: none;
+        max-height: 400px;
     }
 
-    .table {
-        font-size: 0.8rem;
-    }
-
-    .table th,
-    .table td {
-        padding: 0.5rem 0.3rem;
-    }
-
-    /* Estilo de tarjeta para filas en móviles */
-    @media (max-width: 575px) {
+    /* Estilo de tarjeta para móviles */
+    @media (max-width: 575.98px) {
         .table thead {
             display: none;
         }
@@ -302,91 +301,38 @@ h2 {
 
         .table tr {
             margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
             padding: 0.5rem;
+            position: relative;
         }
 
         .table td {
-            text-align: center;
-            padding: 0.75rem 0.6rem; /* un poco más de padding vertical */
+            text-align: right;
+            padding-left: 50%;
             position: relative;
-            border-top: 1px solid #ecf0f1;
-
+            border-top: 1px solid var(--light-gray);
         }
 
         .table td::before {
             content: attr(data-label);
-            position: static;
-            left: 0.5rem;
-            width: 100%;
-            padding-right: 0.5rem;
-            font-weight: bold;
-            text-align: center;
+            position: absolute;
+            left: 1rem;
+            width: calc(50% - 1rem);
+            padding-right: 1rem;
+            font-weight: 600;
+            text-align: left;
+            color: var(--primary-color);
         }
 
-        .table td:last-child {
-            border-bottom: 0;
+        /* Ajustes para los badges en móviles */
+        .table td .badge {
+            float: right;
+        }
+
+        /* Eliminar bordes izquierdos en móviles */
+        .registro-ingreso, .registro-salida {
+            border-left: none;
         }
     }
-
-    /* Botones de exportación apilados */
-    .export-actions {
-        flex-direction: column;
-    }
-
-    .export-actions .btn {
-        width: 100%;
-    }
-}
-
-/* Estilos para tablets */
-@media (min-width: 768px) and (max-width: 991px) {
-    .table {
-        font-size: 0.9rem;
-    }
-
-    .date-range-form .row {
-        flex-wrap: nowrap;
-    }
-}
-
-@media (max-width: 768px) {
-    .estadisticas {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .estadistica-container {
-        width: 100%;
-    }
-}
-.toast {
-    position:fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #df1212; /* Color rojo elegante */
-    color: #ffff;
-    padding: 16px 24px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    z-index: 10000;
-}
-.toast.show {
-    opacity:1;
-    transform: translateY(0);
-}
-/* Más específico: apuntamos al tbody tr con tu clase */
-table.dataTable tbody tr.registro-salida td {
-    background-color: #f8d7da !important;
-    color: #721c24 !important;
-}
-table.dataTable tbody tr.registro-ingreso td {
-    background-color: #d4edda !important;
-    color: #155724 !important;
 }
