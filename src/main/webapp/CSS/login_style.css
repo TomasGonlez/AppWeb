@@ -1214,3 +1214,576 @@ body::before {
 .form-group:nth-child(1) { animation-delay: 0.4s; }
 .form-group:nth-child(2) { animation-delay: 0.5s; }
 .form-group:nth-child(3) { animation-delay: 0.6s; }
+
+
+/* ===== NAVBAR MODERNO ===== */
+.navbar-custom {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+    box-shadow: var(--shadow-lg);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.navbar-custom .navbar-brand {
+    color: white !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    position: relative;
+}
+
+.navbar-custom .navbar-brand::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    transition: var(--transition);
+}
+
+.navbar-custom .navbar-brand:hover::after {
+    width: 100%;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem !important;
+    margin: 0 0.25rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-custom .navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: var(--transition);
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.navbar-custom .navbar-nav .nav-link:hover::before {
+    left: 100%;
+}
+
+.navbar-custom .navbar-nav .nav-link:active {
+    transform: translateY(0);
+}
+
+/* User Section */
+.user-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.25rem;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition);
+}
+
+.user-section:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.user-section span {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.logout-btn {
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    padding: 0.375rem 1rem !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    transition: var(--transition) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: white !important;
+    color: white !important;
+    transform: scale(1.05);
+}
+
+/* Navbar Toggler personalizado */
+.navbar-custom .navbar-toggler {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.navbar-custom .navbar-toggler:hover {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ===== CREAR USUARIO STYLES ===== */
+
+/* Wrapper principal para crear usuario */
+.crear-usuario-wrapper {
+    min-height: calc(100vh - 76px); /* Altura menos navbar */
+    background: var(--background-gradient);
+    padding: 2rem 0;
+    position: relative;
+}
+
+.crear-usuario-wrapper::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+            radial-gradient(circle at 25% 75%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 75% 25%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+    z-index: -1;
+    animation: backgroundShift 20s ease-in-out infinite alternate;
+}
+
+.crear-usuario-wrapper .main-wrapper {
+    background: transparent;
+    min-height: auto;
+}
+
+.crear-usuario-wrapper .content {
+    min-height: auto;
+    padding: 1rem;
+}
+
+/* Título de página mejorado */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.page-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+.page-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+    margin-top: 1.5rem;
+}
+
+/* Formulario de crear usuario mejorado */
+.crear-usuario-form {
+    width: 100%;
+    max-width: 500px;
+    background: var(--card-background);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+    margin: 0 auto;
+    position: relative;
+}
+
+.crear-usuario-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Labels mejorados */
+.crear-usuario-form .form-label {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs mejorados con iconos */
+.crear-usuario-form .form-control {
+    border: 2px solid rgba(37, 99, 235, 0.1);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.9);
+    transition: var(--transition);
+    width: 100%;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.crear-usuario-form .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+}
+
+.crear-usuario-form .form-control::placeholder {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Input group mejorado para contraseña */
+.crear-usuario-form .input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.crear-usuario-form .input-group .form-control {
+    padding-right: 3.5rem;
+    margin-bottom: 0;
+}
+
+.crear-usuario-form .input-group #togglePassword {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    z-index: 10;
+}
+
+.crear-usuario-form .input-group #togglePassword:hover {
+    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Validaciones visuales mejoradas */
+.crear-usuario-form .form-control.is-valid {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
+    background: rgba(5, 150, 105, 0.02);
+}
+
+.crear-usuario-form .form-control.is-invalid {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+    background: rgba(220, 38, 38, 0.02);
+    animation: shake 0.5s ease-in-out;
+}
+
+.crear-usuario-form .invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--error-color);
+    font-weight: 500;
+    animation: fadeInUp 0.3s ease-out;
+    padding-left: 0.5rem;
+}
+
+.crear-usuario-form .valid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--success-color);
+    font-weight: 500;
+    animation: fadeInUp 0.3s ease-out;
+    padding-left: 0.5rem;
+}
+
+.crear-usuario-form .form-text {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    font-style: italic;
+}
+
+/* Botón de crear usuario premium */
+.crear-usuario-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    width: 100%;
+    padding: 1.25rem;
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.crear-usuario-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.crear-usuario-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+}
+
+.crear-usuario-btn:hover::before {
+    left: 100%;
+}
+
+.crear-usuario-btn:active {
+    transform: translateY(0);
+}
+
+/* Loading state */
+.crear-usuario-btn.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.crear-usuario-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Toasts mejorados para esta página */
+.toast-crear-usuario {
+    position: fixed;
+    top: 100px; /* Debajo del navbar */
+    right: 2rem;
+    left: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    color: white;
+    padding: 1.25rem 1.75rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: var(--transition);
+    z-index: 10000;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.toast-crear-usuario.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-crear-usuario.toast-error {
+    background: linear-gradient(135deg, var(--error-color), #b91c1c);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.toast-crear-usuario.toast-success {
+    background: linear-gradient(135deg, var(--success-color), #047857);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 992px) {
+    .navbar-custom .user-section {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 12px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-custom .navbar-nav {
+        margin-bottom: 1rem;
+    }
+
+    .navbar-custom .navbar-nav .nav-link {
+        text-align: center;
+        margin: 0.25rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .crear-usuario-form {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .navbar-custom {
+        padding: 0.75rem 0;
+    }
+
+    .navbar-custom .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .user-section span {
+        font-size: 0.8rem;
+    }
+
+    .logout-btn {
+        font-size: 0.75rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .toast-crear-usuario {
+        top: 80px;
+        right: 1rem;
+        left: 1rem;
+        padding: 1rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .crear-usuario-form {
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .crear-usuario-form .form-control {
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .crear-usuario-btn {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .navbar-custom .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===== MEJORAS DE ACCESIBILIDAD ===== */
+
+@media (prefers-reduced-motion: reduce) {
+    .crear-usuario-wrapper::before,
+    .navbar-custom .navbar-nav .nav-link::before,
+    .crear-usuario-btn::before {
+        animation: none;
+    }
+
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ===== MODO OSCURO ===== */
+
+@media (prefers-color-scheme: dark) {
+    .crear-usuario-form .form-control {
+        background: rgba(51, 65, 85, 0.8);
+        color: var(--text-primary);
+        border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .crear-usuario-form .form-control:focus {
+        background: rgba(51, 65, 85, 0.95);
+    }
+
+    .crear-usuario-form .form-control.is-valid {
+        background: rgba(5, 150, 105, 0.05);
+    }
+
+    .crear-usuario-form .form-control.is-invalid {
+        background: rgba(220, 38, 38, 0.05);
+    }
+}
+
+/* ===== ANIMACIONES ESCALONADAS ===== */
+
+.page-header { animation-delay: 0.1s; }
+.crear-usuario-form { animation-delay: 0.3s; }
+.crear-usuario-form .mb-3:nth-child(1) { animation-delay: 0.4s; }
+.crear-usuario-form .mb-3:nth-child(2) { animation-delay: 0.5s; }
+.crear-usuario-form .mb-3:nth-child(3) { animation-delay: 0.6s; }
+.crear-usuario-form .mb-3:nth-child(4) { animation-delay: 0.7s; }
+.crear-usuario-form .mb-3:nth-child(5) { animation-delay: 0.8s; }
+.crear-usuario-btn { animation-delay: 0.9s; }
