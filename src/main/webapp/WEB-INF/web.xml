@@ -31,6 +31,14 @@
         <servlet-name>ReporteServlet</servlet-name>
         <url-pattern>/ReporteServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>PersonaServlet</servlet-name>
+        <servlet-class>com.example.appweb.CONTROLADOR.PersonaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PersonaServlet</servlet-name>
+        <url-pattern>/PersonaServlet</url-pattern>
+    </servlet-mapping>
 
     <!--Mapeo descarga reporte formato EXCEL -->
     <servlet>

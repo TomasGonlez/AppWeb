@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
   <div class="container-fluid">
     <!-- Logo y botón toggler -->
-    <a class="navbar-brand fw-bold" href="/RegistroServlet?accion=listarRegistros">Principal</a>
+    <a class="navbar-brand fw-bold" href="<%=request.getContextPath()%>/RegistroServlet?accion=listarRegistros">Principal</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

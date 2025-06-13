@@ -23,10 +23,8 @@
 
 <div class="main-wrapper">
     <section class="content">
-        <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post" autocomplete="off" id="registroForm">
+        <form class="register-form" action="<%=request.getContextPath()%>/PersonaServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
-            <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
-
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>
                 <input type="text" class="form-control" id="rutPersona" name="rutPersona"
@@ -51,13 +49,92 @@
     </section>
 </div>
 <!-- Toast de error -->
-<% if (request.getAttribute("errorLogin") != null) { %>
+<% if (request.getAttribute("errorPersona") != null) { %>
 <div id="toastError" class="toast toast-error show">
-    <%= request.getAttribute("errorLogin") %>
+    <%= request.getAttribute("errorPersona") %>
 </div>
 <% } %>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Función mejorada para formatear y validar RUT
+    function formatearYValidarRut(input) {
+        // Formatear el RUT
+        let valor = input.value.replace(/[^0-9kK]/g, '');
+
+        if (valor.length > 9) {
+            valor = valor.substring(0, 9);
+        }
+
+        if (valor.length === 0) {
+            input.value = '';
+            return;
+        }
+
+        let cuerpo = valor.slice(0, -1);
+        let dv = valor.slice(-1).toUpperCase();
+
+        let cuerpoFormateado = '';
+        for (let i = cuerpo.length - 1, j = 1; i >= 0; i--, j++) {
+            cuerpoFormateado = cuerpo[i] + cuerpoFormateado;
+            if (j % 3 === 0 && i !== 0) {
+                cuerpoFormateado = '.' + cuerpoFormateado;
+            }
+        }
+
+        input.value = cuerpoFormateado + '-' + dv;
+
+        // Validar longitud
+        if (input.value.length < 11) {
+            input.classList.add('is-invalid');
+        } else {
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    // Validación del formulario antes de enviar
+    document.getElementById('registroForm').addEventListener('submit', function(event) {
+        const rutInput = document.getElementById('rutPersona');
+
+        // Validar longitud mínima del RUT
+        if (rutInput.value.length < 11) {
+            event.preventDefault();
+            rutInput.classList.add('is-invalid');
+
+            // Mostrar toast de error si es necesario
+            mostrarError('El RUT debe tener al menos 11 caracteres (ej: 12.345.678-9)');
+        }
+    });
+
+    // Función para mostrar errores
+    function mostrarError(mensaje) {
+        let toastContainer = document.getElementById('toastError');
+
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toastError';
+            toastContainer.className = 'toast toast-error show';
+            document.body.appendChild(toastContainer);
+        }
+
+        toastContainer.textContent = mensaje;
+        toastContainer.classList.add('show');
+
+        setTimeout(() => {
+            toastContainer.classList.remove('show');
+        }, 3000);
+    }
+
+    // Control de Toast existente
+    document.addEventListener('DOMContentLoaded', function() {
+        const toast = document.getElementById('toastError');
+        if (toast) {
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    });
+</script>
 </body>
 </html>

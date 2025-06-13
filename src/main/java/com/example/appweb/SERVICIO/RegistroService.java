@@ -48,7 +48,6 @@ public class RegistroService {
             procesarNuevo(request, response, usuario, rut, nombre, tipo, fecha, hora);
         }
     }
-
     private void procesarExistente(HttpServletRequest request, HttpServletResponse response, Usuario usuario,
                                    String rut, String nombre, String tipo, String fecha, String hora,
                                    boolean nombreCoincide)
