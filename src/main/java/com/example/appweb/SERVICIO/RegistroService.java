@@ -89,7 +89,6 @@ public class RegistroService {
             RegistroUtils.enviarError(request, response, "El primer registro debe ser un INGRESO.");
             return;
         }
-
         personaDAO.registrar(new Persona(rut, nombre));
         Registro registro = RegistroUtils.crearRegistro(rut, usuario.getIdUsuario(), fecha, tipo, hora);
         registroDAO.registrar(registro);

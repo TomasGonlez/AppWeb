@@ -20,7 +20,6 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
-
 <div class="main-wrapper">
     <section class="content">
         <div class="toggle-container">
@@ -28,7 +27,7 @@
         </div>
 
         <form class="register-form" action="<%= request.getContextPath() %>/RegistroServlet" method="post" autocomplete="off" id="registroForm">
-            <input type="hidden" name="accion" value="registrar">
+            <input type="hidden" name="accion" value="ingresar">
             <input type="hidden" name="idUser" value="<%=usuario.getIdUsuario()%>">
 
             <div class="mb-3">
@@ -61,7 +60,7 @@
                         required
                 >
             </div>
-            <button type="submit" class="register-button">Registrar</button>
+            <button type="submit" class="register-button">Ingresar Asistencia</button>
             <input type="hidden" id="tipoRegistro" name="tipoRegistro" value="INGRESO">
         </form>
     </section>

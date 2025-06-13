@@ -37,7 +37,7 @@ public class RegistroServlet extends HttpServlet {
                 return;
             }
             registroService.procesarRegistro(request, response, usuario);
-        }else {
+        }else{
             response.sendRedirect("JSP/error.jsp");
         }
     }
