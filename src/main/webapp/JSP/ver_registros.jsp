@@ -12,7 +12,7 @@
 
   <!-- DataTables Bootstrap 5 CSS -->
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/reportes_style.css" rel="stylesheet" />
+  <link href="<%= request.getContextPath() %>/CSS/ver_registros_styles.css" rel="stylesheet" />
 
 </head>
 <body>
