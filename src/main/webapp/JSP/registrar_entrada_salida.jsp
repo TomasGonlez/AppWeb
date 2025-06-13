@@ -66,9 +66,9 @@
     </section>
 </div>
 <!-- Toast de error -->
-<% if (request.getAttribute("errorLogin") != null) { %>
+<% if (request.getAttribute("errorIngresar") != null) { %>
 <div id="toastError" class="toast toast-error show">
-    <%= request.getAttribute("errorLogin") %>
+    <%= request.getAttribute("errorIngresar") %>
 </div>
 <% } %>
 

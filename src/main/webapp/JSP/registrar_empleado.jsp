@@ -55,6 +55,11 @@
 </div>
 <% } %>
 
+<% if (request.getAttribute("exitoRegistro") != null) { %>
+<div id="toastExito" class="toast toast-success show">
+    <%= request.getAttribute("exitoRegistro") %>
+</div>
+<% } %>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

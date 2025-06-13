@@ -85,6 +85,23 @@ public class RegistroDAO {
         }
         return tipo;
     }
+    public boolean ExistenciaRegistro(String rut) {
+        boolean existe = false;
+        try {
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT 1 FROM REGISTRO WHERE rut = ? FETCH FIRST 1 ROWS ONLY";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, rut);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                existe = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return existe;
+    }
+
     public java.sql.Date obtenerUltimaFechaIngreso(String rut) {
         String sql = "SELECT fecha FROM REGISTRO WHERE rut = ? AND tipo_registro = 'INGRESO' ORDER BY fecha DESC, hora DESC FETCH FIRST 1 ROWS ONLY";
         try (Connection con = ConexionDB.getInstance().getConexion();

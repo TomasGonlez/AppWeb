@@ -13,4 +13,9 @@ public class Errores {
         request.setAttribute("errorPersona", mensaje);
         request.getRequestDispatcher("JSP/registrar_empleado.jsp").forward(request, response);
     }
+    public static void enviarErrorIngresarPersona(HttpServletRequest request, HttpServletResponse response, String mensaje)
+            throws IOException, ServletException {
+        request.setAttribute("errorIngresar", mensaje);
+        request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
+    }
 }

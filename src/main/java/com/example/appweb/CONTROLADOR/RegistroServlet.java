@@ -29,7 +29,7 @@ public class RegistroServlet extends HttpServlet {
 
         String accion = request.getParameter("accion");
 
-        if ("registrar".equals(accion)) {
+        if ("ingresar".equals(accion)) {
             HttpSession session = request.getSession(false);
             Usuario usuario = (session != null) ? (Usuario) session.getAttribute("usuarioLogueado") : null;
             if (usuario == null) {

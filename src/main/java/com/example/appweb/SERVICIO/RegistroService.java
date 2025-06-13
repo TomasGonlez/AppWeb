@@ -5,6 +5,7 @@ import com.example.appweb.DAO.RegistroDAO;
 import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Registro;
 import com.example.appweb.MODELO.Usuario;
+import com.example.appweb.UTIL.Errores;
 import com.example.appweb.UTIL.RegistroUtils;
 import com.example.appweb.UTIL.ValidadorFechas;
 import jakarta.servlet.ServletException;
@@ -21,12 +22,26 @@ public class RegistroService {
         this.personaDAO = personaDAO;
         this.registroDAO = registroDAO;
     }
+    public boolean validarRegistroPersona(String rut){
+        return registroDAO.ExistenciaRegistro(rut);
+    }
 
     public void procesarRegistro(HttpServletRequest request, HttpServletResponse response, Usuario usuario)
             throws IOException, ServletException {
+        PersonaService personaService = new PersonaService();
 
         String rut = request.getParameter("rutPersona");
+        if(!personaService.validarRut(rut)) {
+            Errores.enviarErrorIngresarPersona(request,response,"El rut ingresado no esta registrado, ¡Ve a registrar empleado primero!");
+            return;
+        }
+
         String nombre = request.getParameter("nombrePersona");
+        if(!personaService.validarNombre(nombre, rut)){
+            Errores.enviarErrorIngresarPersona(request,response,"El nombre no coincide con el rut.");
+            return;
+        }
+
         String tipo = request.getParameter("tipoRegistro");
         String fecha = request.getParameter("fechaPersona");
         String hora = RegistroUtils.obtenerHoraActual();
@@ -35,37 +50,27 @@ public class RegistroService {
             ValidadorFechas.validarFechaNoFutura(fecha);
             ValidadorFechas.validarFechaPasada(fecha);
         } catch (IllegalArgumentException e) {
-            RegistroUtils.enviarError(request, response, e.getMessage());
+            Errores.enviarErrorIngresarPersona(request,response,e.getMessage());
             return;
         }
-
-        boolean rutExiste = personaDAO.buscarRut(rut);
-        boolean nombreCoincide = personaDAO.buscarNombre(nombre, rut);
-
-        if (rutExiste) {
-            procesarExistente(request, response, usuario, rut, nombre, tipo, fecha, hora, nombreCoincide);
+        if (personaService.validarRut(rut) && validarRegistroPersona(rut)) {
+            procesarExistente(request, response, usuario, rut, tipo, fecha, hora);
         } else {
-            procesarNuevo(request, response, usuario, rut, nombre, tipo, fecha, hora);
+            procesarNuevo(request, response, usuario, rut, tipo, fecha, hora);
         }
     }
     private void procesarExistente(HttpServletRequest request, HttpServletResponse response, Usuario usuario,
-                                   String rut, String nombre, String tipo, String fecha, String hora,
-                                   boolean nombreCoincide)
+                                   String rut, String tipo, String fecha, String hora)
             throws IOException, ServletException {
-
-        if (!nombreCoincide) {
-            RegistroUtils.enviarError(request, response, "El nombre ingresado no coincide con el rut del Sistema");
-            return;
-        }
-        String ultimoTipo = registroDAO.obtenerUltimoTipoRegistroGeneral(rut);
+        String ultimoTipo = RegistroDAO.obtenerUltimoTipoRegistroGeneral(rut);
 
         if (ultimoTipo == null && !tipo.equals("INGRESO")) {
-            RegistroUtils.enviarError(request, response, "El primer registro debe ser un INGRESO.");
+            Errores.enviarErrorIngresarPersona(request, response, "El primer acceso debe ser un INGRESO.");
             return;
         }
 
         if (ultimoTipo != null && ultimoTipo.equals(tipo)) {
-            RegistroUtils.enviarError(request, response, "No puedes registrar dos " + tipo + " consecutivos.");
+            Errores.enviarErrorIngresarPersona(request, response, "No puedes registrar dos " + tipo + " consecutivos.");
             return;
         }
 
@@ -74,21 +79,19 @@ public class RegistroService {
                 return;
             }
         }
-
         Registro registro = RegistroUtils.crearRegistro(rut, usuario.getIdUsuario(), fecha, tipo, hora);
         registroDAO.registrar(registro);
         response.sendRedirect("JSP/registrar_entrada_salida.jsp");
     }
 
     private void procesarNuevo(HttpServletRequest request, HttpServletResponse response, Usuario usuario,
-                               String rut, String nombre, String tipo, String fecha, String hora)
+                               String rut, String tipo, String fecha, String hora)
             throws IOException, ServletException {
 
         if (!tipo.equals("INGRESO")) {
-            RegistroUtils.enviarError(request, response, "El primer registro debe ser un INGRESO.");
+            Errores.enviarErrorIngresarPersona(request, response, "El primer registro debe ser un INGRESO.");
             return;
         }
-        personaDAO.registrar(new Persona(rut, nombre));
         Registro registro = RegistroUtils.crearRegistro(rut, usuario.getIdUsuario(), fecha, tipo, hora);
         registroDAO.registrar(registro);
         response.sendRedirect("JSP/registrar_entrada_salida.jsp");

@@ -43,6 +43,8 @@ public class PersonaServlet extends HttpServlet {
         }
         Persona persona = personaService.crearPersona(rut, nombre);
         DAO.registrar(persona);
-        response.sendRedirect("JSP/registrar_empleado.jsp");
+        request.setAttribute("exitoRegistro", "Se ha registrado correctamente");
+        request.getRequestDispatcher("JSP/registrar_empleado.jsp").forward(request, response);
+        //response.sendRedirect("JSP/registrar_empleado.jsp");
     }
 }
