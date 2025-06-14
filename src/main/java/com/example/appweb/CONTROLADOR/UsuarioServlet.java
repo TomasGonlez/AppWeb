@@ -1,8 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
-import com.example.appweb.DAO.UsuarioDAO;
-import com.example.appweb.MODELO.Usuario;
 import com.example.appweb.SERVICIO.UsuarioService;
+import com.example.appweb.MODELO.Usuario;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -11,8 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioServlet extends HttpServlet {
+
+    private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName()); // Mejora 3: Logger en vez de printStackTrace
 
     // Parámetros del request
     private static final String PARAM_ACCION = "accion";
@@ -56,7 +59,6 @@ public class UsuarioServlet extends HttpServlet {
             response.sendRedirect(VISTA_ERROR);
             return;
         }
-
         switch (accion) {
             case ACCION_REGISTRAR:
                 registrarUsuario(request, response);
@@ -77,18 +79,14 @@ public class UsuarioServlet extends HttpServlet {
 
             if (exito) {
                 request.setAttribute(ATTR_EXITO_REGISTRO, "Usuario registrado con éxito");
-                if (ORIGEN_SESSION.equals(origenFormulario)) {
-                    request.getRequestDispatcher(VISTA_CREAR_USUARIO).forward(request, response);
-                } else if (ORIGEN_NO_SESSION.equals(origenFormulario)) {
-                    request.getRequestDispatcher(VISTA_LOGIN).forward(request, response);
-                } else {
-                    enviarError(request, response, "Origen del formulario no reconocido", origenFormulario);
-                }
+                //Uso metodo para determinar la vista por origen
+                String vista = determinarVistaPorOrigen(origenFormulario);
+                request.getRequestDispatcher(vista).forward(request, response);
             } else {
                 enviarError(request, response, "El nombre de usuario ya existe.", origenFormulario);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error inesperado al registrar usuario", e);
             enviarError(request, response, "Se produjo un error inesperado al registrar el usuario.", origenFormulario);
         }
     }
@@ -108,8 +106,20 @@ public class UsuarioServlet extends HttpServlet {
                 enviarErrorLogin(request, response, "Credenciales incorrectas. Inténtalo nuevamente.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //Logger para errores en login
+            logger.log(Level.SEVERE, "Error inesperado durante el login", e);
             enviarErrorLogin(request, response, "Error inesperado durante el login.");
+        }
+    }
+
+    // Mejora 4: Metodo único para obtener la vista según el origen, evitando repetir if/else
+    private String determinarVistaPorOrigen(String origenForm) {
+        if (ORIGEN_SESSION.equals(origenForm)) {
+            return VISTA_CREAR_USUARIO;
+        } else if (ORIGEN_NO_SESSION.equals(origenForm)) {
+            return VISTA_CREAR_USUARIO_NO_SESSION;
+        } else {
+            return VISTA_LOGIN;
         }
     }
 
@@ -118,13 +128,9 @@ public class UsuarioServlet extends HttpServlet {
 
         request.setAttribute(ATTR_ERROR_REGISTRO, mensaje);
 
-        if (ORIGEN_SESSION.equals(origenForm)) {
-            request.getRequestDispatcher(VISTA_CREAR_USUARIO).forward(request, response);
-        } else if (ORIGEN_NO_SESSION.equals(origenForm)) {
-            request.getRequestDispatcher(VISTA_CREAR_USUARIO_NO_SESSION).forward(request, response);
-        } else {
-            request.getRequestDispatcher(VISTA_LOGIN).forward(request, response);
-        }
+        //Reutilización de la función para decidir vista
+        String vista = determinarVistaPorOrigen(origenForm);
+        request.getRequestDispatcher(vista).forward(request, response);
     }
 
     private void enviarErrorLogin(HttpServletRequest request, HttpServletResponse response, String mensaje)
