@@ -27,7 +27,7 @@ public class PersonaDAO {
         boolean existe = false;
         try {
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT * FROM PERSONA WHERE rut = ?";
+            String sql = "SELECT 1 FROM PERSONA WHERE rut = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, rut);
             ResultSet rs = stmt.executeQuery();
