@@ -17,8 +17,12 @@ public class UsuarioService {
         return usuarioDAO.existeNombreUsuario(nombreUsuario);
     }
 
-    public boolean registrarUsuario(Usuario usuario) {
-        return usuarioDAO.guardar(usuario);
+    public boolean registrarUsuario(Usuario U) {
+        //Validación de negocio: el nombre de usuario debe ser único
+        if(existeNombreUsuario(U.getNombreUser())){
+            return false;
+        }
+        return usuarioDAO.guardar(U);
     }
 
     public Usuario loginUsuario(String nombreUsuario, String contrasena) {

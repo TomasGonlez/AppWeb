@@ -104,9 +104,9 @@
     <%= request.getAttribute("errorRegistroUsuario") %>
 </div>
 <% } %>
-<% if (request.getAttribute("errorLogin") != null) { %>
-<div id="toastNombreUser" class="toast toast-error show">
-    <%= request.getAttribute("errorLogin") %>
+<% if (request.getAttribute("exitoRegistro") != null) { %>
+<div id="toastExito" class="toast toast-success show">
+    <%= request.getAttribute("exitoRegistro") %>
 </div>
 <% } %>
 

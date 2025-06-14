@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Error al Registrar</title>
+    <title>Error</title>
 </head>
 <body>
   <h2>❌ Ocurrió un error ya que no se enocntro la accion</h2>

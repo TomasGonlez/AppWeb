@@ -34,7 +34,6 @@ public class UsuarioDAO {
     }
 
     public boolean guardar(Usuario user) {
-
         try{
             Connection con = ConexionDB.getInstance().getConexion();
             String sql = "INSERT INTO USUARIO (nombreCompleto, correo, numero,nombreUser, contrasena, fecha_creacion) VALUES (?,?,?,?,?,?)";

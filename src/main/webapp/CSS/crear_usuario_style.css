@@ -151,8 +151,7 @@ main.container {
     position:fixed;
     top: 20px;
     right: 20px;
-    background-color: #df1212; /* Color rojo elegante */
-    color: #ffff;
+    color: white;
     padding: 16px 24px;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
@@ -164,8 +163,17 @@ main.container {
     z-index: 10000;
 }
 .toast.show {
-    opacity:20;
+    opacity:1;
     transform: translateY(0);
+}
+/* Toast de error */
+.toast-error {
+    background-color: #df1212; /* Rojo */
+}
+
+/* Toast de éxito */
+.toast-success {
+    background-color: #4CAF50; /* Verde */
 }
 /* Estilos para el grupo de contraseña unificado */
 .input-group {

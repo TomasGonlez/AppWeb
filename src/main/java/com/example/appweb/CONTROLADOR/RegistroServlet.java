@@ -17,44 +17,63 @@ import java.util.List;
 import java.util.Map;
 
 public class RegistroServlet extends HttpServlet {
+
     private RegistroService registroService;
+
+    // Constantes de parámetros
+    private static final String PARAM_ACCION = "accion";
+
+    // Acciones
+    private static final String ACCION_INGRESAR = "ingresar";
+    private static final String ACCION_LISTAR_REGISTROS = "listarRegistros";
+
+    // Rutas JSP
+    private static final String VISTA_LOGIN = "JSP/login.jsp";
+    private static final String VISTA_ERROR = "JSP/error.jsp";
+    private static final String VISTA_VER_REGISTROS = "JSP/ver_registros.jsp";
+
+    // Atributos sesión
+    private static final String ATTR_USUARIO_LOGUEADO = "usuarioLogueado";
+
     @Override
-    public void init() throws ServletException{
-        PersonaDAO personaDAO= new PersonaDAO();
-        RegistroDAO registroDAO= new RegistroDAO();
+    public void init() throws ServletException {
+        PersonaDAO personaDAO = new PersonaDAO();
+        RegistroDAO registroDAO = new RegistroDAO();
         registroService = new RegistroService(personaDAO, registroDAO);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter(PARAM_ACCION);
 
-        String accion = request.getParameter("accion");
-
-        if ("ingresar".equals(accion)) {
+        if (ACCION_INGRESAR.equals(accion)) {
             HttpSession session = request.getSession(false);
-            Usuario usuario = (session != null) ? (Usuario) session.getAttribute("usuarioLogueado") : null;
+            Usuario usuario = (session != null) ? (Usuario) session.getAttribute(ATTR_USUARIO_LOGUEADO) : null;
             if (usuario == null) {
-                response.sendRedirect("JSP/login.jsp");
+                response.sendRedirect(VISTA_LOGIN);
                 return;
             }
             registroService.procesarRegistro(request, response, usuario);
-        }else{
-            response.sendRedirect("JSP/error.jsp");
+        } else {
+            response.sendRedirect(VISTA_ERROR);
         }
     }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter(PARAM_ACCION);
 
-        String accion = request.getParameter("accion");
-
-        if ("listarRegistros".equals(accion)) {
+        if (ACCION_LISTAR_REGISTROS.equals(accion)) {
             try {
                 listarRegistros(request, response);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
-            response.sendRedirect("JSP/error.jsp");
+            response.sendRedirect(VISTA_ERROR);
         }
     }
+
     private void listarRegistros(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -63,6 +82,6 @@ public class RegistroServlet extends HttpServlet {
         String fechaFormateada = RegistroUtils.obtenerFechaActualFormateada();
 
         RegistroUtils.configurarAtributosVista(request, registros, metricas, fechaFormateada);
-        RegistroUtils.redirigirAVista(request, response, "JSP/ver_registros.jsp");
+        RegistroUtils.redirigirAVista(request, response, VISTA_VER_REGISTROS);
     }
 }
