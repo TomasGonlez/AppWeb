@@ -23,7 +23,7 @@
 
 <div class="main-wrapper">
     <section class="content">
-        <form class="register-form" action="<%=request.getContextPath()%>/PersonaServlet" method="post" autocomplete="off">
+        <form id="registroForm" class="register-form" action="<%=request.getContextPath()%>/PersonaServlet" method="post" autocomplete="off">
             <input type="hidden" name="accion" value="registrar">
             <div class="mb-3">
                 <label for="rutPersona" class="form-label">Ingresar Rut:</label>

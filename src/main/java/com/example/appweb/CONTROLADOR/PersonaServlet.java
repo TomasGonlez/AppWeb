@@ -59,8 +59,7 @@ public class PersonaServlet extends HttpServlet {
 
         Persona persona = personaService.crearPersona(rut, nombre);
         personaDAO.registrar(persona);
-
-        request.setAttribute(ATTR_EXITO_REGISTRO, "Se ha registrado correctamente");
+        request.setAttribute(ATTR_EXITO_REGISTRO, "Empleado registrado correctamente");
         request.getRequestDispatcher(VISTA_REGISTRO_EXITOSO).forward(request, response);
     }
 }
