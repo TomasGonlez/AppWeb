@@ -37,10 +37,7 @@ public class RegistroServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        PersonaDAO personaDAO = new PersonaDAO();
-        RegistroDAO registroDAO = new RegistroDAO();
-        registroService = new RegistroService(personaDAO, registroDAO);
-    }
+        this.registroService = (RegistroService) getServletContext().getAttribute("registroService");    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

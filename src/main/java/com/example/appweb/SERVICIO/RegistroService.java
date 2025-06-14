@@ -15,11 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegistroService {
-    private final PersonaDAO personaDAO;
+    private final PersonaService personaService;
     private final RegistroDAO registroDAO;
 
-    public RegistroService(PersonaDAO personaDAO, RegistroDAO registroDAO) {
-        this.personaDAO = personaDAO;
+    public RegistroService(PersonaService personaService, RegistroDAO registroDAO) {
+        this.personaService = personaService;
         this.registroDAO = registroDAO;
     }
     public boolean validarRegistroPersona(String rut){
@@ -28,16 +28,16 @@ public class RegistroService {
 
     public void procesarRegistro(HttpServletRequest request, HttpServletResponse response, Usuario usuario)
             throws IOException, ServletException {
-        PersonaService personaService = new PersonaService();
+
 
         String rut = request.getParameter("rutPersona");
-        if(!personaService.validarRut(rut)) {
+        if(!this.personaService.validarRut(rut)) {
             Errores.enviarErrorIngresarPersona(request,response,"El rut ingresado no esta registrado, ¡Ve a registrar empleado primero!");
             return;
         }
 
         String nombre = request.getParameter("nombrePersona");
-        if(!personaService.validarNombre(nombre, rut)){
+        if(!this.personaService.validarNombre(nombre, rut)){
             Errores.enviarErrorIngresarPersona(request,response,"El nombre no coincide con el rut.");
             return;
         }
@@ -53,7 +53,7 @@ public class RegistroService {
             Errores.enviarErrorIngresarPersona(request,response,e.getMessage());
             return;
         }
-        if (personaService.validarRut(rut) && validarRegistroPersona(rut)) {
+        if (this.personaService.validarRut(rut) && validarRegistroPersona(rut)) {
             procesarExistente(request, response, usuario, rut, tipo, fecha, hora);
         } else {
             procesarNuevo(request, response, usuario, rut, tipo, fecha, hora);

@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UsuarioServlet extends HttpServlet {
+    private UsuarioService usuarioService;
 
     private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName()); // Mejora 3: Logger en vez de printStackTrace
 
@@ -44,11 +45,11 @@ public class UsuarioServlet extends HttpServlet {
     // Redirecciones
     private static final String REDIR_LISTAR_REGISTROS = "/RegistroServlet?accion=listarRegistros";
 
-    private UsuarioService usuarioService;
+
 
     @Override
     public void init() throws ServletException {
-        usuarioService = new UsuarioService();
+        this.usuarioService = (UsuarioService) getServletContext().getAttribute("usuarioService");
     }
 
     @Override

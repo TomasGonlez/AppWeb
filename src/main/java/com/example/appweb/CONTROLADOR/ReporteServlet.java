@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ReporteServlet extends HttpServlet {
+    private ReporteService service;
 
     // Parámetros del request
     private static final String PARAM_ACCION = "accion";
@@ -33,7 +34,10 @@ public class ReporteServlet extends HttpServlet {
     private static final String VISTA_REPORTES = "/JSP/reportes.jsp";
     private static final String VISTA_ERROR = "JSP/error.jsp";
 
-    private final ReporteService service = new ReporteService();
+    @Override
+    public void init() {
+        this.service = (ReporteService) getServletContext().getAttribute("reporteService"); // ✅ Obtenido del contexto
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
