@@ -1,6 +1,6 @@
 package com.example.appweb.CONTROLADOR;
 
-import com.example.appweb.DAO.PersonaDAO;
+
 import com.example.appweb.MODELO.Persona;
 import com.example.appweb.MODELO.Usuario;
 import com.example.appweb.SERVICIO.PersonaService;
@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class PersonaServlet extends HttpServlet {
+    private PersonaService personaService;
 
     // Constantes para parámetros y rutas
     private static final String PARAM_ACCION = "accion";
@@ -27,6 +28,10 @@ public class PersonaServlet extends HttpServlet {
 
     private static final String ATTR_USUARIO_LOGUEADO = "usuarioLogueado";
     private static final String ATTR_EXITO_REGISTRO = "exitoRegistro";
+
+    public void init(){
+        this.personaService = (PersonaService) getServletContext().getAttribute("personaService");
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,8 +51,6 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void registrarPersona(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PersonaService personaService = new PersonaService();
-        PersonaDAO personaDAO = new PersonaDAO();
 
         String rut = request.getParameter(PARAM_RUT_PERSONA);
         String nombre = request.getParameter(PARAM_NOMBRE_PERSONA);
@@ -58,7 +61,8 @@ public class PersonaServlet extends HttpServlet {
         }
 
         Persona persona = personaService.crearPersona(rut, nombre);
-        personaDAO.registrar(persona);
+        personaService.registrarPersona(persona);
+
         request.setAttribute(ATTR_EXITO_REGISTRO, "Empleado registrado correctamente");
         request.getRequestDispatcher(VISTA_REGISTRO_EXITOSO).forward(request, response);
     }

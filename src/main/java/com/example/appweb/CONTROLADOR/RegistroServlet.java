@@ -1,7 +1,5 @@
 package com.example.appweb.CONTROLADOR;
 
-import com.example.appweb.DAO.PersonaDAO;
-import com.example.appweb.DAO.RegistroDAO;
 import com.example.appweb.MODELO.RegistroPersona;
 import com.example.appweb.MODELO.Usuario;
 import com.example.appweb.SERVICIO.RegistroService;
