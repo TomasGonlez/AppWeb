@@ -79,7 +79,7 @@ public class RegistroUtils {
             Date fechaIngreso = dao.obtenerUltimaFechaIngreso(rut);
 
             if (fechaIngreso == null) {
-                enviarError(request, response, "No hay un INGRESO registrado para este usuario.");
+                enviarError(request, response, "No hay un INGRESO registrado para este empleado.");
                 return false;
             }
 

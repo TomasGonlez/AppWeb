@@ -81,7 +81,7 @@ public class RegistroService {
         }
         Registro registro = RegistroUtils.crearRegistro(rut, usuario.getIdUsuario(), fecha, tipo, hora);
         registroDAO.registrar(registro);
-        request.setAttribute("exitoIngreso", "¡"+ultimoTipo+ " ingresado exitosamente!");
+        request.setAttribute("exitoIngreso", "¡"+tipo+ " registrado exitosamente!");
         request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
         //response.sendRedirect("JSP/registrar_entrada_salida.jsp");
     }
@@ -96,7 +96,7 @@ public class RegistroService {
         }
         Registro registro = RegistroUtils.crearRegistro(rut, usuario.getIdUsuario(), fecha, tipo, hora);
         registroDAO.registrar(registro);
-        request.setAttribute("exitoIngreso", "¡INGRESO ingresado exitosamente!");
+        request.setAttribute("exitoIngreso", "¡INGRESO registrado exitosamente!");
         request.getRequestDispatcher("JSP/registrar_entrada_salida.jsp").forward(request, response);
         //response.sendRedirect("JSP/registrar_entrada_salida.jsp");
     }
