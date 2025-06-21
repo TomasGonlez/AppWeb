@@ -17,6 +17,5 @@ function configurarDataTable() {
         }
     });
 }
-
 // Esperar que el DOM esté listo
 document.addEventListener('DOMContentLoaded', initTablaRegistros);
