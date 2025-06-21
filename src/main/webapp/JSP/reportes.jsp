@@ -22,6 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Reportes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/reportes_style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -80,7 +81,13 @@
                 <tr>
                     <td data-label="RUT"><%=r.getRut()%></td>
                     <td data-label="NOMBRE"><%=r.getNombre()%></td>
-                    <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
+                    <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%>
+                        <% if (r.getTipoRegistro().equalsIgnoreCase("INGRESO")) { %>
+                            <i class="bi bi-box-arrow-in-right text-success me-1"></i>
+                        <% } else { %>
+                            <i class="bi bi-box-arrow-left text-danger me-1"></i>
+                        <% } %>
+                    </td>
                     <td data-label="FECHA"><%=r.getFechaFormateada()%></td>
                     <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
