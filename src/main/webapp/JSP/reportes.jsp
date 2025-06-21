@@ -128,7 +128,7 @@
         </form>
         <!-- Tabla responsive -->
         <div class="table-responsive tabla-con-scroll">
-            <table class="table table-striped table-bordered table-data">
+            <table class="table table-striped table-bordered tabla-data">
                 <thead>
                 <tr>
                     <th>Nombre</th>

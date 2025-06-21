@@ -253,3 +253,50 @@ h2 {
         flex-wrap: nowrap;
     }
 }
+/* Estilo de tarjetas para móviles */
+@media (max-width: 767px) {
+    .tabla-data thead {
+        display: none; /* Oculta encabezados de tabla */
+    }
+
+    .tabla-data,
+    .tabla-data tbody,
+    .tabla-data tr,
+    .tabla-data td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-data tr {
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 0.5rem;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .tabla-data td {
+        text-align: left;
+        padding: 0.5rem;
+        position: relative;
+        padding-left: 50%;
+        border: none;
+        border-bottom: 1px solid #ecf0f1;
+    }
+
+    .tabla-data td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 0.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+        white-space: nowrap;
+    }
+
+    .tabla-data td:last-child {
+        border-bottom: none;
+    }
+}
+
