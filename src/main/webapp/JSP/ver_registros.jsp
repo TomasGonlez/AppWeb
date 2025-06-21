@@ -12,7 +12,7 @@
 
   <!-- DataTables Bootstrap 5 CSS -->
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/ver_registros_styles.css" rel="stylesheet" />
+  <link href="<%=request.getContextPath()%>/CSS/ver_registros_styles.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -91,6 +91,6 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/JS/views/verRegistros.js" defer></script>
+<script src="<%=request.getContextPath()%>/JS/views/verRegistros.js" defer></script>
 </body>
 </html>

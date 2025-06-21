@@ -56,4 +56,4 @@
 </nav>
 
 <!-- Referencia al archivo CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/navbar.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/navbar.css">
