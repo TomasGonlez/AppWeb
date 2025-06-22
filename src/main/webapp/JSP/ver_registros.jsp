@@ -67,7 +67,7 @@
           <td data-label="RUT"><%=r.getRut()%></td>
           <td data-label="NOMBRE"><%=r.getNombre()%></td>
           <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
-          <td data-label="FECHA"><%=r.getFecha()%></td>
+          <td data-label="FECHA"><%=r.getFechaFormateada()%></td>
           <td data-label="HORA"><%=r.getHora()%></td>
         </tr>
         <%}
@@ -78,9 +78,6 @@
         </tbody>
       </table>
     </div>
-
-
-
     </div>
   </main>
 </div>
@@ -94,17 +91,6 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-<script>
-  $(document).ready(function () {
-    $('.tabla-data').DataTable({
-      ordering: false,
-      searching: true,
-      pageLength: 5,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Traducción al español
-      }
-    });
-  });
-</script>
+<script src="${pageContext.request.contextPath}/JS/views/verRegistros.js" defer></script>
 </body>
 </html>

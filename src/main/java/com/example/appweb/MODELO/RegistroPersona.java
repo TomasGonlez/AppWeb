@@ -61,4 +61,9 @@ public class RegistroPersona {
     public void setHora(String hora) {
         this.hora = hora;
     }
+    public String getFechaFormateada() {
+        if (fecha == null) return "";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        return formatter.format(fecha);
+    }
 }

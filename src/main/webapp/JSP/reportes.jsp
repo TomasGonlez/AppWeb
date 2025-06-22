@@ -81,7 +81,7 @@
                     <td data-label="RUT"><%=r.getRut()%></td>
                     <td data-label="NOMBRE"><%=r.getNombre()%></td>
                     <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
-                    <td data-label="FECHA"><%=r.getFecha()%></td>
+                    <td data-label="FECHA"><%=r.getFechaFormateada()%></td>
                     <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
                 <%      }
@@ -147,7 +147,7 @@
                 <tr>
                     <td data-label="NOMBRE"><%=r.getNombre()%></td>
                     <td data-label="RUT"><%=r.getRut()%></td>
-                    <td data-label="FECHA"><%=r.getFecha()%></td>
+                    <td data-label="FECHA"><%=r.getFechaFormateada()%></td>
                     <td data-label="TIPO REGISTRO"><%=r.getTipoRegistro()%></td>
                     <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
@@ -178,29 +178,6 @@
 <% } %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $('.tabla-data').DataTable({
-            ordering: true, // Permitir ordenamiento
-            searching: true,
-            pageLength: 10, // Mostrar más registros por defecto
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Traducción al español
-            },
-            dom: '<"top"f>rt<"bottom"lip><"clear">' // Mejor disposición de controles
-        });
-    });
-</script>
-<script>
-    // Control de Toast
-    document.addEventListener('DOMContentLoaded', function() {
-        const toast = document.getElementById('toastError');
-        if (toast) {
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    });
-</script>
+<script src="${pageContext.request.contextPath}/JS/views/reportes.js"></script>
 </body>
 </html>
