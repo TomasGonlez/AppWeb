@@ -15,7 +15,7 @@ public class ReporteDAO {
         List<RegistroPersona> lista = new ArrayList<>();
         String sql = "SELECT r.rut, p.nombre, r.fecha, r.tipo_registro, r.hora " +
                 "FROM REGISTRO r JOIN PERSONA p ON r.rut = p.rut " +
-                "WHERE TRUNC(r.fecha) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+                "WHERE TRUNC(r.fecha) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ORDER BY r.fecha DESC ";
 
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -43,7 +43,7 @@ public class ReporteDAO {
                 "INNER JOIN (SELECT rut, MAX(TO_CHAR(fecha, 'YYYY-MM-DD') || ' ' || hora) AS ultima_fecha_hora " +
                 "FROM REGISTRO GROUP BY rut) ult " +
                 "ON (TO_CHAR(r.fecha, 'YYYY-MM-DD') || ' ' || r.hora) = ult.ultima_fecha_hora AND r.rut = ult.rut " +
-                "WHERE r.tipo_registro = 'INGRESO'";
+                "WHERE r.tipo_registro = 'INGRESO' ORDER BY r.fecha DESC ";
 
         try (Connection conn = ConexionDB.getInstance().getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
