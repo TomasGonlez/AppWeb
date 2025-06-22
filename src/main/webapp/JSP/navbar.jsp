@@ -40,7 +40,7 @@
           <a class="nav-link" href="<%= request.getContextPath() %>/ReporteServlet">Reportes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/RegistroServlet?accion=listarRegistros">Registros</a>
+          <a class="nav-link" href="<%= request.getContextPath() %>/RegistroServlet?accion=listarRegistros">Dashboards</a>
         </li>
       </ul>
 
