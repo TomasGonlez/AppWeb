@@ -4,6 +4,7 @@ function initRegistroEmpleadoForm() {
     setupRutFormatter();
     setupFormValidation();
     initToasts();
+    setTodayDate();
 }
 
 // Configurar botón toggle entre INGRESO / SALIDA
@@ -96,6 +97,17 @@ function showErrorToast(mensaje) {
         toastContainer.classList.remove('show');
     }, 3000);
 }
+function setTodayDate() {
+    const fechaInput = document.getElementById('fechaPersona');
+    if (!fechaInput) return;
 
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Meses van de 0-11
+    const dd = String(today.getDate()).padStart(2, '0');
+
+    fechaInput.value = `${yyyy}-${mm}-${dd}`;
+    //`${dd}-${mm}-${yyyy}`
+}
 // Ejecutartodo cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initRegistroEmpleadoForm);
