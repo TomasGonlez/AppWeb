@@ -1,8 +1,8 @@
 // Función principal de inicialización
 function initLoginForm() {
-    initFormSubmitHandler();
-    setupPasswordToggle();
-    initToastAutoHide();
+    initFormSubmitHandler();     // Validación del formulario
+    setupPasswordToggle();       // Mostrar/ocultar contraseña
+    initToastAutoHide();         // Ocultar mensajes tipo toast
 }
 
 // Maneja el envío del formulario y validaciones
@@ -16,7 +16,7 @@ function initFormSubmitHandler() {
 
         if (username === '' || password === '') {
             mostrarError('Por favor, complete todos los campos.');
-            event.preventDefault(); // Evita el envío si hay errores
+            event.preventDefault(); // Detiene el envío del formulario
         }
     });
 }

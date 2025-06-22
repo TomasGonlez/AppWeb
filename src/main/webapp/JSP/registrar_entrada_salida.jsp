@@ -38,7 +38,7 @@
                        maxlength="12"
                        minlength="11"
                        pattern="^[0-9]{1,2}\.?[0-9]{3}\.?[0-9]{3}-[0-9kK]$"
-                       title="El RUT debe tener formato 12.345.678-9 (mínimo 11 caracteres)">
+                       title="El RUT debe tener formato 12.345.678-9 (minimo 11 caracteres)">
                 <div class="invalid-feedback" id="rutFeedback">
                     El RUT debe tener al menos 11 caracteres con formato (ej: 12.345.678-9)
                 </div>
