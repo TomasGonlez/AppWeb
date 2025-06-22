@@ -3,10 +3,7 @@ package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.PersonaDAO;
 import com.example.appweb.DAO.RegistroDAO;
-import com.example.appweb.SERVICIO.PersonaService;
-import com.example.appweb.SERVICIO.RegistroService;
-import com.example.appweb.SERVICIO.ReporteService;
-import com.example.appweb.SERVICIO.UsuarioService;
+import com.example.appweb.SERVICIO.*;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -26,6 +23,8 @@ public class InicializadorApp implements ServletContextListener {
         PersonaService personaService = new PersonaService(personaDAO);
         RegistroService registroService = new RegistroService(personaService, registroDAO);
         UsuarioService usuarioService = new UsuarioService();
+        ExportServiceEXCEL exportServiceEXCEL = new ExportServiceEXCEL();
+        ExportServicePDF exportServicePDF = new ExportServicePDF();
 
         // 3. Guardar en el contexto
         ServletContext contexto = event.getServletContext();
@@ -33,6 +32,8 @@ public class InicializadorApp implements ServletContextListener {
         contexto.setAttribute("personaService", personaService);
         contexto.setAttribute("registroService", registroService);
         contexto.setAttribute("usuarioService", usuarioService);
+        contexto.setAttribute("exportServiceEXCEL", exportServiceEXCEL);
+        contexto.setAttribute("exportServicePDF", exportServicePDF);
 
 
         System.out.println("🛠️ Servicios inicializados y disponibles en el contexto");
