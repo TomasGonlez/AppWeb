@@ -1,7 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
-import com.example.appweb.DAO.UsuarioDAO;
 import com.example.appweb.MODELO.Usuario;
+import com.example.appweb.SERVICIO.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -11,13 +11,17 @@ import java.io.PrintWriter;
 
 @WebServlet("/api/login")
 public class LoginApiServlet extends HttpServlet {
+    private UsuarioService usuarioService;
+
+    public void init() throws ServletException {
+        this.usuarioService = (UsuarioService) getServletContext().getAttribute("usuarioService");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nombreUsuario = request.getParameter("usuario");
         String clave = request.getParameter("clave");
 
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuario = usuarioDAO.loginUsuario(nombreUsuario, clave);
+        Usuario usuario = usuarioService.loginUsuario(nombreUsuario, clave);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

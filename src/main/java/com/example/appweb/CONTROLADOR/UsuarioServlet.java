@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class UsuarioServlet extends HttpServlet {
     private UsuarioService usuarioService;
 
-    private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName()); // Mejora 3: Logger en vez de printStackTrace
+    private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName());
 
     // Parámetros del request
     private static final String PARAM_ACCION = "accion";
