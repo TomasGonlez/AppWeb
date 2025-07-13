@@ -1,0 +1,5 @@
+### Register User API Test
+POST http://localhost:8080/AppWeb/api/registroUser
+Content-Type: application/x-www-form-urlencoded
+
+nombre=TomasIgnacioGonzalez&correo=tomas.gonzalez.f@gmail.com&numero=33119168&nombreUser=tom1&contrasena=tom123
