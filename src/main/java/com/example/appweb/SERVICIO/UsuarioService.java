@@ -29,22 +29,11 @@ public class UsuarioService {
         return usuarioDAO.loginUsuario(nombreUsuario, contrasena);
     }
 
-
     public Usuario construirUsuarioDesdeRequest(HttpServletRequest request) {
         Usuario usuario = new Usuario();
         usuario.setNombreCompletoUser(request.getParameter("nombreCompletoUser"));
         usuario.setCorreoUser(request.getParameter("correoUser"));
         usuario.setNumeroUser(Integer.parseInt(request.getParameter("numeroUser")));
-        usuario.setNombreUser(request.getParameter("nombreUser"));
-        usuario.setContrasena(request.getParameter("contrasena"));
-        usuario.setFechaCreacion(LocalDate.now());
-        return usuario;
-    }
-    public Usuario construirUsuario(HttpServletRequest request) {
-        Usuario usuario = new Usuario();
-        usuario.setNombreCompletoUser(request.getParameter("nombre"));
-        usuario.setCorreoUser(request.getParameter("correo"));
-        usuario.setNumeroUser(Integer.parseInt(request.getParameter("numero")));
         usuario.setNombreUser(request.getParameter("nombreUser"));
         usuario.setContrasena(request.getParameter("contrasena"));
         usuario.setFechaCreacion(LocalDate.now());
