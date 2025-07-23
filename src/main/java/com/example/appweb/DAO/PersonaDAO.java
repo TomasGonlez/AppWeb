@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 public class PersonaDAO {
 
     public void registrar(Persona persona) {
-
         try{
             Connection con = ConexionDB.getInstance().getConexion();
             String sql = "INSERT INTO PERSONA (rut,nombre) VALUES (?,?)";

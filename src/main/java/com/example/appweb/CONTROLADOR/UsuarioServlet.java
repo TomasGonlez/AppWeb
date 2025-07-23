@@ -1,5 +1,6 @@
 package com.example.appweb.CONTROLADOR;
 
+import com.example.appweb.SERVICIO.RolService;
 import com.example.appweb.SERVICIO.UsuarioService;
 import com.example.appweb.MODELO.Usuario;
 import jakarta.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 
 public class UsuarioServlet extends HttpServlet {
     private UsuarioService usuarioService;
+    private RolService rolService;
 
     private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName());
 
@@ -50,7 +52,9 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.usuarioService = (UsuarioService) getServletContext().getAttribute("usuarioService");
+        this.rolService = (RolService) getServletContext().getAttribute("rolService");
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,6 +84,19 @@ public class UsuarioServlet extends HttpServlet {
 
             if (exito) {
                 request.setAttribute(ATTR_EXITO_REGISTRO, "Usuario registrado con éxito");
+
+                System.out.println(usuarioService.obtenerIDUsuario(nuevoUsuario.getNombreUser()));
+                System.out.println(rolService.obtenerIDRolUsuario("USUARIO"));
+
+
+                int user = usuarioService.obtenerIDUsuario(nuevoUsuario.getNombreUser());
+                int rol = rolService.obtenerIDRolUsuario("USUARIO");
+                boolean confirmacion_insercion_rol = rolService.registrarRolUsuario(user, rol);
+                System.out.println("En la tabla USUARIO_ROL se a insertado un registro? " + confirmacion_insercion_rol);
+
+
+
+
                 //Uso metodo para determinar la vista por origen
                 String vista = determinarVistaPorOrigen(origenFormulario);
                 request.getRequestDispatcher(vista).forward(request, response);

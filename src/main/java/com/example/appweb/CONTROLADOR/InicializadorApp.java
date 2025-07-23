@@ -3,6 +3,7 @@ package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.DAO.PersonaDAO;
 import com.example.appweb.DAO.RegistroDAO;
+import com.example.appweb.DAO.RolDAO;
 import com.example.appweb.SERVICIO.*;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -17,6 +18,7 @@ public class InicializadorApp implements ServletContextListener {
         //1.- Crear todas las dependencias compartidas
         PersonaDAO personaDAO = new PersonaDAO();
         RegistroDAO registroDAO = new RegistroDAO();
+        RolDAO rolDAO = new RolDAO();
 
         // 2. Inicializar servicios
         ReporteService reporteService = new ReporteService();
@@ -25,6 +27,7 @@ public class InicializadorApp implements ServletContextListener {
         UsuarioService usuarioService = new UsuarioService();
         ExportServiceEXCEL exportServiceEXCEL = new ExportServiceEXCEL();
         ExportServicePDF exportServicePDF = new ExportServicePDF();
+        RolService rol_Service = new RolService(rolDAO);
 
         // 3. Guardar en el contexto
         ServletContext contexto = event.getServletContext();
@@ -34,6 +37,7 @@ public class InicializadorApp implements ServletContextListener {
         contexto.setAttribute("usuarioService", usuarioService);
         contexto.setAttribute("exportServiceEXCEL", exportServiceEXCEL);
         contexto.setAttribute("exportServicePDF", exportServicePDF);
+        contexto.setAttribute("rolService", rol_Service);
 
 
         System.out.println("🛠️ Servicios inicializados y disponibles en el contexto");

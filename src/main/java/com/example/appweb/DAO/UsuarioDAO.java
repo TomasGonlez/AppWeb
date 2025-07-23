@@ -90,9 +90,22 @@ public class UsuarioDAO {
         }
         return existe;
     }
-
-
-
+    public int idUsuario(String nombreUsuario) {
+        int idUser = 0;
+        try {
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT id_usuario FROM USUARIO WHERE nombreUser = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombreUsuario);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                idUser = rs.getInt("id_usuario");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return idUser;
+    }
 }
 
 

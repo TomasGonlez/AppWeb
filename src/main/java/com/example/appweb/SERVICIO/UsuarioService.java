@@ -39,4 +39,7 @@ public class UsuarioService {
         usuario.setFechaCreacion(LocalDate.now());
         return usuario;
     }
+    public int obtenerIDUsuario(String NombreUsuario){
+        return usuarioDAO.idUsuario(NombreUsuario);
+    }
 }
