@@ -52,6 +52,9 @@
     <li class="nav-item">
       <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_entrada_salida.jsp">Registrar Asistencia</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/ReporteServlet">Reportes</a>
+    </li>    
   <% } %>
 </ul>
 

@@ -36,6 +36,33 @@ public class ReporteDAO {
         }
         return lista;
     }
+    // Devuelve todos los ingresos y salidas del usuario (por rut) en el rango de fechas
+    public List<RegistroPersona> obtenerRegistrosPorFechaUsuario(String rut, String desde, String hasta) throws Exception {
+        List<RegistroPersona> lista = new ArrayList<>();
+        String sql = "SELECT u.rut, u.nombreCompleto, r.fecha, r.tipo_registro, r.hora FROM REGISTRO r JOIN USUARIO u ON r.id_usuario = u.id_usuario" +
+                " WHERE r.rut = ? AND TRUNC(r.fecha) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ORDER BY r.fecha DESC";
+
+        try (Connection conn = ConexionDB.getInstance().getConexion();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, rut);
+            stmt.setString(2, desde);
+            stmt.setString(3, hasta);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                RegistroPersona reg = new RegistroPersona();
+                reg.setRut(rs.getString("rut"));
+                reg.setNombre(rs.getString("nombreCompleto"));
+                reg.setFecha(rs.getDate("fecha"));
+                reg.setTipoRegistro(rs.getString("tipo_registro"));
+                reg.setHora(rs.getString("hora"));
+                lista.add(reg);
+            }
+        }
+        return lista;
+    }
+
     public List<RegistroPersona> obtenerRegistrosDependencias() throws Exception {
         List<RegistroPersona> lista = new ArrayList<>();
         String sql = "SELECT p.nombre, r.rut, r.fecha, r.tipo_registro, r.hora FROM REGISTRO r " +

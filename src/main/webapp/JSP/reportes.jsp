@@ -13,6 +13,7 @@
     // Obtener datos de AMBAS tablas de la sesión
     List<RegistroPersona> registros = (List<RegistroPersona>) session.getAttribute("registros");
     List<RegistroPersona> regDependencia = (List<RegistroPersona>) session.getAttribute("registrosDependencia");
+    
 %>
 <!DOCTYPE html>
 <html lang="es">

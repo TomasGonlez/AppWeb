@@ -15,6 +15,9 @@ public class ReporteService {
     public List<RegistroPersona> obtenerPorFechas(String desde, String hasta) throws Exception {
         return dao.obtenerRegistrosPorFecha(desde, hasta);
     }
+    public List<RegistroPersona> obtenerPorFechasUser(String rut, String desde, String hasta) throws Exception {
+        return dao.obtenerRegistrosPorFechaUsuario(rut, desde, hasta);
+    }
 
     // Obtiene lista de personas que aún están dentro
     public List<RegistroPersona> obtenerPorDependencias() throws Exception {

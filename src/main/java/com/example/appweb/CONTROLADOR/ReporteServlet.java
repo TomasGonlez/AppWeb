@@ -1,6 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
 import com.example.appweb.MODELO.RegistroPersona;
+import com.example.appweb.MODELO.Usuario;
 import com.example.appweb.SERVICIO.ReporteService;
 import com.example.appweb.UTIL.ValidadorFechas;
 import jakarta.servlet.ServletException;
@@ -89,7 +90,10 @@ public class ReporteServlet extends HttpServlet {
         }
 
         try {
-            List<RegistroPersona> registros = service.obtenerPorFechas(desde, hasta);
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
+            String rut = usuario != null ? usuario.getRut() : null;
+            System.out.println("Rut del usuario: " + rut);
+            List<RegistroPersona> registros = service.obtenerPorFechasUser(rut,desde, hasta);
             request.getSession().setAttribute(ATTR_REGISTROS_FECHAS, registros);
             request.setAttribute(ATTR_DESDE, desde);
             request.setAttribute(ATTR_HASTA, hasta);
