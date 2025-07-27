@@ -26,7 +26,7 @@ public class PersonaDAO {
         boolean existe = false;
         try {
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT 1 FROM PERSONA WHERE rut = ?";
+            String sql = "SELECT 1 FROM USUARIO WHERE rut = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, rut);
             ResultSet rs = stmt.executeQuery();
@@ -43,12 +43,12 @@ public class PersonaDAO {
         boolean existe = false;
         try{
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT nombre FROM PERSONA WHERE rut = ?";
+            String sql = "SELECT nombreCompleto FROM USUARIO WHERE rut = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1,rut);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                String nombreDB = rs.getString("nombre");
+                String nombreDB = rs.getString("nombreCompleto");
                 if(nombre.equals(nombreDB)) {
                     existe= true;
                 }

@@ -28,9 +28,22 @@ public class RegistroService {
 
     public void procesarRegistro(HttpServletRequest request, HttpServletResponse response, Usuario usuario)
             throws IOException, ServletException {
-
-
         String rut = request.getParameter("rutPersona");
+
+        // Validar que el usuario solo pueda registrar asistencia con su propio RUT
+        if (rut == null || !rut.equalsIgnoreCase(usuario.getRut())) {
+            Errores.enviarErrorIngresarPersona(request, response, "Solo puedes registrar asistencia con tu propio RUT asociado.");
+            return;
+        }
+
+        // Validar que el usuario tenga el permiso adecuado
+        @SuppressWarnings("unchecked")
+        java.util.List<String> permisos = (java.util.List<String>) request.getSession().getAttribute("permisos");
+        if (permisos == null || !permisos.contains("registrar_asistencia")) {
+            Errores.enviarErrorIngresarPersona(request, response, "No tienes permiso para registrar asistencia.");
+            return;
+        }
+
         if(!this.personaService.validarRut(rut)) {
             Errores.enviarErrorIngresarPersona(request,response,"El rut ingresado no esta registrado, ¡Ve a registrar empleado primero!");
             return;

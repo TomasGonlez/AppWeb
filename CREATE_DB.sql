@@ -21,7 +21,7 @@ CREATE TABLE USUARIO(
     nombreCompleto VARCHAR2(60) NOT NULL,
     correo VARCHAR2(50) NOT NULL,
     numero NUMBER(10,0) NOT NULL,
-    rut VARCHAR2(12) NOT NULL UNIQUE,
+    rut VARCHAR2(13) NOT NULL UNIQUE,
     nombreUser VARCHAR2(15) NOT NULL,
     contrasena  VARCHAR2(15) NOT NULL,
     fecha_creacion DATE NOT NULL
