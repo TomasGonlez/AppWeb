@@ -11,6 +11,7 @@ public class Usuario {
     private String nombreUser;
     private String contrasena;
     private LocalDate fechaCreacion;
+    private String rol; // Campo para el rol del usuario
 
     public int getIdUsuario() {
         return idUsuario;
@@ -66,5 +67,13 @@ public class Usuario {
 
     public void setNumeroUser(int numeroUser) {
         this.numeroUser = numeroUser;
+    }
+    
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

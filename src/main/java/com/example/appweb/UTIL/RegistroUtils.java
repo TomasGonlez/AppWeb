@@ -8,6 +8,7 @@ import com.example.appweb.SERVICIO.ReporteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -59,6 +60,10 @@ public class RegistroUtils {
         request.setAttribute("totalUsuarios", metricas.get("totalUsuarios"));
         request.setAttribute("personaDependencias", metricas.get("personaDependencias"));
         request.setAttribute("fechaActual", fechaFormateada);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            request.setAttribute("permisosUsuario", session.getAttribute("permisos"));
+        }
     }
 
     public static void redirigirAVista(HttpServletRequest request,

@@ -44,6 +44,23 @@
         <div class="estadistica-value highlight"><%=request.getAttribute("porcentajeAsistencia")%></div>
       </div>
 
+    <!-- Mostrar permisos del usuario -->
+    <%
+        List<String> permisosUsuario = (List<String>) request.getAttribute("permisosUsuario");
+        if (permisosUsuario != null && !permisosUsuario.isEmpty()) {
+    %>
+        <div class="alert alert-info mt-3 container">
+            <strong>Permisos de usuario:</strong>
+            <ul class="mb-0">
+            <% for(String permiso : permisosUsuario) { %>
+                <li><%= permiso %></li>
+            <% } %>
+            </ul>
+        </div>
+    <%
+        }
+    %>
+
     <!-- Tabla de registros -->
     <h2 class="text-center mb-4">Tabla de Registros INGRESO/SALIDA recientes</h2>
     <div class="table-responsive tabla-con-scroll">

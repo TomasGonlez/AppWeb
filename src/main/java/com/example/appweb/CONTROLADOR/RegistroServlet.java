@@ -72,9 +72,17 @@ public class RegistroServlet extends HttpServlet {
     private void listarRegistros(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
+        // 1. Obtener permisos de la sesión (NUEVO)
+        HttpSession session = request.getSession(false);
+        List<String> permisos = (List<String>) session.getAttribute("permisos");
+
         List<RegistroPersona> registros = RegistroUtils.obtenerTodosLosRegistros();
         Map<String, Object> metricas = RegistroUtils.obtenerMetricasDelSistema();
         String fechaFormateada = RegistroUtils.obtenerFechaActualFormateada();
+
+        // 3. Añadir permisos a los atributos (NUEVO)
+        request.setAttribute("permisosUsuario", permisos);
+
 
         RegistroUtils.configurarAtributosVista(request, registros, metricas, fechaFormateada);
         RegistroUtils.redirigirAVista(request, response, VISTA_VER_REGISTROS);

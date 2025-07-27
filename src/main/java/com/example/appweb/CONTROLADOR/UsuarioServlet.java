@@ -1,5 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
+import com.example.appweb.DAO.PermisoDAO;
+import com.example.appweb.SERVICIO.PermisoService;
 import com.example.appweb.SERVICIO.RolService;
 import com.example.appweb.SERVICIO.UsuarioService;
 import com.example.appweb.MODELO.Usuario;
@@ -11,12 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UsuarioServlet extends HttpServlet {
     private UsuarioService usuarioService;
     private RolService rolService;
+    private PermisoService permisoService;
 
     private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName());
 
@@ -53,6 +57,7 @@ public class UsuarioServlet extends HttpServlet {
     public void init() throws ServletException {
         this.usuarioService = (UsuarioService) getServletContext().getAttribute("usuarioService");
         this.rolService = (RolService) getServletContext().getAttribute("rolService");
+        this.permisoService = (PermisoService) getServletContext().getAttribute("permisoService");
     }
 
 
@@ -85,9 +90,8 @@ public class UsuarioServlet extends HttpServlet {
             if (exito) {
                 request.setAttribute(ATTR_EXITO_REGISTRO, "Usuario registrado con éxito");
 
-                System.out.println(usuarioService.obtenerIDUsuario(nuevoUsuario.getNombreUser()));
-                System.out.println(rolService.obtenerIDRolUsuario("USUARIO"));
-
+                System.out.println("Id del usuario es: "+ usuarioService.obtenerIDUsuario(nuevoUsuario.getNombreUser()));
+                System.out.println("Id del rol ususario: " + rolService.obtenerIDRolUsuario("USUARIO"));
 
                 int user = usuarioService.obtenerIDUsuario(nuevoUsuario.getNombreUser());
                 int rol = rolService.obtenerIDRolUsuario("USUARIO");
@@ -119,6 +123,10 @@ public class UsuarioServlet extends HttpServlet {
             if (usuario != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute(ATTR_USUARIO_LOGUEADO, usuario);
+
+                List<String> permisos = permisoService.ObtenerPermisosPorUsuario(usuario.getIdUsuario());
+                session.setAttribute("permisos", permisos);
+
                 response.sendRedirect(request.getContextPath() + REDIR_LISTAR_REGISTROS);
             } else {
                 enviarErrorLogin(request, response, "Credenciales incorrectas. Inténtalo nuevamente.");
@@ -140,7 +148,6 @@ public class UsuarioServlet extends HttpServlet {
             return VISTA_LOGIN;
         }
     }
-
     private void enviarError(HttpServletRequest request, HttpServletResponse response, String mensaje, String origenForm)
             throws ServletException, IOException {
 

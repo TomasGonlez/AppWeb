@@ -54,7 +54,10 @@ public class UsuarioDAO {
         Usuario user = null;
         try {
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT * FROM USUARIO WHERE nombreUser = ? AND contrasena = ?";
+            String sql = "SELECT u.*, r.nombre_rol FROM USUARIO u " +
+                         "LEFT JOIN USUARIO_ROL ur ON u.id_usuario = ur.id_usuario " +
+                         "LEFT JOIN ROL r ON ur.id_rol = r.id_rol " +
+                         "WHERE u.nombreUser = ? AND u.contrasena = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nombreusuario);
             stmt.setString(2, contrasena);
@@ -69,6 +72,7 @@ public class UsuarioDAO {
                 user.setNombreUser(rs.getString("nombreUser"));
                 user.setContrasena(rs.getString("contrasena"));
                 user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+                user.setRol(rs.getString("nombre_rol"));
             }
         } catch (Exception e) {
             e.printStackTrace();

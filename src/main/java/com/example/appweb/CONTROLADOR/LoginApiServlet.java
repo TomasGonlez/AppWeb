@@ -28,7 +28,13 @@ public class LoginApiServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if (usuario != null) {
-            out.print("{\"status\":\"ok\", \"id_usuario\":" + usuario.getIdUsuario() + ", \"nombre\":\"" + usuario.getNombreUser() + "\"}");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("usuario", usuario);
+            session.setAttribute("rol", usuario.getRol());
+            out.print("{\"status\":\"ok\", "
+                    + "\"id_usuario\":" + usuario.getIdUsuario() + ", "
+                    + "\"nombre\":\"" + usuario.getNombreUser() + "\", "
+                    + "\"rol\":\"" + (usuario.getRol() != null ? usuario.getRol() : "") + "\"}");
         } else {
             out.print("{\"status\":\"error\", \"mensaje\":\"Credenciales inválidas\"}");
         }
