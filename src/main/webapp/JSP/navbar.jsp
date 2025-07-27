@@ -26,23 +26,30 @@
     <!-- Contenido colapsable -->
     <div class="collapse navbar-collapse" id="navbarContent">
       <!-- Menú de navegación -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">Registrar Usuario</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_empleado.jsp">Registrar Empleado</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_entrada_salida.jsp">Asistencia</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/ReporteServlet">Reportes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/RegistroServlet?accion=listarRegistros">Dashboards</a>
-        </li>
-      </ul>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <% String rol = usuario.getRol(); %>
+  <% if ("ADMIN".equals(rol)) { %>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">Registrar Usuario</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_empleado.jsp">Registrar Empleado</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_entrada_salida.jsp">Asistencia</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/ReporteServlet">Reportes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/RegistroServlet?accion=listarRegistros">Dashboards</a>
+    </li>
+  <% } else if ("USUARIO".equals(rol)) { %>
+    <li class="nav-item">
+      <a class="nav-link" href="<%= request.getContextPath() %>/JSP/registrar_entrada_salida.jsp">Registrar Asistencia</a>
+    </li>
+  <% } %>
+</ul>
 
       <!-- Información de usuario y logout -->
       <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-2 user-section">
