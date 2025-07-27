@@ -54,10 +54,7 @@ public class UsuarioDAO {
         Usuario user = null;
         try {
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "SELECT u.*, r.nombre_rol FROM USUARIO u " +
-                         "LEFT JOIN USUARIO_ROL ur ON u.id_usuario = ur.id_usuario " +
-                         "LEFT JOIN ROL r ON ur.id_rol = r.id_rol " +
-                         "WHERE u.nombreUser = ? AND u.contrasena = ?";
+            String sql = "SELECT * FROM USUARIO WHERE nombreUser = ? AND contrasena = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nombreusuario);
             stmt.setString(2, contrasena);
@@ -72,7 +69,7 @@ public class UsuarioDAO {
                 user.setNombreUser(rs.getString("nombreUser"));
                 user.setContrasena(rs.getString("contrasena"));
                 user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
-                user.setRol(rs.getString("nombre_rol"));
+                // El rol se obtiene por consulta aparte si se requiere
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,6 +106,26 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
         return idUser;
+    }
+
+    // Método para obtener el rol de un usuario por su id
+    public String obtenerRolPorIdUsuario(int idUsuario) {
+        String rol = null;
+        try {
+            Connection con = ConexionDB.getInstance().getConexion();
+            String sql = "SELECT r.nombre_rol FROM USUARIO_ROL ur " +
+                         "JOIN ROL r ON ur.id_rol = r.id_rol " +
+                         "WHERE ur.id_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                rol = rs.getString("nombre_rol");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rol;
     }
 }
 

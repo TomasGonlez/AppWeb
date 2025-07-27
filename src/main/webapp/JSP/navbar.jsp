@@ -27,8 +27,12 @@
     <div class="collapse navbar-collapse" id="navbarContent">
       <!-- Menú de navegación -->
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  <% String rol = usuario.getRol(); %>
-  <% if ("ADMIN".equals(rol)) { %>
+  <%-- Obtener el rol del usuario desde la base de datos --%>
+  <% 
+    com.example.appweb.DAO.UsuarioDAO usuarioDAO = new com.example.appweb.DAO.UsuarioDAO();
+    String rol = usuarioDAO.obtenerRolPorIdUsuario(usuario.getIdUsuario());
+    if ("ADMIN".equals(rol)) { 
+  %>
     <li class="nav-item">
       <a class="nav-link" href="<%= request.getContextPath() %>/JSP/crearUsuario.jsp">Registrar Usuario</a>
     </li>

@@ -7,6 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
+import com.example.appweb.DAO.UsuarioDAO;
+import com.example.appweb.MODELO.Usuario;
+
 @WebFilter("/protegido/*") // Cambia este patrón según las rutas a proteger
 public class RBACFilter implements Filter {
     @Override
@@ -16,7 +19,10 @@ public class RBACFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         if (session != null && session.getAttribute("usuario") != null) {
-            String userRole = (String) session.getAttribute("rol");
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            int idUsuario = usuario.getIdUsuario();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            String userRole = usuarioDAO.obtenerRolPorIdUsuario(idUsuario);
             String uri = req.getRequestURI();
             // ADMIN puede acceder a todo
             if ("ADMIN".equals(userRole)) {

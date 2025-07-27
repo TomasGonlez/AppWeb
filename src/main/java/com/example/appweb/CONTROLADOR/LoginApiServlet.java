@@ -30,11 +30,14 @@ public class LoginApiServlet extends HttpServlet {
         if (usuario != null) {
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
-            session.setAttribute("rol", usuario.getRol());
+            // Obtener el rol desde la base de datos
+            com.example.appweb.DAO.UsuarioDAO usuarioDAO = new com.example.appweb.DAO.UsuarioDAO();
+            String rol = usuarioDAO.obtenerRolPorIdUsuario(usuario.getIdUsuario());
+            session.setAttribute("rol", rol);
             out.print("{\"status\":\"ok\", "
                     + "\"id_usuario\":" + usuario.getIdUsuario() + ", "
                     + "\"nombre\":\"" + usuario.getNombreUser() + "\", "
-                    + "\"rol\":\"" + (usuario.getRol() != null ? usuario.getRol() : "") + "\"}");
+                    + "\"rol\":\"" + (rol != null ? rol : "") + "\"}");
         } else {
             out.print("{\"status\":\"error\", \"mensaje\":\"Credenciales inválidas\"}");
         }
