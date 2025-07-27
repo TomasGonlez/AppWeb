@@ -21,6 +21,12 @@
             <input type="hidden" name="accion" value="registrar">
             <input type="hidden" name="origen" value="SESSION">
 
+            <!-- RUT -->
+            <div class="mb-3">
+                <label for="rutUsuario" class="form-label">RUT</label>
+                <input type="text" class="form-control" id="rutUsuario" name="rut" placeholder="12.345.678-9" required maxlength="12" pattern="[0-9kK\.\-]{11,12}" title="Ejemplo: 12.345.678-9">
+                <div class="invalid-feedback">Ingrese un RUT válido (ej: 12.345.678-9)</div>
+            </div>
             <!-- Nombre Completo -->
             <div class="mb-3">
                 <label for="nombreCompletoUser" class="form-label">Nombre Completo</label>
@@ -113,5 +119,7 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/JS/validaciones/usuario_form.js" defer></script>
+<!-- Toast para error de RUT -->
+<div id="toastRutError" class="toast toast-error" style="display:none;"></div>
 </body>
 </html>

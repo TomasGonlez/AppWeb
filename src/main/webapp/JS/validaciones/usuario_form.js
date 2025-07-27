@@ -19,6 +19,32 @@ function initUsuarioForm() {
 
     // Configurar el toggle de contraseña
     setupPasswordToggle();
+
+    // Configurar formateo y validación de RUT
+    setupRutFormatterUsuario();
+}
+
+// Formateo y validación de RUT para el formulario de usuario
+function setupRutFormatterUsuario() {
+    const rutInput = document.getElementById('rutUsuario');
+    if (!rutInput) return;
+    rutInput.addEventListener('input', function () {
+        let valor = rutInput.value.replace(/[^0-9kK]/g, '');
+        if (valor.length > 9) valor = valor.slice(0, 9);
+        let cuerpo = valor.slice(0, -1);
+        let dv = valor.slice(-1);
+        let cuerpoFormateado = '';
+        for (let i = 0, j = cuerpo.length; j > 0; i++, j--) {
+            cuerpoFormateado = cuerpo.charAt(j - 1) + cuerpoFormateado;
+            if (i % 3 === 2 && j !== 1) cuerpoFormateado = '.' + cuerpoFormateado;
+        }
+        if (cuerpoFormateado.length > 0 && dv.length > 0) {
+            rutInput.value = cuerpoFormateado + '-' + dv;
+        } else {
+            rutInput.value = cuerpoFormateado + dv;
+        }
+        rutInput.classList.toggle('is-invalid', rutInput.value.length < 11);
+    });
 }
 
 // Validación mientras el usuario escribe

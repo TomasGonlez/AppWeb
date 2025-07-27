@@ -31,6 +31,7 @@ public class UsuarioService {
 
     public Usuario construirUsuarioDesdeRequest(HttpServletRequest request) {
         Usuario usuario = new Usuario();
+        usuario.setRut(request.getParameter("rut"));
         usuario.setNombreCompletoUser(request.getParameter("nombreCompletoUser"));
         usuario.setCorreoUser(request.getParameter("correoUser"));
         usuario.setNumeroUser(Integer.parseInt(request.getParameter("numeroUser")));

@@ -98,9 +98,6 @@ public class UsuarioServlet extends HttpServlet {
                 boolean confirmacion_insercion_rol = rolService.registrarRolUsuario(user, rol);
                 System.out.println("En la tabla USUARIO_ROL se a insertado un registro? " + confirmacion_insercion_rol);
 
-
-
-
                 //Uso metodo para determinar la vista por origen
                 String vista = determinarVistaPorOrigen(origenFormulario);
                 request.getRequestDispatcher(vista).forward(request, response);

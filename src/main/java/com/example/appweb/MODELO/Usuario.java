@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class Usuario {
     private int idUsuario;
+    private String rut;
     private String NombreCompletoUser;
     private String correoUser;
     private int numeroUser;
@@ -18,6 +19,14 @@ public class Usuario {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
     public String getNombreUser() {

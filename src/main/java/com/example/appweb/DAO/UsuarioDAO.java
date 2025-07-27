@@ -22,6 +22,7 @@ public class UsuarioDAO {
             while (rs.next()){
                 Usuario user = new Usuario();
                 user.setIdUsuario(rs.getInt("id_usuario"));
+                user.setRut(rs.getString("rut"));
                 user.setNombreUser(rs.getString("nombreUser"));
                 user.setContrasena(rs.getString("contrasena"));
                 user.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
@@ -36,14 +37,15 @@ public class UsuarioDAO {
     public boolean guardar(Usuario user) {
         try{
             Connection con = ConexionDB.getInstance().getConexion();
-            String sql = "INSERT INTO USUARIO (nombreCompleto, correo, numero,nombreUser, contrasena, fecha_creacion) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO USUARIO (rut, nombreCompleto, correo, numero, nombreUser, contrasena, fecha_creacion) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, user.getNombreCompletoUser());
-            stmt.setString(2, user.getCorreoUser());
-            stmt.setInt(3, user.getNumeroUser());
-            stmt.setString(4, user.getNombreUser());
-            stmt.setString(5, user.getContrasena());
-            stmt.setDate(6, java.sql.Date.valueOf(user.getFechaCreacion()));
+            stmt.setString(1, user.getRut());
+            stmt.setString(2, user.getNombreCompletoUser());
+            stmt.setString(3, user.getCorreoUser());
+            stmt.setInt(4, user.getNumeroUser());
+            stmt.setString(5, user.getNombreUser());
+            stmt.setString(6, user.getContrasena());
+            stmt.setDate(7, java.sql.Date.valueOf(user.getFechaCreacion()));
             return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,6 +65,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 user = new Usuario();
                 user.setIdUsuario(rs.getInt("id_usuario"));
+                user.setRut(rs.getString("rut"));
                 user.setNombreCompletoUser(rs.getString("nombreCompleto"));
                 user.setCorreoUser(rs.getString("correo"));
                 user.setNumeroUser(rs.getInt("numero"));
