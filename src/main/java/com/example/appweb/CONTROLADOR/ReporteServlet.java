@@ -91,9 +91,17 @@ public class ReporteServlet extends HttpServlet {
 
         try {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
-            String rut = usuario != null ? usuario.getRut() : null;
-            System.out.println("Rut del usuario: " + rut);
-            List<RegistroPersona> registros = service.obtenerPorFechasUser(rut,desde, hasta);
+            List<String> permisos = (List<String>) request.getSession().getAttribute("permisos");
+            List<RegistroPersona> registros;
+            if (permisos != null && permisos.contains("ver_fechas_todos")) {
+                // Admin: obtiene todos los registros en el rango
+                registros = service.obtenerPorFechas(desde, hasta);
+            } else if (usuario != null && permisos != null && permisos.contains("ver_fechas_propio")) {
+                // Usuario estándar: solo sus propios registros
+                registros = service.obtenerPorFechasUser(usuario.getRut(), desde, hasta);
+            } else {
+                registros = List.of();
+            }
             request.getSession().setAttribute(ATTR_REGISTROS_FECHAS, registros);
             request.setAttribute(ATTR_DESDE, desde);
             request.setAttribute(ATTR_HASTA, hasta);

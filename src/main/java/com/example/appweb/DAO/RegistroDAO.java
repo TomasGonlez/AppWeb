@@ -51,14 +51,15 @@ public class RegistroDAO {
     }
     public List<RegistroPersona> obtenerRegistros(){
         List<RegistroPersona> lista = new ArrayList<>();
-        String sql="SELECT p.rut, p.nombre, r.tipo_registro, r.fecha, r.hora FROM PERSONA p JOIN REGISTRO r ON p.rut = r.rut ORDER BY id_registro DESC";
+        String sql="SELECT u.rut, u.nombreCompleto, r.tipo_registro, r.fecha, r.hora FROM USUARIO u JOIN REGISTRO r ON u.id_usuario = r.id_usuario ORDER BY r.id_registro DESC";
         try(Connection conn = ConexionDB.getInstance().getConexion();
         PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){
             while(rs.next()){
+                System.out.println("Fila encontrada");
                 RegistroPersona rp = new RegistroPersona();
                 rp.setRut(rs.getString("rut"));
-                rp.setNombre(rs.getString("nombre"));
+                rp.setNombre(rs.getString("nombreCompleto"));
                 rp.setTipoRegistro(rs.getString("tipo_registro"));
                 rp.setFecha(rs.getDate("fecha"));
                 rp.setHora(rs.getString("hora"));

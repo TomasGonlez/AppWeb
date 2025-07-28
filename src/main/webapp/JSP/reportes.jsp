@@ -13,6 +13,7 @@
     // Obtener datos de AMBAS tablas de la sesión
     List<RegistroPersona> registros = (List<RegistroPersona>) session.getAttribute("registros");
     List<RegistroPersona> regDependencia = (List<RegistroPersona>) session.getAttribute("registrosDependencia");
+    List<String> permisos = (List<String>) session.getAttribute("permisos");
     
 %>
 <!DOCTYPE html>
@@ -29,6 +30,7 @@
 <body class="d-flex flex-column min-vh-100">
 <jsp:include page="navbar.jsp" />
 <div class="container-fluid flex-grow-1 p-0">
+
     <main class="container py-3">
         <h2 class="text-center mb-4">Reportes de Ingresos y Salidas</h2>
 
@@ -120,21 +122,19 @@
         <%
             }
         %>
+        <%-- Solo el admin puede ver el reporte de personas en dependencias --%>
+        <% if (permisos != null && permisos.contains("ver_empleado_dependencia")) { %>
         <h2 class="text-center mb-4">Reporte de Personas</h2>
-
         <div class="d-flex justify-content-between align-items-center mb-3">
             <strong>Personas en las dependencias</strong>
             <span class="text-muted"><%= fechaCompleta %></span>
         </div>
-
-        <!-- Formulario optimizado para móviles -->
         <form class="row g-2 mb-4" action="<%=request.getContextPath()%>/ReporteServlet" method="post">
             <input type="hidden" name="accion" value="reporteDependencias">
             <div class="col-12 col-md-2">
                 <button type="submit" class="btn btn-primary w-150 btn-sm">GENERAR</button>
             </div>
         </form>
-        <!-- Tabla responsive -->
         <div class="table-responsive tabla-con-scroll">
             <table class="table table-striped table-bordered tabla-data">
                 <thead>
@@ -160,14 +160,12 @@
                     <td data-label="HORA"><%=r.getHora()%></td>
                 </tr>
                 <%      }
-                } else {
-                %>
+                        } else { %>
                 <tr>
                     <td colspan="5" class="text-center">No hay personas en las dependencias</td>
                 </tr>
-                <%  }
-                } else {
-                %>
+                <%      }
+                    } else { %>
                 <tr>
                     <td colspan="5" class="text-center">Genere un reporte de dependencias para ver datos</td>
                 </tr>
@@ -175,6 +173,7 @@
                 </tbody>
             </table>
         </div>
+        <% } %>
 
     </main>
 </div>

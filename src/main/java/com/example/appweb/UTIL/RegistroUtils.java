@@ -21,6 +21,18 @@ import java.util.Locale;
 import java.util.Map;
 
 public class RegistroUtils {
+
+    public static List<RegistroPersona> obtenerRegistrosPorRut(String rut) {
+        RegistroDAO registroDAO = new RegistroDAO();
+        List<RegistroPersona> todos = registroDAO.obtenerRegistros();
+        List<RegistroPersona> filtrados = new java.util.ArrayList<>();
+        for (RegistroPersona rp : todos) {
+            if (rp.getRut() != null && rp.getRut().equals(rut)) {
+                filtrados.add(rp);
+            }
+        }
+        return filtrados;
+    }
     public static Registro crearRegistro(String rut, int idUsuario, String fecha, String tipoRegistro, String hora) {
         Registro registro = new Registro();
         registro.setRut(rut);

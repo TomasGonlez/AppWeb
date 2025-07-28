@@ -71,19 +71,25 @@ public class RegistroServlet extends HttpServlet {
 
     private void listarRegistros(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
-        // 1. Obtener permisos de la sesión (NUEVO)
         HttpSession session = request.getSession(false);
         List<String> permisos = (List<String>) session.getAttribute("permisos");
-
-        List<RegistroPersona> registros = RegistroUtils.obtenerTodosLosRegistros();
+        Usuario usuario = (Usuario) session.getAttribute(ATTR_USUARIO_LOGUEADO);
+        System.out.println("Permisos del usuario: " + (permisos != null ? permisos.toString() : "Ninguno"));
+        List<RegistroPersona> registros;
+        if (permisos != null && permisos.contains("ver_asistencia_reciente")) {
+            registros = RegistroUtils.obtenerTodosLosRegistros();
+        } else if (usuario != null && permisos != null && permisos.contains("ver_asistencia_reciente_propia")) {
+            registros = RegistroUtils.obtenerRegistrosPorRut(usuario.getRut());
+        } else {
+            registros = List.of();
+        }
+        //System.out.println(RegistroUtils.obtenerTodosLosRegistros());
+        //System.out.println("Registros obtenidos: " + registros.size() + " para el usuario: " + (usuario != null ? usuario.getNombreUser() : "Ninguno"));
+        
         Map<String, Object> metricas = RegistroUtils.obtenerMetricasDelSistema();
         String fechaFormateada = RegistroUtils.obtenerFechaActualFormateada();
 
-        // 3. Añadir permisos a los atributos (NUEVO)
         request.setAttribute("permisosUsuario", permisos);
-
-
         RegistroUtils.configurarAtributosVista(request, registros, metricas, fechaFormateada);
         RegistroUtils.redirigirAVista(request, response, VISTA_VER_REGISTROS);
     }

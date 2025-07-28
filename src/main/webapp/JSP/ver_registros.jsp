@@ -18,35 +18,39 @@
 <body>
 <jsp:include page="navbar.jsp"/>
 
+<%
+    // Captura de permisos desde la sesión, igual que en reportes.jsp
+    List<String> permisosUsuario = (List<String>) session.getAttribute("permisos");
+    request.setAttribute("permisosUsuario", permisosUsuario);
+%>
+
 <!--<div class="container container-custom">
   <h5 class="mb-3">Registro de accesos recientes</h5>-->
 <div class="container-fluid flex-grow-1 p-0">
   <main class="container py-3">
-    <!-- Estadísticas -->
+    <% if (permisosUsuario != null && permisosUsuario.contains("ver_todas_estadistica")) { %>
     <div class="estadisticas">
       <div class="estadistica-container">
         <div class="estadistica-label">Empleados registrados en el Gestor de Asistencia</div>
         <div class="estadistica-value"><%=request.getAttribute("totalPersonas")%></div>
       </div>
-
       <div class="estadistica-container">
         <div class="estadistica-label">Usuarios registrados en el Gestor de Asistencia</div>
         <div class="estadistica-value"><%=request.getAttribute("totalUsuarios")%></div>
       </div>
-
       <div class="estadistica-container">
         <div class="estadistica-label">Empleados que se encuentran en las dependencias</div>
         <div class="estadistica-value"><%=request.getAttribute("personaDependencias")%></div>
       </div>
-
       <div class="estadistica-container">
         <div class="estadistica-label">Porcentaje de Asistencia de los empleados para hoy <%=request.getAttribute("fechaActual")%> es </div>
         <div class="estadistica-value highlight"><%=request.getAttribute("porcentajeAsistencia")%></div>
       </div>
+    </div>
+    <% } %>
 
     <!-- Mostrar permisos del usuario -->
     <%
-        List<String> permisosUsuario = (List<String>) request.getAttribute("permisosUsuario");
         if (permisosUsuario != null && !permisosUsuario.isEmpty()) {
     %>
         <div class="alert alert-info mt-3 container">
