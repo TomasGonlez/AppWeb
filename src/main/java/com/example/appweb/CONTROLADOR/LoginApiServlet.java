@@ -34,6 +34,12 @@ public class LoginApiServlet extends HttpServlet {
             com.example.appweb.DAO.UsuarioDAO usuarioDAO = new com.example.appweb.DAO.UsuarioDAO();
             String rol = usuarioDAO.obtenerRolPorIdUsuario(usuario.getIdUsuario());
             session.setAttribute("rol", rol);
+            // Obtener y guardar los permisos en la sesión
+            com.example.appweb.SERVICIO.PermisoService permisoService = (com.example.appweb.SERVICIO.PermisoService) getServletContext().getAttribute("permisoService");
+            if (permisoService != null) {
+                java.util.List<String> permisos = permisoService.ObtenerPermisosPorUsuario(usuario.getIdUsuario());
+                session.setAttribute("permisos", permisos);
+            }
             out.print("{\"status\":\"ok\", "
                     + "\"id_usuario\":" + usuario.getIdUsuario() + ", "
                     + "\"nombre\":\"" + usuario.getNombreUser() + "\", "
