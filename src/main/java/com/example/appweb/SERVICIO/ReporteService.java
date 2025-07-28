@@ -27,9 +27,10 @@ public class ReporteService {
     // Aplica lógica de negocio: calcula % de asistencia
     public double calcularPorcentajeAsistenciaHoy() throws Exception {
         int total = dao.contarTotalPersonas();
+        int total1= dao.contarUsuariosSistema();
         int presentes = dao.contarPresentesHoy();
-        if (total == 0) return 0.0;
-        double porcentaje = (presentes * 100.0) / total;
+        if (total1 == 0) return 0.0;
+        double porcentaje = (presentes * 100.0) / total1;
         return Math.round(porcentaje*100.0)/100.0;
     }
 

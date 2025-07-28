@@ -52,11 +52,12 @@ public class RegistroDAO {
     public List<RegistroPersona> obtenerRegistros(){
         List<RegistroPersona> lista = new ArrayList<>();
         String sql="SELECT u.rut, u.nombreCompleto, r.tipo_registro, r.fecha, r.hora FROM USUARIO u JOIN REGISTRO r ON u.id_usuario = r.id_usuario ORDER BY r.id_registro DESC";
+        String sql2="SELECT u.rut, u.nombreCompleto,r.tipo_registro,r.fecha,r.hora FROM USUARIO u JOIN REGISTRO r ON u.id_usuario = r.id_usuario ORDER BY r.fecha DESC, r.hora DESC";
         try(Connection conn = ConexionDB.getInstance().getConexion();
-        PreparedStatement ps = conn.prepareStatement(sql);
+        PreparedStatement ps = conn.prepareStatement(sql2);
             ResultSet rs = ps.executeQuery()){
             while(rs.next()){
-                System.out.println("Fila encontrada");
+                //System.out.println("Fila encontrada");
                 RegistroPersona rp = new RegistroPersona();
                 rp.setRut(rs.getString("rut"));
                 rp.setNombre(rs.getString("nombreCompleto"));

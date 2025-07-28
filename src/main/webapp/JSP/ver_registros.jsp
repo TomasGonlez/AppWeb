@@ -31,10 +31,6 @@
     <% if (permisosUsuario != null && permisosUsuario.contains("ver_todas_estadistica")) { %>
     <div class="estadisticas">
       <div class="estadistica-container">
-        <div class="estadistica-label">Empleados registrados en el Gestor de Asistencia</div>
-        <div class="estadistica-value"><%=request.getAttribute("totalPersonas")%></div>
-      </div>
-      <div class="estadistica-container">
         <div class="estadistica-label">Usuarios registrados en el Gestor de Asistencia</div>
         <div class="estadistica-value"><%=request.getAttribute("totalUsuarios")%></div>
       </div>
