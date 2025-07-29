@@ -22,6 +22,7 @@ public class UsuarioDAO {
             while (rs.next()){
                 Usuario user = new Usuario();
                 user.setIdUsuario(rs.getInt("id_usuario"));
+                user.setNombreCompletoUser(rs.getString("nombreCompleto"));
                 user.setRut(rs.getString("rut"));
                 user.setNombreUser(rs.getString("nombreUser"));
                 user.setContrasena(rs.getString("contrasena"));

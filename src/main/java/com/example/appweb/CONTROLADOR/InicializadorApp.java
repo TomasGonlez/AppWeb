@@ -1,6 +1,7 @@
 package com.example.appweb.CONTROLADOR;
 
 
+import com.example.appweb.DAO.AsistenciaDAO;
 import com.example.appweb.DAO.PermisoDAO;
 import com.example.appweb.DAO.PersonaDAO;
 import com.example.appweb.DAO.RegistroDAO;
@@ -21,6 +22,7 @@ public class InicializadorApp implements ServletContextListener {
         RegistroDAO registroDAO = new RegistroDAO();
         RolDAO rolDAO = new RolDAO();
         PermisoDAO permisoDAO = new PermisoDAO();
+        AsistenciaDAO asistenciaDAO = new AsistenciaDAO();
 
         // 2. Inicializar servicios
         ReporteService reporteService = new ReporteService();
@@ -31,6 +33,7 @@ public class InicializadorApp implements ServletContextListener {
         ExportServicePDF exportServicePDF = new ExportServicePDF();
         RolService rol_Service = new RolService(rolDAO);
         PermisoService permiso_Service = new PermisoService(permisoDAO);
+        AsistenciaService asistenciaService = new AsistenciaService(asistenciaDAO);
 
         // 3. Guardar en el contexto
         ServletContext contexto = event.getServletContext();
@@ -42,6 +45,8 @@ public class InicializadorApp implements ServletContextListener {
         contexto.setAttribute("exportServicePDF", exportServicePDF);
         contexto.setAttribute("rolService", rol_Service);
         contexto.setAttribute("permisoService", permiso_Service);
+        contexto.setAttribute("asistenciaService", asistenciaService);
+
 
 
         System.out.println("🛠️ Servicios inicializados y disponibles en el contexto");
